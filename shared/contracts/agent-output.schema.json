@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://flashfusion.co/schemas/agent-output.json",
+  "title": "AgentOutput",
+  "description": "Unified output schema for all FlashFusion AI agents (Claude, Codex, Gemini, GitHub Agent)",
+  "type": "object",
+  "required": ["projectName", "packages", "scripts", "ci", "artifacts"],
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Name of the project generated or analyzed"
+    },
+    "packages": {
+      "type": "array",
+      "description": "List of packages/dependencies used",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scripts": {
+      "type": "object",
+      "description": "npm/pnpm scripts to add to package.json",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "ci": {
+      "type": "array",
+      "description": "CI/CD workflow files generated",
+      "items": {
+        "type": "string"
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "description": "Generated artifacts (files, directories)",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes or instructions"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata",
+      "properties": {
+        "agent": {
+          "type": "string",
+          "enum": ["claude", "codex", "gemini", "github-agent"]
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

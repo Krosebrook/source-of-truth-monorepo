@@ -1,0 +1,35 @@
+{
+  "name": "@flashfusion/stack-sot",
+  "version": "1.0.0",
+  "description": "FlashFusion Source-of-Truth monorepo - Unified consolidation of 53 repositories",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "workspaces": [
+    "agents/*",
+    "projects/**/*",
+    "shared/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint || true",
+    "test": "turbo run test --if-present",
+    "type-check": "turbo run type-check --if-present",
+    "clean": "turbo run clean --if-present",
+    "release": "changeset version && pnpm i -r && changeset publish",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.8",
+    "@types/node": "^20.0.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "turbo": "^2.1.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}

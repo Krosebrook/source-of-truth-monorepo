@@ -1,0 +1,58 @@
+name: Subtree Push (SoT Canonical)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "Project path (e.g., projects/krosebrook/core/flashfusion)"
+        required: false
+      repo:
+        description: "Target repo URL (e.g., git@github.com:Krosebrook/FlashFusion.git)"
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "flashfusion-bot"
+          git config user.email "bot@users.noreply.github.com"
+
+      - name: Setup mirror map
+        run: |
+          cat > /tmp/mirrors.txt <<'EOF'
+          projects/krosebrook/core/flashfusion|git@github.com:Krosebrook/FlashFusion.git|main|MIRROR_SSH_KEY_FLASHFUSION
+          projects/krosebrook/core/flashfusionwebsite|git@github.com:Krosebrook/Flashfusionwebsite.git|main|MIRROR_SSH_KEY_WEBSITE
+          projects/krosebrook/core/flashfusion-unified|git@github.com:Krosebrook/FlashFusion-Unified.git|master|MIRROR_SSH_KEY_UNIFIED
+          projects/krosebrook/core/theaidashboard|git@github.com:Krosebrook/theaidashboard.git|main|MIRROR_SSH_KEY_DASHBOARD
+          projects/flashfusionv1/flashfusion-creative-hub|git@github.com:FlashFusionv1/flashfusion-creative-hub.git|main|MIRROR_SSH_KEY_CREATIVE
+          EOF
+
+      - name: Info
+        run: |
+          echo "⚠️  Subtree push disabled until deploy keys are configured"
+          echo "To enable:"
+          echo "1. Generate deploy keys for each mirror repo"
+          echo "2. Add keys as GitHub Secrets: MIRROR_SSH_KEY_*"
+          echo "3. Uncomment split & push logic below"
+
+      # Uncomment when deploy keys are configured:
+      # - name: Split & push mirrors
+      #   run: |
+      #     while IFS='|' read -r path repo branch secret; do
+      #       if [ -n "${{ github.event.inputs.path }}" ] && [ "$path" != "${{ github.event.inputs.path }}" ]; then continue; fi
+      #       echo "=== Split $path → $repo ($branch)"
+      #       # Add deploy key
+      #       # Split and push
+      #     done < /tmp/mirrors.txt

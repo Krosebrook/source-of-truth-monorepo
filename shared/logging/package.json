@@ -1,0 +1,8 @@
+{
+  "name": "@flashfusion/logging",
+  "version": "1.0.0",
+  "description": "Structured JSON logging for FlashFusion SoT",
+  "main": "json-logger.ts",
+  "types": "json-logger.ts",
+  "private": true
+}

@@ -1,0 +1,26 @@
+# FlashFusion SoT Monorepo Code Owners
+
+# Default owner for everything
+* @Krosebrook
+
+# Local projects
+/projects/local/ @Krosebrook
+
+# Krosebrook org projects
+/projects/krosebrook/ @Krosebrook
+
+# FlashFusionv1 org projects
+/projects/flashfusionv1/ @Krosebrook
+
+# ChaosClubCo org projects
+/projects/chaosclubco/ @Krosebrook
+
+# Agents and shared utilities
+/agents/ @Krosebrook
+/shared/ @Krosebrook
+
+# CI/CD and configs
+/.github/ @Krosebrook
+/*.json @Krosebrook
+/*.yaml @Krosebrook
+/*.yml @Krosebrook
