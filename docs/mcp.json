@@ -1,0 +1,73 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/mcp-v1.json",
+  "schema_version": "1.0",
+  "name": "flashfusion-sot-documentation",
+  "description": "FlashFusion Source-of-Truth monorepo documentation with Diátaxis framework",
+  "version": "1.0.0",
+  "sources": [
+    {
+      "type": "file_tree",
+      "path": "docs/",
+      "description": "Complete documentation tree following Diátaxis framework",
+      "include": ["**/*.md", "**/*.yaml", "**/*.json"],
+      "exclude": ["**/node_modules/**", "**/.turbo/**", "**/dist/**"]
+    },
+    {
+      "type": "structured_data",
+      "path": "docs/.progress.yaml",
+      "format": "yaml",
+      "description": "Documentation progress tracker for continuation"
+    },
+    {
+      "type": "api_reference",
+      "path": "docs/reference/api/",
+      "auto_generated": true,
+      "description": "Auto-generated API documentation from TypeScript"
+    },
+    {
+      "type": "code_reference",
+      "path": "shared/",
+      "description": "Shared utilities and contracts"
+    },
+    {
+      "type": "runbooks",
+      "path": "docs/runbooks/",
+      "description": "Operational procedures for on-call engineers"
+    },
+    {
+      "type": "adr",
+      "path": "docs/adr/",
+      "description": "Architecture Decision Records"
+    }
+  ],
+  "context_window": 100000,
+  "priority_docs": [
+    "/.llms.txt",
+    "/README.md",
+    "/GETTING_STARTED.md",
+    "/docs/tutorials/01-quickstart.md",
+    "/docs/reference/workspace-structure.md",
+    "/docs/explanation/sot-canonical-model.md",
+    "/docs/adr/0001-sot-canonical.md"
+  ],
+  "keywords": [
+    "monorepo",
+    "turborepo",
+    "pnpm",
+    "source-of-truth",
+    "sot-canonical",
+    "flashfusion",
+    "agent-parity",
+    "diataxis",
+    "changesets",
+    "independent-versioning"
+  ],
+  "metadata": {
+    "organization": "FlashFusion",
+    "repository": "Krosebrook/source-of-truth-monorepo",
+    "documentation_framework": "Diátaxis",
+    "ai_optimization": "LLMs.txt v1.0, MCP v1.0",
+    "last_updated": "2025-10-27",
+    "maintainer": "@Krosebrook"
+  }
+}

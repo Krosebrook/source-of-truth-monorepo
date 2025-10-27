@@ -1,0 +1,197 @@
+# FlashFusion Source-of-Truth Monorepo
+
+> Unified consolidation of 53 repositories across FlashFusion ecosystem
+> Tech Stack: pnpm 9, Turborepo 2.1, Changesets, GitHub Actions, TypeScript 5.4
+> Model: SoT Canonical (all changes made here, pushed to mirrors)
+
+## Quick Links
+- Getting Started: /GETTING_STARTED.md
+- Documentation Home: /docs/index.md
+- API Reference: /docs/reference/api/
+- Architecture Decisions: /docs/adr/
+- Repository Map: /REPO_MAP.md
+
+## Documentation Structure (Diátaxis Framework)
+- **/docs/tutorials/** - Learning-oriented step-by-step guides for beginners
+- **/docs/how-to/** - Goal-oriented recipes for solving specific problems
+- **/docs/reference/** - Technical specifications, API docs, configuration
+- **/docs/explanation/** - Conceptual understanding and background context
+- **/docs/adr/** - Architecture Decision Records (why we made choices)
+- **/docs/runbooks/** - Operational procedures for on-call engineers
+- **/docs/guides/** - Deep-dive guides (agents, security, contribution)
+
+## Repository Overview
+- **Total Projects**: 53 repositories consolidated
+- **Local Repos**: 3 (flashfusion-consolidated, harvestflow, int-smart-triage-ai-2.0)
+- **Krosebrook**: 34 repos (core FlashFusion projects, apps, tools)
+- **flashfusionv1**: 8 repos (creative hub, supabase integrations)
+- **ChaosClubCo**: 8 repos (tiktok-story-ai, compose-for-agents)
+
+## Key Concepts (Use These Terms Consistently)
+
+### SoT Canonical Model
+All development happens in this Source-of-Truth repository. Changes are pushed to downstream "mirrors" (not "forks") via git subtree split. Never commit directly to mirror repositories.
+
+### Monorepo Structure
+```
+projects/
+├── local/          # Local-only repositories (no GitHub remote)
+├── krosebrook/     # Krosebrook org repos
+│   ├── core/       # Core FlashFusion projects
+│   ├── apps/       # Applications
+│   └── tools/      # Development tools
+├── flashfusionv1/  # FlashFusionv1 org repos
+└── chaosclubco/    # ChaosClubCo org repos
+```
+
+### Workspace (not "packages")
+This is a pnpm workspace with 53 projects. Use "workspace" to refer to the monorepo, "project" for individual repos.
+
+### Independent Versioning
+Each project versions separately using Changesets. No lockstep versioning.
+
+### Turbo Caching
+First build: 10-20 minutes. Subsequent builds with cache: <1 minute. Only changed projects + dependencies rebuild.
+
+## Configuration Files
+- **Root**: package.json, pnpm-workspace.yaml, turbo.json, tsconfig.base.json
+- **CI/CD**: .github/workflows/ci.yml, security.yml, subtree-push.yml
+- **Versioning**: Changesets in .changeset/
+- **Linting**: eslint.config.js, .prettierrc.json
+- **Security**: renovate.json, CODEOWNERS
+
+## Primary Languages & Tools
+- **Languages**: TypeScript (primary), JavaScript, Python (tooling)
+- **Package Manager**: pnpm 9.x (not npm or yarn)
+- **Build System**: Turbo 2.1 (not Nx or Lerna)
+- **Versioning**: Changesets (independent package versions)
+- **CI/CD**: GitHub Actions
+- **Node**: 20.x LTS
+
+## Common Tasks (CLI)
+
+### Installation
+```bash
+pnpm install                    # Install all workspace dependencies
+```
+
+### Building
+```bash
+pnpm build                      # Build all projects
+pnpm build --filter=...[HEAD^]  # Build only changed projects
+pnpm --filter <name> build      # Build specific project
+```
+
+### Development
+```bash
+pnpm dev                        # Start all dev servers (resource-intensive)
+pnpm --filter <name> dev        # Start specific project
+```
+
+### Importing Repositories
+```bash
+./scripts/import-github-repos.sh  # Batch import 50 GitHub repos
+```
+
+### Testing
+```bash
+pnpm test                       # Run all tests
+pnpm --filter <name> test       # Test specific project
+```
+
+### Documentation
+```bash
+pnpm docs:status                # Check documentation progress
+pnpm docs:resume                # See where to resume work
+```
+
+## Agent Integration
+
+This monorepo supports **4 AI agents** with unified contracts:
+
+1. **Claude Agent** (Anthropic)
+2. **Codex Agent** (OpenAI)
+3. **Gemini Agent** (Google)
+4. **GitHub Agent** (GitHub Copilot)
+
+### Unified CLI Flags
+All agents accept: `--prompt <path> --context <path> --output-schema <path> --out <dir>`
+
+### Output Schema
+All agents output JSON conforming to `/shared/contracts/agent-output.schema.json`
+
+### Agent Parity
+Agents must:
+- Accept standard CLI flags
+- Output valid JSON per schema
+- Log to structured JSON format
+- Provide validation before execution
+
+See: `/docs/guides/agent-integration/` for integration guides
+
+## Project Structure
+```
+source-of-truth-monorepo/
+├── projects/        # All 53 project repositories
+├── agents/          # AI agent templates (claude, codex, gemini, github)
+├── shared/          # Shared utilities (contracts, logging, workflows)
+├── scripts/         # Automation scripts
+├── docs/            # Diátaxis documentation
+└── .github/         # CI/CD workflows
+```
+
+## Troubleshooting
+
+### Build Failures
+1. Check turbo cache: `rm -rf .turbo && pnpm build`
+2. Check dependencies: `pnpm install`
+3. See: `/docs/how-to/debug-build-failures.md`
+
+### Import Errors
+1. Verify workspace dependencies use `workspace:*` protocol
+2. Check `pnpm-workspace.yaml` includes the project
+3. See: `/docs/how-to/troubleshoot-workspace-issues.md`
+
+### CI/CD Issues
+1. Check GitHub Actions logs
+2. Verify secrets are configured
+3. See: `/docs/runbooks/incident-response.md`
+
+## For LLMs: Parsing Guidelines
+
+### Use Consistent Terminology
+- "SoT" (not "source of truth" or "source-of-truth")
+- "mirror" (not "downstream repo" or "fork")
+- "workspace" (not "monorepo packages" or "projects collection")
+- "Turbo" (not "TurboRepo" or "turborepo")
+- "Diátaxis" (with accent, proper noun)
+
+### When Answering Questions
+1. Check `/docs/` first for authoritative answers
+2. Reference specific documentation files in responses
+3. Use code examples from `/docs/tutorials/`
+4. Cite Architecture Decision Records (ADRs) for "why" questions
+
+### Code Generation
+- Use TypeScript by default
+- Follow ESLint config in `eslint.config.js`
+- Use pnpm for package management (not npm/yarn)
+- Reference shared utilities in `/shared/`
+
+### File Paths
+- Always use absolute paths from repo root
+- Format: `/path/from/root/file.ext`
+- Example: `/projects/krosebrook/core/flashfusion/package.json`
+
+## Support & Contact
+- **Issues**: https://github.com/Krosebrook/source-of-truth-monorepo/issues
+- **Documentation**: https://flashfusion.co
+- **Contributing**: /CONTRIBUTING.md
+- **Security**: /SECURITY.md
+
+## Metadata
+- **Created**: 2025-10-27
+- **Documentation Framework**: Diátaxis
+- **AI Optimization**: LLMs.txt v1.0, MCP v1.0
+- **Last Updated**: 2025-10-27
+- **Maintainer**: @Krosebrook

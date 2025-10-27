@@ -18,7 +18,11 @@
     "clean": "turbo run clean --if-present",
     "release": "changeset version && pnpm i -r && changeset publish",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "docs:status": "cat docs/.progress.yaml | grep -A 5 'current' || echo 'Progress tracker not found'",
+    "docs:resume": "echo '📖 Resume Documentation Work:' && tail -30 docs/SESSION_LOG.md",
+    "docs:lint": "markdownlint '**/*.md' --ignore node_modules --ignore '**/node_modules'",
+    "docs:validate": "echo '✅ Validating documentation...' && test -f .llms.txt && test -f docs/mcp.json && echo '✓ All validation passed'"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.8",
