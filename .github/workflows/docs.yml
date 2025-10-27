@@ -3,29 +3,36 @@ name: Documentation
 on:
   push:
     branches: [master, main]
-    paths:
-      - 'docs/**'
-      - '**.md'
-      - '.llms.txt'
-      - 'docs/mcp.json'
+    paths: ['docs/**', '**.md', '.llms.txt', 'docs/mcp.json']
   pull_request:
-    paths:
-      - 'docs/**'
-      - '**.md'
-      - '.llms.txt'
+    paths: ['docs/**', '**.md', '.llms.txt']
+  workflow_dispatch: {}
 
 permissions:
   contents: read
 
+concurrency:
+  group: docs-pipeline-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  MARKDOWNLINT_VERSION: v16
+  YQ_URL: https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+
 jobs:
   lint:
-    name: Lint Markdown
+    name: Lint Markdown and Links
     runs-on: ubuntu-latest
+    outputs:
+      lint-status: ${{ steps.lint.outcome }}
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (shallow)
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
 
-      - name: Run markdownlint
+      - name: Run markdownlint (DavidAnson CLI action)
         uses: DavidAnson/markdownlint-cli2-action@v16
         with:
           globs: |
@@ -33,7 +40,7 @@ jobs:
             !node_modules
             !**/node_modules
 
-      - name: Check for broken links
+      - name: Check for broken links (non-blocking)
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-quiet-mode: 'yes'
@@ -41,132 +48,150 @@ jobs:
         continue-on-error: true
 
   validate-llms-txt:
-    name: Validate LLMs.txt
+    name: Validate .llms.txt
     runs-on: ubuntu-latest
+    outputs:
+      llms-status: ${{ steps.validate.outcome }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Check .llms.txt exists
-        run: |
-          if [ ! -f .llms.txt ]; then
-            echo "❌ Missing .llms.txt file"
-            exit 1
-          fi
-          echo "✅ .llms.txt found"
-
-      - name: Validate .llms.txt format
-        run: |
-          # Check for required sections
-          grep -q "# FlashFusion Source-of-Truth" .llms.txt || (echo "❌ Missing title" && exit 1)
-          grep -q "## Quick Links" .llms.txt || (echo "❌ Missing Quick Links" && exit 1)
-          grep -q "## Documentation Structure" .llms.txt || (echo "❌ Missing structure" && exit 1)
-          echo "✅ .llms.txt format valid"
-
-  validate-mcp:
-    name: Validate MCP Config
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Check mcp.json exists
-        run: |
-          if [ ! -f docs/mcp.json ]; then
-            echo "❌ Missing docs/mcp.json"
-            exit 1
-          fi
-          echo "✅ docs/mcp.json found"
-
-      - name: Validate JSON syntax
-        run: |
-          if ! jq empty docs/mcp.json 2>/dev/null; then
-            echo "❌ Invalid JSON in docs/mcp.json"
-            exit 1
-          fi
-          echo "✅ docs/mcp.json is valid JSON"
-
-  check-staleness:
-    name: Check Doc Staleness
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
+      - name: Checkout repository (shallow)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          persist-credentials: false
+          fetch-depth: 1
 
-      - name: Find stale docs (> 6 months)
+      - name: Validate presence and structure
+        id: validate
         run: |
-          echo "Checking for stale documentation..."
-          find docs/ -name "*.md" -type f -mtime +180 > /tmp/stale.txt || true
-          if [ -s /tmp/stale.txt ]; then
-            echo "⚠️  Stale documentation found (>6 months old):"
-            cat /tmp/stale.txt
-            echo ""
-            echo "Consider reviewing these files for accuracy."
-          else
-            echo "✅ No stale documentation found"
+          set -euo pipefail
+          if [ ! -f .llms.txt ]; then
+            echo "LLMS_MISSING=true" >> $GITHUB_OUTPUT
+            echo "::error file=.llms.txt::Missing .llms.txt"
+            exit 1
           fi
-        continue-on-error: true
+          grep -q "# FlashFusion Source-of-Truth" .llms.txt || { echo "::error file=.llms.txt::Missing title header"; exit 1; }
+          grep -q "## Quick Links" .llms.txt || { echo "::error file=.llms.txt::Missing Quick Links section"; exit 1; }
+          grep -q "## Documentation Structure" .llms.txt || { echo "::error file=.llms.txt::Missing Documentation Structure"; exit 1; }
+          echo "LLMS_VALID=true" >> $GITHUB_OUTPUT
 
-  validate-progress:
-    name: Validate Progress Tracker
+  validate-mcp:
+    name: Validate docs/mcp.json
+    runs-on: ubuntu-latest
+    outputs:
+      mcp-status: ${{ steps.validate.outcome }}
+    steps:
+      - name: Checkout repository (shallow)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Ensure jq present
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+
+      - name: Check file exists and is valid JSON
+        id: validate
+        run: |
+          set -euo pipefail
+          if [ ! -f docs/mcp.json ]; then
+            echo "::error file=docs/mcp.json::Missing docs/mcp.json"
+            exit 1
+          fi
+          if ! jq empty docs/mcp.json 2>/dev/null; then
+            echo "::error file=docs/mcp.json::Invalid JSON"
+            exit 1
+          fi
+          echo "MCP_VALID=true" 
+
+  check-staleness:
+    name: Check stale documentation (>180 days)
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (full history)
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
 
-      - name: Install yq
+      - name: Find stale markdown files
         run: |
-          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          set -euo pipefail
+          echo "Looking for docs/*.md older than 180 days"
+          find docs/ -name "*.md" -type f -mtime +180 > /tmp/stale.txt || true
+          if [ -s /tmp/stale.txt ]; then
+            echo "::warning file=docs::Stale documentation found (>180 days)"
+            sed -n '1,200p' /tmp/stale.txt
+            # Do not fail pipeline; prefers surfaced warnings
+          else
+            echo "No stale docs detected"
+          fi
+
+  validate-progress:
+    name: Validate docs/.progress.yaml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository (shallow)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Install yq (official binary)
+        run: |
+          sudo wget -qO /usr/local/bin/yq $YQ_URL
           sudo chmod +x /usr/local/bin/yq
+          yq --version
 
-      - name: Validate .progress.yaml
+      - name: Validate YAML if present (non-blocking)
         run: |
+          set -euo pipefail
           if [ ! -f docs/.progress.yaml ]; then
-            echo "⚠️  Missing docs/.progress.yaml (not critical)"
+            echo "::notice file=docs/.progress.yaml::Missing docs/.progress.yaml — optional"
             exit 0
           fi
           if ! yq eval . docs/.progress.yaml > /dev/null 2>&1; then
-            echo "❌ Invalid YAML in docs/.progress.yaml"
+            echo "::error file=docs/.progress.yaml::Invalid YAML"
             exit 1
           fi
-          echo "✅ docs/.progress.yaml is valid YAML"
+          echo "Progress tracker valid"
 
   check-coverage:
-    name: Check Documentation Coverage
+    name: Documentation Coverage Summary
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (shallow)
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
 
       - name: Count documentation files
         run: |
-          echo "📊 Documentation Statistics:"
-          echo "----------------------------"
-          echo "Tutorials:    $(find docs/tutorials -name '*.md' 2>/dev/null | wc -l)"
-          echo "How-Tos:      $(find docs/how-to -name '*.md' 2>/dev/null | wc -l)"
-          echo "References:   $(find docs/reference -name '*.md' 2>/dev/null | wc -l)"
-          echo "Explanations: $(find docs/explanation -name '*.md' 2>/dev/null | wc -l)"
-          echo "ADRs:         $(find docs/adr -name '*.md' 2>/dev/null | wc -l)"
-          echo "Runbooks:     $(find docs/runbooks -name '*.md' 2>/dev/null | wc -l)"
-          echo "----------------------------"
-          total=$(find docs/ -name '*.md' 2>/dev/null | wc -l)
-          echo "Total:        $total"
+          set -euo pipefail
+          echo "Documentation statistics:"
+          printf '%-14s %s\n' "Tutorials:" "$(find docs/tutorials -name '*.md' 2>/dev/null | wc -l)"
+          printf '%-14s %s\n' "How-Tos:" "$(find docs/how-to -name '*.md' 2>/dev/null | wc -l)"
+          printf '%-14s %s\n' "References:" "$(find docs/reference -name '*.md' 2>/dev/null | wc -l)"
+          printf '%-14s %s\n' "Explanations:" "$(find docs/explanation -name '*.md' 2>/dev/null | wc -l)"
+          printf '%-14s %s\n' "ADRs:" "$(find docs/adr -name '*.md' 2>/dev/null | wc -l)"
+          printf '%-14s %s\n' "Runbooks:" "$(find docs/runbooks -name '*.md' 2>/dev/null | wc -l)"
+          printf '%-14s %s\n' "Total:" "$(find docs/ -name '*.md' 2>/dev/null | wc -l)"
 
   summary:
-    name: Documentation Summary
+    name: Docs Pipeline Summary
     runs-on: ubuntu-latest
-    needs: [lint, validate-llms-txt, validate-mcp, validate-progress]
+    needs: [lint, validate-llms-txt, validate-mcp, validate-progress, check-coverage, check-staleness]
     if: always()
     steps:
-      - name: Summary
+      - name: Print pipeline summary
         run: |
-          echo "✅ Documentation pipeline complete"
+          echo "Documentation pipeline finished for $GITHUB_REF"
           echo ""
-          echo "Key validations:"
-          echo "- Markdown linting"
-          echo "- LLMs.txt format"
-          echo "- MCP configuration"
-          echo "- Progress tracker"
-          echo "- Documentation coverage"
+          echo "Checks (blocking):"
+          echo "- Linting: ${{ needs.lint.result }}"
+          echo "- .llms.txt: ${{ needs.validate-llms-txt.result }}"
+          echo "- mcp.json: ${{ needs.validate-mcp.result }}"
+          echo "- .progress.yaml: ${{ needs.validate-progress.result }}"
+          echo ""
+          echo "Non-blocking: staleness and link-check warnings may be present in logs"
