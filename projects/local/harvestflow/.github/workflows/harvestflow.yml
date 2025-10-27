@@ -1,0 +1,157 @@
+name: HarvestFlow Pipeline
+
+on:
+  push:
+    paths:
+      - '**.ts'
+      - '**.json'
+      - '**.md'
+      - '.github/workflows/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+      - 'bootstrap.sh'
+      - 'start.sh'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install chat-history dependencies
+        run: npm ci
+        working-directory: chat-history
+
+      - name: Generate historical deliverables
+        run: npm start
+        working-directory: chat-history
+
+      - name: Build flow bundles
+        run: npm run zip:all
+
+      - name: Drift fingerprint
+        id: drift_fingerprint
+        run: npm run drift:fingerprint
+
+      - name: Drift check
+        id: drift_check
+        run: npm run drift:check
+        continue-on-error: true
+
+      - name: Drift validate schema
+        id: drift_validate
+        run: npm run drift:validate
+        continue-on-error: true
+
+      - name: Drift snapshot comparison
+        id: drift_snapshot
+        run: npm run drift:snapshot
+        continue-on-error: true
+
+      - name: Drift semantic guard
+        id: drift_semantic
+        run: npm run drift:semantic
+        continue-on-error: true
+
+      - name: Drift manifest
+        id: drift_manifest
+        run: npm run drift:manifest
+
+      - name: Notify Teams on drift failure
+        if: ${{ steps.drift_check.outcome == 'failure' || steps.drift_validate.outcome == 'failure' || steps.drift_snapshot.outcome == 'failure' || steps.drift_semantic.outcome == 'failure' }}
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "${TEAMS_WEBHOOK_URL}" ]; then
+            echo "Teams webhook not configured; skipping notification."
+            exit 0
+          fi
+          payload=$(cat <<'JSON'
+          {
+            "@type": "MessageCard",
+            "@context": "http://schema.org/extensions",
+            "summary": "HarvestFlow drift failure",
+            "themeColor": "E81123",
+            "title": "HarvestFlow CI Drift Check Failed",
+            "sections": [
+              {
+                "activityTitle": "**Repository:** ${{ github.repository }}",
+                "text": "One or more drift guards failed on `${{ github.ref }}`.\n[View run](${GITHUB_RUN_URL})"
+              }
+            ]
+          }
+          JSON
+          )
+          curl -s -H 'Content-Type: application/json' -d "$payload" "$TEAMS_WEBHOOK_URL"
+
+      - name: Teams success ping
+        if: ${{ success() && steps.drift_check.outcome == 'success' && steps.drift_validate.outcome == 'success' && steps.drift_snapshot.outcome == 'success' && steps.drift_semantic.outcome == 'success' }}
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "${TEAMS_WEBHOOK_URL}" ]; then
+            echo "Teams webhook not configured; skipping notification."
+            exit 0
+          fi
+          payload=$(cat <<'JSON'
+          {
+            "@type": "MessageCard",
+            "@context": "http://schema.org/extensions",
+            "summary": "HarvestFlow drift success",
+            "themeColor": "107C10",
+            "title": "HarvestFlow Drift Checks Passed",
+            "sections": [
+              {
+                "activityTitle": "**Repository:** ${{ github.repository }}",
+                "text": "All drift guards passed on `${{ github.ref }}`.\n[View run](${GITHUB_RUN_URL})"
+              }
+            ]
+          }
+          JSON
+          )
+          curl -s -H 'Content-Type: application/json' -d "$payload" "$TEAMS_WEBHOOK_URL"
+
+      - name: Enforce drift status
+        if: ${{ steps.drift_check.outcome == 'failure' || steps.drift_validate.outcome == 'failure' || steps.drift_snapshot.outcome == 'failure' || steps.drift_semantic.outcome == 'failure' }}
+        run: |
+          echo "Drift guard failure detected. Failing job."
+          exit 1
+
+      - name: Assemble release bundle
+        run: npm run release:bundle || true
+
+      - name: Upload flow artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: flow-bundles
+          path: |
+            out/master.zip
+            out/metrics.json
+            out/manifest.json
+
+      - name: Upload historical outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: chat-history-out
+          path: chat-history/out
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-logs
+          path: ~/.npm/_logs

@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "public": true,
+  "github": {
+    "silent": true
+  },
+  "env": {
+    "NODE_ENV": "production",
+    "ANTHROPIC_API_KEY": "@anthropic_api_key",
+    "OPENAI_API_KEY": "@openai_api_key",
+    "SUPABASE_URL": "@supabase_url",
+    "SUPABASE_ANON_KEY": "@supabase_anon_key",
+    "NOTION_API_KEY": "@notion_api_key",
+    "GITHUB_TOKEN": "@github_token"
+  },
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-Requested-With, Content-Type, Authorization"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
+    }
+  ]
+}

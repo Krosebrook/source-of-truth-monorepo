@@ -1,0 +1,58 @@
+[
+  {
+    "id": "infosec_specialist",
+    "name": "Sarah Johnson",
+    "role": "Information Security Specialist",
+    "department": "InfoSec",
+    "specialties": [
+      "soc2_compliance",
+      "cyber_insurance",
+      "vulnerability_assessment"
+    ],
+    "response_templates": {
+      "greeting": "Thank you for reaching out about your security needs."
+    }
+  },
+  {
+    "id": "tech_support",
+    "name": "Mike Chen",
+    "role": "Technology Support Lead",
+    "department": "Technology",
+    "specialties": ["managed_it", "email_migration", "saas_migration"]
+  },
+  {
+    "id": "web_design",
+    "name": "Emma Williams",
+    "role": "Web Design Specialist",
+    "department": "Website Design",
+    "specialties": ["custom_web_design", "ecommerce", "wordpress"]
+  },
+  {
+    "id": "brand_strategist",
+    "name": "James Brown",
+    "role": "Brand Strategist",
+    "department": "Branding",
+    "specialties": ["brand_strategy", "logo_design", "visual_identity"]
+  },
+  {
+    "id": "content_strategist",
+    "name": "Lisa Martinez",
+    "role": "Content Strategist",
+    "department": "Content",
+    "specialties": ["content_strategy", "seo_writing", "ebooks"]
+  },
+  {
+    "id": "marketing_manager",
+    "name": "David Park",
+    "role": "Marketing Manager",
+    "department": "Marketing",
+    "specialties": ["hubspot", "marketing_automation", "crm_migration"]
+  },
+  {
+    "id": "operations",
+    "name": "Rachel Thompson",
+    "role": "Operations Specialist",
+    "department": "Operations",
+    "specialties": ["bookkeeping", "process_management", "ai_bi"]
+  }
+]
