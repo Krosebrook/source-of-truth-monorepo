@@ -19,6 +19,7 @@
     "release": "changeset version && pnpm i -r && changeset publish",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "generate:repo-map": "node scripts/generate-repo-map.js",
     "docs:status": "cat docs/.progress.yaml | grep -A 5 'current' || echo 'Progress tracker not found'",
     "docs:resume": "echo '📖 Resume Documentation Work:' && tail -30 docs/SESSION_LOG.md",
     "docs:lint": "markdownlint '**/*.md' --ignore node_modules --ignore '**/node_modules'",
