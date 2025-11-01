@@ -137,11 +137,15 @@ fi
 
 # Check 8: Workspace projects
 print_info "Checking workspace projects..."
-PROJECT_COUNT=$(find projects -mindepth 1 -maxdepth 3 -name "package.json" 2>/dev/null | wc -l)
-if [ "$PROJECT_COUNT" -gt 0 ]; then
-  check_pass "Found $PROJECT_COUNT workspace project(s)"
+if [ -d "projects" ]; then
+  PROJECT_COUNT=$(find projects -mindepth 1 -maxdepth 3 -name "package.json" 2>/dev/null | wc -l)
+  if [ "$PROJECT_COUNT" -gt 0 ]; then
+    check_pass "Found $PROJECT_COUNT workspace project(s)"
+  else
+    check_warn "No workspace projects found in 'projects/' directory"
+  fi
 else
-  check_warn "No workspace projects found in 'projects/' directory"
+  check_fail "'projects/' directory not found"
 fi
 
 # Check 9: Documentation files

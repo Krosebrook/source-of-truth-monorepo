@@ -106,19 +106,20 @@ show_progress() {
   local current_section=""
   
   while IFS= read -r line; do
-    # Skip comments and empty lines
-    if [[ $line =~ ^#.*$ ]] && [[ ! $line =~ ^##.*$ ]]; then
-      continue
-    fi
-    
+    # Skip empty lines
     if [[ -z $line ]]; then
       continue
     fi
     
-    # Section headers
+    # Section headers (check ## first before single #)
     if [[ $line =~ ^##.*$ ]]; then
       section_name="${line### }"
       print_section "\n$section_name"
+      continue
+    fi
+    
+    # Skip single # comments
+    if [[ $line =~ ^#.*$ ]]; then
       continue
     fi
     

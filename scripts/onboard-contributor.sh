@@ -112,8 +112,7 @@ if check_command pnpm; then
   print_success "pnpm version: $PNPM_VERSION"
 else
   print_warning "pnpm is not installed. Installing now..."
-  npm install -g pnpm@9
-  if [ $? -eq 0 ]; then
+  if npm install -g pnpm@9; then
     print_success "pnpm installed successfully"
   else
     print_error "Failed to install pnpm"
