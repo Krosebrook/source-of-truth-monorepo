@@ -134,8 +134,20 @@ See: [shared/contracts/README.md](shared/contracts/README.md)
 - [shared/contracts/README.md](shared/contracts/README.md) - Agent contracts
 - [shared/logging/README.md](shared/logging/README.md) - Logging guide
 - [Deploy Keys Setup](docs/how-to/configure-deploy-keys.md) - Mirror sync configuration
+- [Security Policy](SECURITY.md) - Security practices and audit procedures
+- [Security Audit Guide](docs/security/README.md) - Audit results and review process
+- [Renovate Guide](docs/security/renovate-guide.md) - Automated dependency updates
 
 ## Security
+
+**See: [SECURITY.md](SECURITY.md) for complete security policy**
+
+### Automated Security
+
+- **Gitleaks:** Scans for secrets on every push and PR
+- **Dependency Audit:** Runs `pnpm audit` on all workspaces
+- **Renovate Bot:** Automated dependency updates (Mondays @ 6 AM UTC)
+- **Audit Reports:** Saved as workflow artifacts for 30 days
 
 ### Secrets Management
 
@@ -145,15 +157,23 @@ See: [shared/contracts/README.md](shared/contracts/README.md)
 - No `.env` files committed (see `.gitignore`)
 - **Setup Guide**: [Configure Deploy Keys](docs/how-to/configure-deploy-keys.md)
 
-### Audits
+### Running Audits Locally
 
 ```bash
 # Run security audit
-pnpm -r audit
+pnpm audit
 
-# Scan for secrets
+# Run audit for high severity and above
+pnpm audit --audit-level=high
+
+# Trigger security workflow
 gh workflow run security.yml
 ```
+
+**Documentation:**
+- [Security Policy](SECURITY.md) - Complete security practices
+- [Audit Results Guide](docs/security/README.md) - Review audit reports
+- [Renovate Configuration](docs/security/renovate-guide.md) - Automated updates
 
 ## Versioning & Releases
 
