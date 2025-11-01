@@ -98,7 +98,7 @@ for repo in "${!REPOS[@]}"; do
     echo -e "${YELLOW}⊙ Skipped${NC}: $repo (key already exists)"
     ((SKIPPED++))
   else
-    ssh-keygen -t ed25519 -C "sot-deploy-$(basename $repo)" -f "$key_file" -N "" >/dev/null 2>&1
+    ssh-keygen -t ed25519 -C "sot-deploy-$(echo $repo | tr '/' '-')" -f "$key_file" -N "" >/dev/null 2>&1
     echo -e "${GREEN}✓ Generated${NC}: $repo -> $key_file"
     ((GENERATED++))
   fi

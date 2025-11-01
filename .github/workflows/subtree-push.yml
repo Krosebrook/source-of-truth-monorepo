@@ -158,12 +158,12 @@ jobs:
       #       
       #       # Create subtree split
       #       echo "  → Creating subtree split..."
-      #       SPLIT_BRANCH="split-$(basename $path)-$(date +%s)"
+      #       SPLIT_BRANCH="split-$(echo $path | tr '/' '-')-$(date +%s)"
       #       if git subtree split --prefix="$path" -b "$SPLIT_BRANCH" >/dev/null 2>&1; then
       #         echo "  → Pushing to $repo..."
       #         
-      #         # Push to mirror
-      #         if git push "$repo" "$SPLIT_BRANCH:$branch" --force 2>&1; then
+      #         # Push to mirror (use --force-with-lease to prevent accidental overwrites)
+      #         if git push "$repo" "$SPLIT_BRANCH:$branch" --force-with-lease 2>&1; then
       #           echo "✓ Success: Pushed to $repo"
       #         else
       #           echo "✗ Failed: Could not push to $repo"

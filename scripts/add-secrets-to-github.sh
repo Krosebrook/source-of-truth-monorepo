@@ -121,8 +121,8 @@ for secret_name in "${SECRETS[@]}"; do
     continue
   fi
   
-  # Add secret using GitHub CLI
-  if gh secret set "$secret_name" --repo "$REPO" --body "$(cat $key_path)" 2>/dev/null; then
+  # Add secret using GitHub CLI (read from file via stdin for safety)
+  if gh secret set "$secret_name" --repo "$REPO" < "$key_path" 2>/dev/null; then
     echo -e "${GREEN}✓ Added${NC}: $secret_name"
     ((ADDED++))
   else
