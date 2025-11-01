@@ -166,7 +166,6 @@ pnpm security:audit:json
 
 **Learn more**: See [SECURITY.md](SECURITY.md) and [docs/reference/security-audits.md](docs/reference/security-audits.md)
 
-
 ## Versioning & Releases
 
 This monorepo uses **Changesets** for independent package versioning:

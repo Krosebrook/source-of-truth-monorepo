@@ -23,6 +23,7 @@ The repository runs two types of automated security audits:
 **Purpose**: Detect accidentally committed secrets, API keys, tokens, and credentials.
 
 **When it runs**:
+
 - On every push to `main`
 - On every pull request to `main`
 - Weekly on Mondays at 6 AM UTC
@@ -30,6 +31,7 @@ The repository runs two types of automated security audits:
 **Configuration**: `.github/workflows/security.yml`
 
 **What it scans**:
+
 - Full git history
 - All branches (for PRs)
 - Common secret patterns (AWS keys, GitHub tokens, private keys, etc.)
@@ -39,6 +41,7 @@ The repository runs two types of automated security audits:
 **Purpose**: Identify known security vulnerabilities in npm dependencies.
 
 **When it runs**:
+
 - On every push to `main`
 - On every pull request to `main`
 - Weekly on Mondays at 6 AM UTC
@@ -46,6 +49,7 @@ The repository runs two types of automated security audits:
 **Configuration**: `.github/workflows/security.yml`
 
 **Severity handling**:
+
 - **Critical/High**: CI fails, blocks merge
 - **Moderate/Low**: Logged for review, does not block
 
@@ -104,7 +108,7 @@ When you run `pnpm audit`, you'll see output like:
 **Action steps**:
 
 1. **Check if update is available**: Look at "Patched in" version
-2. **Update dependency**: 
+2. **Update dependency**:
    - If direct dependency: Update in `package.json`
    - If transitive dependency: Update parent package or wait for Renovate
 3. **Verify fix**: Run `pnpm audit` again
@@ -115,6 +119,7 @@ When you run `pnpm audit`, you'll see output like:
 ### Package Manager: pnpm
 
 We use pnpm for several reasons:
+
 - Fast, efficient disk usage
 - Strict dependency resolution
 - Built-in workspace support
@@ -194,6 +199,7 @@ Renovate automatically creates PRs for dependency updates. See [Renovate Configu
 ### Overview
 
 Renovate is configured in `renovate.json` and automatically:
+
 - Detects outdated dependencies
 - Creates PRs with updates
 - Auto-merges safe updates (patches)
@@ -317,6 +323,7 @@ pnpm lint
 #### VS Code
 
 Install recommended extensions:
+
 - ESLint
 - Prettier
 - GitLens
@@ -334,6 +341,7 @@ Install recommended extensions:
 **Problem**: `pnpm audit` exits with non-zero code
 
 **Solution**:
+
 1. Check audit output for vulnerabilities
 2. Update affected packages: `pnpm update`
 3. For transitive dependencies, update parent package
@@ -344,6 +352,7 @@ Install recommended extensions:
 **Problem**: No Renovate PRs are created
 
 **Checklist**:
+
 1. Verify Renovate is enabled on the repository
 2. Check Renovate logs in GitHub Actions (if configured)
 3. Verify `renovate.json` syntax: `npx renovate-config-validator`
@@ -354,6 +363,7 @@ Install recommended extensions:
 **Problem**: Multiple Renovate PRs conflict with each other
 
 **Solution**:
+
 1. Close conflicting PRs
 2. Wait for Renovate to recreate PRs with resolved conflicts
 3. Or manually resolve: Update dependencies locally and push
@@ -363,6 +373,7 @@ Install recommended extensions:
 **Problem**: Audit reports vulnerability that doesn't apply
 
 **Solution**:
+
 1. Verify the vulnerability applies to your usage
 2. Document in `SECURITY.md` if false positive
 3. Consider using `.npmrc` audit-level to adjust sensitivity
@@ -375,6 +386,7 @@ Install recommended extensions:
 **Risk**: Generally lower risk (not in production bundle)
 
 **Action**:
+
 1. Update if possible
 2. If no fix, document and monitor
 3. Ensure dev dependencies not included in production build

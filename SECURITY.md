@@ -52,15 +52,18 @@ We use **Renovate** for automated dependency updates:
 ## Security Audit Schedule
 
 ### Weekly (Automated)
+
 - **Mondays at 6 AM UTC**: Gitleaks secret scan
 - **Mondays at 6 AM UTC**: Dependency vulnerability audit
 - **Mondays before 6 AM**: Renovate dependency updates
 
 ### Per-Commit (Automated)
+
 - All pushes to `main` trigger security scans
 - All pull requests trigger security scans
 
 ### Manual Audits
+
 Developers should run local security audits before committing:
 
 ```bash
@@ -78,26 +81,29 @@ pnpm lint
 
 We categorize vulnerabilities using standard CVSS severity ratings:
 
-| Severity | Action | Timeline |
-|----------|--------|----------|
-| **Critical** | CI fails, immediate fix required | Within 24 hours |
-| **High** | CI fails, fix required | Within 1 week |
-| **Moderate** | Warning logged, fix in next sprint | Within 1 month |
-| **Low** | Informational, fix when convenient | Best effort |
+| Severity     | Action                             | Timeline        |
+| ------------ | ---------------------------------- | --------------- |
+| **Critical** | CI fails, immediate fix required   | Within 24 hours |
+| **High**     | CI fails, fix required             | Within 1 week   |
+| **Moderate** | Warning logged, fix in next sprint | Within 1 month  |
+| **Low**      | Informational, fix when convenient | Best effort     |
 
 ## Dependency Update Policy
 
 ### Automatic Updates (Auto-merge)
+
 - Patch updates (e.g., 1.0.0 → 1.0.1)
 - Pin updates (e.g., ^1.0.0 → 1.0.1)
 - Digest updates (e.g., Docker image digest updates)
 
 These are automatically merged after:
+
 - CI passes (lint, build, test)
 - Security scans pass
 - No breaking changes detected
 
 ### Manual Review Required
+
 - Minor updates (e.g., 1.0.0 → 1.1.0)
 - Major updates (e.g., 1.0.0 → 2.0.0)
 - Updates with known breaking changes
@@ -105,17 +111,21 @@ These are automatically merged after:
 ## Secrets Management
 
 ### GitHub Secrets
+
 All sensitive credentials are stored in GitHub Secrets:
+
 - Deploy keys (50 mirror repositories)
 - API tokens
 - Service credentials
 
 ### Environment Variables
+
 - Never commit `.env` files (enforced by `.gitignore`)
 - Use `.env.example` files to document required variables
 - Load secrets at runtime from secure sources
 
 ### Deploy Keys
+
 - Unique deploy key per mirror repository
 - Write-only access (can push but not read)
 - Rotated annually or on compromise
@@ -137,6 +147,7 @@ We will respond within 48 hours and provide updates every 72 hours until resolve
 ## Security Audit Results
 
 Latest audit results are available in:
+
 - **Workflow Artifacts**: Check the Security workflow run artifacts for detailed audit reports
 - **PR Comments**: Renovate PRs include security impact analysis
 - **CI Logs**: Review security workflow logs for the latest scan results
@@ -150,6 +161,7 @@ Latest audit results are available in:
 ## Compliance
 
 ### Current Status
+
 - ✅ Automated secret scanning (Gitleaks)
 - ✅ Automated dependency auditing (pnpm audit)
 - ✅ Automated dependency updates (Renovate)
@@ -157,6 +169,7 @@ Latest audit results are available in:
 - ✅ Security documentation
 
 ### Standards Followed
+
 - OWASP Top 10 awareness
 - Principle of Least Privilege
 - Defense in Depth
@@ -171,9 +184,9 @@ Latest audit results are available in:
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0.0 | 2025-11-01 | Initial security policy and audit procedures |
+| Version | Date       | Changes                                      |
+| ------- | ---------- | -------------------------------------------- |
+| 1.0.0   | 2025-11-01 | Initial security policy and audit procedures |
 
 ---
 
