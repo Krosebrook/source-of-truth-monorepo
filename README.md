@@ -101,7 +101,7 @@ pnpm --filter @flashfusion/project-name lint
 
 ### Workflows
 
-- **CI** (`ci.yml`): Runs lint, build, test on every push/PR
+- **CI** (`ci.yml`): Runs lint, build, test on every push/PR with Turbo caching
 - **Security** (`security.yml`): gitleaks scan + dependency audit
 - **Subtree Push** (`subtree-push.yml`): Pushes changes to 50 mirrors (requires deploy keys)
   - **Status**: ⏳ Ready for deployment (pending key configuration)
@@ -111,6 +111,22 @@ pnpm --filter @flashfusion/project-name lint
 ### Turbo Caching
 
 Turbo caches build outputs to speed up CI. Only changed projects + dependencies are rebuilt.
+
+**Performance**: 
+- ✅ Cache hit builds: ~4.4s (100% cache hit rate)
+- ✅ Clean builds: ~5.2s
+- ✅ CI optimization: Turbo cache persisted across runs
+
+**Monitoring**:
+```bash
+# Run performance benchmarks
+./scripts/benchmark-build.sh
+
+# View results
+cat docs/performance-benchmarks.md
+```
+
+See: [Performance Benchmarks](docs/performance-benchmarks.md) | [How to Run Benchmarks](docs/how-to/run-performance-benchmarks.md)
 
 ## Agent Parity
 

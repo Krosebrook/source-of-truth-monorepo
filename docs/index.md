@@ -39,6 +39,7 @@ We follow the **[Diátaxis Framework](https://diataxis.fr/)**, organizing docs i
 - [How to Configure CI/CD](/docs/how-to/configure-ci-cd.md)
 - [How to Debug Build Failures](/docs/how-to/debug-build-failures.md)
 - [How to Publish with Changesets](/docs/how-to/publish-with-changesets.md)
+- [How to Run Performance Benchmarks](/docs/how-to/run-performance-benchmarks.md)
 
 ### 📖 [Reference](/docs/reference/) - Information
 
@@ -50,6 +51,7 @@ We follow the **[Diátaxis Framework](https://diataxis.fr/)**, organizing docs i
 - [Configuration Reference](/docs/reference/configuration-reference.md)
 - [API Documentation](/docs/reference/api/)
 - [Repository Map](/REPO_MAP.md)
+- [Performance Benchmarks](/docs/performance-benchmarks.md)
 
 ### 💡 [Explanation](/docs/explanation/) - Understanding
 
