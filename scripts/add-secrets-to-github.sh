@@ -122,11 +122,13 @@ for secret_name in "${SECRETS[@]}"; do
   fi
   
   # Add secret using GitHub CLI (read from file via stdin for safety)
-  if gh secret set "$secret_name" --repo "$REPO" < "$key_path" 2>/dev/null; then
+  ERROR_MSG=$(gh secret set "$secret_name" --repo "$REPO" < "$key_path" 2>&1)
+  if [ $? -eq 0 ]; then
     echo -e "${GREEN}✓ Added${NC}: $secret_name"
     ((ADDED++))
   else
-    echo -e "${RED}✗ Failed${NC}: $secret_name (gh command failed)"
+    echo -e "${RED}✗ Failed${NC}: $secret_name"
+    echo "   Error: $ERROR_MSG"
     ((FAILED++))
   fi
 done

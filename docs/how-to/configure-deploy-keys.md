@@ -226,9 +226,10 @@ add_secret() {
   local secret_name=$2
   local repo="Krosebrook/source-of-truth-monorepo"
   
+  # Use stdin redirection for safer file handling
   gh secret set "$secret_name" \
     --repo "$repo" \
-    --body "$(cat $key_file)"
+    < "$key_file"
 }
 
 # Add all secrets
