@@ -10,15 +10,15 @@
     "templates/*"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build": "echo 'Build handled by root turbo'",
     "dev": "turbo run dev", 
     "test": "turbo run test",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "clean": "turbo run clean",
-    "install:all": "npm install",
-    "dedupe": "npm dedupe",
-    "validate": "npm run lint && npm run type-check && npm run test"
+    "install:all": "pnpm install",
+    "dedupe": "pnpm dedupe",
+    "validate": "pnpm lint && pnpm type-check && pnpm test"
   },
   "devDependencies": {
     "turbo": "^1.11.0",
@@ -30,7 +30,7 @@
   },
   "engines": {
     "node": ">=18.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=9.0.0"
   },
-  "packageManager": "npm@10.0.0"
+  "packageManager": "pnpm@9.0.0"
 }
