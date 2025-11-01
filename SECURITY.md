@@ -144,7 +144,7 @@ Security checks run as part of the CI/CD pipeline:
 If you discover a security vulnerability in this repository:
 
 1. **DO NOT** open a public GitHub issue
-2. Email the maintainer directly: [Add contact email]
+2. Contact via GitHub: Open a [GitHub Security Advisory](https://github.com/Krosebrook/source-of-truth-monorepo/security/advisories/new)
 3. Include:
    - Description of the vulnerability
    - Steps to reproduce
@@ -240,7 +240,7 @@ This repository follows:
 ## Security Contacts
 
 - **Primary:** @Krosebrook
-- **Security Email:** [Add email]
+- **Security Reporting:** [GitHub Security Advisories](https://github.com/Krosebrook/source-of-truth-monorepo/security/advisories/new)
 - **GitHub Security Advisories:** Enabled
 
 ## Changelog

@@ -91,7 +91,14 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const report = fs.readFileSync('audit-results/audit-report.md', 'utf8');
+            let report = fs.readFileSync('audit-results/audit-report.md', 'utf8');
+            
+            // Truncate if report is too large (GitHub limit is 65,536 chars)
+            const maxLength = 65000;
+            if (report.length > maxLength) {
+              report = report.substring(0, maxLength) + '\n\n... (Report truncated. Download full report from workflow artifacts)';
+            }
+            
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,

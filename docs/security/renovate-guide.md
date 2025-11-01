@@ -38,7 +38,7 @@ See: [`renovate.json`](../../renovate.json)
 
 - **Auto-merge:** ❌ No
 - **Labels:** `dependencies`, `major-update`
-- **Assignee:** @Krosebrook
+- **Assignee:** @Krosebrook _(Note: Update this in `renovate.json` for your team)_
 - **Review:** ✅ Required
 
 **Rationale:** Major updates may include breaking changes requiring manual review and testing.
