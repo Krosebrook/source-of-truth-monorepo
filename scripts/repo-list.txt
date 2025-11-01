@@ -1,0 +1,63 @@
+# Format: org|name|url|target_dir|status
+# Status can be: active, archived, deprecated
+# Lines starting with # are comments and will be ignored
+
+# Krosebrook Core (10)
+krosebrook|FlashFusion|https://github.com/Krosebrook/FlashFusion.git|projects/krosebrook/core/flashfusion|active
+krosebrook|Flashfusionwebsite|https://github.com/Krosebrook/Flashfusionwebsite.git|projects/krosebrook/core/flashfusionwebsite|active
+krosebrook|FlashFusion-Unified|https://github.com/Krosebrook/FlashFusion-Unified.git|projects/krosebrook/core/flashfusion-unified|active
+krosebrook|MonoTurboRepo-FlashFusion|https://github.com/Krosebrook/MonoTurboRepo-FlashFusion.git|projects/krosebrook/core/mono-turbo-repo-flashfusion|active
+krosebrook|theaidashboard|https://github.com/Krosebrook/theaidashboard.git|projects/krosebrook/core/theaidashboard|active
+krosebrook|INT-Smart-Triage-AI-2.0|https://github.com/Krosebrook/INT-Smart-Triage-AI-2.0.git|projects/krosebrook/apps/int-smart-triage-ai-2.0|active
+krosebrook|Claude-Code-Development-Kit|https://github.com/Krosebrook/Claude-Code-Development-Kit.git|projects/krosebrook/tools/claude-code-dev-kit|active
+krosebrook|v0-ai-agent-builder|https://github.com/Krosebrook/v0-ai-agent-builder.git|projects/krosebrook/apps/v0-ai-agent-builder|active
+krosebrook|Archon|https://github.com/Krosebrook/Archon.git|projects/krosebrook/apps/archon|active
+krosebrook|Intos|https://github.com/Krosebrook/Intos.git|projects/krosebrook/apps/intos|active
+
+# Krosebrook Apps (17)
+krosebrook|v0-template-evaluation-academy|https://github.com/Krosebrook/v0-template-evaluation-academy.git|projects/krosebrook/apps/v0-template-evaluation-academy|active
+krosebrook|KinsleysCreativeSuite|https://github.com/Krosebrook/KinsleysCreativeSuite.git|projects/krosebrook/apps/kinsleyscreativesuite|active
+krosebrook|OctaveStudio|https://github.com/Krosebrook/OctaveStudio.git|projects/krosebrook/apps/octavestudio|active
+krosebrook|UniversalWriterAI|https://github.com/Krosebrook/UniversalWriterAI.git|projects/krosebrook/apps/universalwriterai|active
+krosebrook|Templateevaluationacademy|https://github.com/Krosebrook/Templateevaluationacademy.git|projects/krosebrook/apps/templateevaluationacademy|active
+krosebrook|MyContextEngine|https://github.com/Krosebrook/MyContextEngine.git|projects/krosebrook/apps/mycontextengine|active
+krosebrook|CreatorStudioLite|https://github.com/Krosebrook/CreatorStudioLite.git|projects/krosebrook/apps/creatorstudiolite|active
+krosebrook|UniversalAIGen|https://github.com/Krosebrook/UniversalAIGen.git|projects/krosebrook/apps/universalaigen|active
+krosebrook|FLashFusion-Learn|https://github.com/Krosebrook/FLashFusion-Learn.git|projects/krosebrook/apps/flashfusion-learn|active
+krosebrook|lovable-prompt-artist|https://github.com/Krosebrook/lovable-prompt-artist.git|projects/krosebrook/apps/lovable-prompt-artist|active
+krosebrook|analyst-cockpit-ui|https://github.com/Krosebrook/analyst-cockpit-ui.git|projects/krosebrook/apps/analyst-cockpit-ui|active
+krosebrook|flashfusion-lite-ecommerce|https://github.com/Krosebrook/flashfusion-lite-ecommerce.git|projects/krosebrook/apps/flashfusion-lite-ecommerce|active
+krosebrook|int-smart-triage-ai-3.0|https://github.com/Krosebrook/int-smart-triage-ai-3.0.git|projects/krosebrook/apps/int-smart-triage-ai-3.0|active
+krosebrook|int-triage-ai.3.0|https://github.com/Krosebrook/int-triage-ai.3.0.git|projects/krosebrook/apps/int-triage-ai-3.0|active
+krosebrook|project-nexus|https://github.com/Krosebrook/project-nexus.git|projects/krosebrook/apps/project-nexus|active
+krosebrook|saas-validator-suite|https://github.com/Krosebrook/saas-validator-suite.git|projects/krosebrook/apps/saas-validator-suite|active
+krosebrook|OpenFlashFusion|https://github.com/Krosebrook/OpenFlashFusion.git|projects/krosebrook/apps/open-flashfusion|active
+
+# Krosebrook Tools (7)
+krosebrook|claude-code-by-agents|https://github.com/Krosebrook/claude-code-by-agents.git|projects/krosebrook/tools/claude-code-by-agents|active
+krosebrook|metamcp|https://github.com/Krosebrook/metamcp.git|projects/krosebrook/tools/metamcp|active
+krosebrook|playwright-mcp|https://github.com/Krosebrook/playwright-mcp.git|projects/krosebrook/tools/playwright-mcp|active
+krosebrook|claude-agent-sdk-typescript|https://github.com/Krosebrook/claude-agent-sdk-typescript.git|projects/krosebrook/tools/claude-agent-sdk-typescript|active
+krosebrook|mcp-server-docker|https://github.com/Krosebrook/mcp-server-docker.git|projects/krosebrook/tools/mcp-server-docker|active
+krosebrook|superpowers|https://github.com/Krosebrook/superpowers.git|projects/krosebrook/tools/superpowers|active
+krosebrook|boilerplates|https://github.com/Krosebrook/boilerplates.git|projects/krosebrook/tools/boilerplates|active
+
+# FlashFusionv1 (8)
+flashfusionv1|flashfusion-creative-hub|https://github.com/FlashFusionv1/flashfusion-creative-hub.git|projects/flashfusionv1/flashfusion-creative-hub|active
+flashfusionv1|collabnet-visualizer-111|https://github.com/FlashFusionv1/collabnet-visualizer-111.git|projects/flashfusionv1/collabnet-visualizer-111|active
+flashfusionv1|pulse-robot-template-40849|https://github.com/FlashFusionv1/pulse-robot-template-40849.git|projects/flashfusionv1/pulse-robot-template-40849|active
+flashfusionv1|nimble-fab-flow|https://github.com/FlashFusionv1/nimble-fab-flow.git|projects/flashfusionv1/nimble-fab-flow|active
+flashfusionv1|loveable-supabase|https://github.com/FlashFusionv1/loveable-supabase.git|projects/flashfusionv1/loveable-supabase|active
+flashfusionv1|dyad|https://github.com/FlashFusionv1/dyad.git|projects/flashfusionv1/dyad|active
+flashfusionv1|spec-kit|https://github.com/FlashFusionv1/spec-kit.git|projects/flashfusionv1/spec-kit|active
+flashfusionv1|open-lovablev1|https://github.com/FlashFusionv1/open-lovablev1.git|projects/flashfusionv1/open-lovablev1|active
+
+# ChaosClubCo (8)
+chaosclubco|tiktok-story-ai|https://github.com/ChaosClubCo/tiktok-story-ai.git|projects/chaosclubco/tiktok-story-ai|active
+chaosclubco|context7|https://github.com/ChaosClubCo/context7.git|projects/chaosclubco/context7|active
+chaosclubco|supabase-js|https://github.com/ChaosClubCo/supabase-js.git|projects/chaosclubco/supabase-js|active
+chaosclubco|compose-for-agents|https://github.com/ChaosClubCo/compose-for-agents.git|projects/chaosclubco/compose-for-agents|active
+chaosclubco|flashfusion-ide|https://github.com/ChaosClubCo/flashfusion-ide.git|projects/chaosclubco/flashfusion-ide|active
+chaosclubco|SuperClaude-1|https://github.com/ChaosClubCo/SuperClaude-1.git|projects/chaosclubco/superclaude-1|active
+chaosclubco|SuperClaude|https://github.com/ChaosClubCo/SuperClaude.git|projects/chaosclubco/superclaude|active
+chaosclubco|turborepo-flashfusion|https://github.com/ChaosClubCo/turborepo-flashfusion.git|projects/chaosclubco/turborepo-flashfusion|active
