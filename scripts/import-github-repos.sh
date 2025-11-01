@@ -364,7 +364,7 @@ for line in "${REPO_LINES[@]}"; do
     fi
     
     # Batch management
-    if [ $BATCH_COUNT -ge $BATCH_SIZE ]; then
+    if [ "$BATCH_COUNT" -ge "$BATCH_SIZE" ]; then
         ((CURRENT_BATCH++)) || true
         log_info "Completed batch $CURRENT_BATCH ($BATCH_SIZE repos)"
         log_info "Pausing for 2 seconds before next batch..."
@@ -388,7 +388,7 @@ echo "=== Import Summary ==="
 echo "Completed at: $(date)"
 echo -e "${GREEN}✓ Success: $SUCCESS${NC}"
 echo -e "${YELLOW}⊙ Skipped: $SKIPPED${NC}"
-if [ $EXCLUDE_ARCHIVED = true ]; then
+if [ "$EXCLUDE_ARCHIVED" = true ]; then
     echo -e "⊙ Archived/Deprecated: $ARCHIVED"
 fi
 echo -e "${RED}✗ Failed: $FAILED${NC}"
@@ -397,10 +397,10 @@ echo ""
 echo "Log file: $LOG_FILE"
 
 # Clear checkpoint if all successful
-if [ $FAILED -eq 0 ]; then
+if [ "$FAILED" -eq 0 ]; then
     clear_checkpoint
     echo ""
-    if [ $SUCCESS -gt 0 ]; then
+    if [ "$SUCCESS" -gt 0 ]; then
         echo "Next steps:"
         echo "  1. Review imported repos: ls -la projects/"
         echo "  2. Commit: git add projects/ && git commit -m 'feat: Import GitHub repos'"
@@ -418,7 +418,7 @@ echo ""
 } | tee -a "$LOG_FILE"
 
 # Exit with appropriate code
-if [ $FAILED -gt 0 ]; then
+if [ "$FAILED" -gt 0 ]; then
     exit 1
 else
     exit 0
