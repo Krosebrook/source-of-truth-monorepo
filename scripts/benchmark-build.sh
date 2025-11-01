@@ -59,14 +59,20 @@ measure_build "Force Rebuild" "--force"
 # Benchmark 4: Single package change simulation
 echo -e "${GREEN}[4/5] Incremental Build (Single Package Change)${NC}"
 # Touch a safe file to simulate a change (README or similar)
-SAMPLE_FILE=$(find projects -name "README.md" -type f | head -1)
-if [ -z "$SAMPLE_FILE" ]; then
-    # Fallback to tsconfig.json if no README found
-    SAMPLE_FILE=$(find projects -name "tsconfig.json" -type f | head -1)
-fi
-if [ -n "$SAMPLE_FILE" ]; then
-    touch "$SAMPLE_FILE"
-    measure_build "Incremental Build" ""
+if [ -d "projects" ]; then
+    SAMPLE_FILE=$(find projects -name "README.md" -type f | head -1)
+    if [ -z "$SAMPLE_FILE" ]; then
+        # Fallback to tsconfig.json if no README found
+        SAMPLE_FILE=$(find projects -name "tsconfig.json" -type f | head -1)
+    fi
+    if [ -n "$SAMPLE_FILE" ]; then
+        touch "$SAMPLE_FILE"
+        measure_build "Incremental Build" ""
+    else
+        echo "No suitable test file found - skipping incremental build test"
+    fi
+else
+    echo "No projects directory found - skipping incremental build test"
 fi
 
 # Benchmark 5: Parallel execution info
@@ -85,7 +91,11 @@ else
 fi
 
 # Count packages
-PACKAGE_COUNT=$(find projects -name "package.json" -type f | wc -l)
+if [ -d "projects" ]; then
+    PACKAGE_COUNT=$(find projects -name "package.json" -type f | wc -l)
+else
+    PACKAGE_COUNT=$(find . -name "package.json" -type f -not -path "*/node_modules/*" | wc -l)
+fi
 echo "Total Packages: $PACKAGE_COUNT"
 
 echo ""
