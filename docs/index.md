@@ -47,6 +47,7 @@ We follow the **[Diátaxis Framework](https://diataxis.fr/)**, organizing docs i
 
 - [Workspace Structure](/docs/reference/workspace-structure.md)
 - [CLI Reference](/docs/reference/cli-reference.md)
+- [Subtree Synchronization](/docs/reference/subtree-sync.md)
 - [Configuration Reference](/docs/reference/configuration-reference.md)
 - [API Documentation](/docs/reference/api/)
 - [Repository Map](/REPO_MAP.md)
