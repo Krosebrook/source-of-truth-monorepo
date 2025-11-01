@@ -103,7 +103,10 @@ pnpm --filter @flashfusion/project-name lint
 
 - **CI** (`ci.yml`): Runs lint, build, test on every push/PR
 - **Security** (`security.yml`): gitleaks scan + dependency audit
-- **Subtree Push** (`subtree-push.yml`): Pushes changes to mirrors (requires deploy keys)
+- **Subtree Push** (`subtree-push.yml`): Pushes changes to 50 mirrors (requires deploy keys)
+  - **Status**: ⏳ Ready for deployment (pending key configuration)
+  - **Setup Guide**: [Configure Deploy Keys](docs/how-to/configure-deploy-keys.md)
+  - **Quick Start**: [How-To README](docs/how-to/README.md)
 
 ### Turbo Caching
 
@@ -130,14 +133,17 @@ See: [shared/contracts/README.md](shared/contracts/README.md)
 - [REPO_MAP.md](REPO_MAP.md) - Complete index of all 53 repositories
 - [shared/contracts/README.md](shared/contracts/README.md) - Agent contracts
 - [shared/logging/README.md](shared/logging/README.md) - Logging guide
+- [Deploy Keys Setup](docs/how-to/configure-deploy-keys.md) - Mirror sync configuration
 
 ## Security
 
 ### Secrets Management
 
 - All secrets stored in GitHub Secrets
-- Deploy keys provisioned per-mirror (write-only)
+- Deploy keys provisioned per-mirror (write-only, unique per repo)
+- 50 mirror repositories configured (pending key setup)
 - No `.env` files committed (see `.gitignore`)
+- **Setup Guide**: [Configure Deploy Keys](docs/how-to/configure-deploy-keys.md)
 
 ### Audits
 
