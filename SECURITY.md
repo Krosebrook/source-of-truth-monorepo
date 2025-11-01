@@ -2,251 +2,193 @@
 
 ## Overview
 
-This document outlines the security practices, audit procedures, and update policies for the FlashFusion Source-of-Truth Monorepo.
+The FlashFusion Source-of-Truth monorepo takes security seriously. This document outlines our security practices, audit procedures, and vulnerability reporting process.
 
-## Automated Security Measures
+## Security Measures
 
-### 1. Secret Scanning (Gitleaks)
+### 1. Automated Secret Scanning
 
-**Purpose:** Prevent accidental commit of sensitive credentials and API keys.
+We use **Gitleaks** to scan for accidentally committed secrets:
 
-**Frequency:**
-- On every push to `main` branch
-- On every pull request
-- Weekly scheduled scan (Mondays at 6 AM UTC)
+- Runs on every push to main
+- Runs on every pull request
+- Weekly scheduled scans (Mondays at 6 AM UTC)
+- Full repository history is scanned
 
-**How it works:**
-- Uses [Gitleaks](https://github.com/gitleaks/gitleaks) to scan entire repository history
-- Automatically detects patterns matching secrets, tokens, and credentials
-- Fails the workflow if secrets are detected
+### 2. Dependency Auditing
 
-**Action on Detection:**
-- Immediately revoke any exposed credentials
-- Remove from git history if needed
-- Update `.gitleaksignore` only for verified false positives
+Automated dependency vulnerability scanning using `pnpm audit`:
 
-### 2. Dependency Audits
+- Runs on every push to main
+- Runs on every pull request
+- Weekly scheduled audits
+- Fails CI/CD on critical or high severity vulnerabilities
 
-**Purpose:** Identify and track known vulnerabilities in npm dependencies.
-
-**Frequency:**
-- On every push to `main` branch
-- On every pull request
-- Weekly scheduled scan (Mondays at 6 AM UTC)
-
-**How it works:**
-- Runs `pnpm audit --audit-level=moderate` to check for vulnerabilities
-- Generates audit reports stored as workflow artifacts
-- Comments summary on pull requests
-
-**Audit Levels:**
-- `moderate` and above trigger notifications
-- Reports saved for 30 days in GitHub Actions artifacts
-
-**Action on Detection:**
-1. Review audit report in workflow artifacts
-2. Assess severity and impact
-3. Update dependencies where possible
-4. Document exceptions if updates break functionality
-
-### 3. Automated Dependency Updates (Renovate)
-
-**Purpose:** Keep dependencies up-to-date automatically with minimal manual intervention.
-
-**Configuration:** See `renovate.json`
-
-**Schedule:** Mondays before 6 AM UTC
-
-**Rules:**
-- **Patch updates:** Auto-merged after CI passes
-- **Minor updates:** Auto-merged after CI passes (with `automerge` label)
-- **Major updates:** Manual review required, assigned to @Krosebrook
-- **PR Limits:** Max 5 concurrent PRs, 2 per hour
-
-**Labels Applied:**
-- `dependencies` - All dependency updates
-- `automerge` - Patch/minor updates eligible for auto-merge
-- `major-update` - Major version updates requiring review
-
-## Manual Security Checks
-
-### Running Security Audits Locally
+**Run locally:**
 
 ```bash
-# Install dependencies
-pnpm install
+# Full audit report
+pnpm security:audit
 
+# JSON output for parsing
+pnpm security:audit:json
+
+# Check for moderate+ vulnerabilities
+pnpm security:audit:check
+```
+
+### 3. Automated Dependency Updates
+
+We use **Renovate** for automated dependency updates:
+
+- Scheduled updates: Weekly on Mondays before 6 AM
+- Patch and pin updates: Auto-merged after passing CI
+- Major updates: Require manual review and are assigned to @Krosebrook
+- PR concurrency limit: 5 simultaneous PRs
+- PR hourly limit: 2 PRs per hour
+
+**Configuration:** See `renovate.json` for complete settings.
+
+## Security Audit Schedule
+
+### Weekly (Automated)
+
+- **Mondays at 6 AM UTC**: Gitleaks secret scan
+- **Mondays at 6 AM UTC**: Dependency vulnerability audit
+- **Mondays before 6 AM**: Renovate dependency updates
+
+### Per-Commit (Automated)
+
+- All pushes to `main` trigger security scans
+- All pull requests trigger security scans
+
+### Manual Audits
+
+Developers should run local security audits before committing:
+
+```bash
 # Run dependency audit
-pnpm audit
+pnpm security:audit:check
 
-# Run with different severity threshold
-pnpm audit --audit-level=high
+# Format check
+pnpm format:check
 
-# Scan for secrets locally (requires gitleaks CLI)
-gitleaks detect --source . --verbose
+# Full lint
+pnpm lint
 ```
 
-### Fixing Vulnerabilities
+## Vulnerability Severity Levels
 
-1. **Identify the vulnerability:**
-   ```bash
-   pnpm audit
-   ```
+We categorize vulnerabilities using standard CVSS severity ratings:
 
-2. **Update the vulnerable package:**
-   ```bash
-   # Update specific package
-   pnpm update <package-name> --latest
-   
-   # Or update all dependencies
-   pnpm update -r --latest
-   ```
+| Severity     | Action                             | Timeline        |
+| ------------ | ---------------------------------- | --------------- |
+| **Critical** | CI fails, immediate fix required   | Within 24 hours |
+| **High**     | CI fails, fix required             | Within 1 week   |
+| **Moderate** | Warning logged, fix in next sprint | Within 1 month  |
+| **Low**      | Informational, fix when convenient | Best effort     |
 
-3. **Verify the fix:**
-   ```bash
-   pnpm audit
-   pnpm build
-   pnpm test
-   ```
+## Dependency Update Policy
 
-4. **Create a changeset:**
-   ```bash
-   pnpm changeset
-   ```
+### Automatic Updates (Auto-merge)
 
-## Security Workflow Integration
+- Patch updates (e.g., 1.0.0 → 1.0.1)
+- Pin updates (e.g., ^1.0.0 → 1.0.1)
+- Digest updates (e.g., Docker image digest updates)
 
-Security checks run as part of the CI/CD pipeline:
+These are automatically merged after:
 
-```
-┌─────────────────┐
-│  Code Changes   │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│   CI Workflow   │ ◄── Lint, Build, Test
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│Security Workflow│ ◄── Gitleaks + Audit (runs on push/PR)
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  Audit Results  │ ◄── Artifacts saved for 30 days
-└─────────────────┘
-```
+- CI passes (lint, build, test)
+- Security scans pass
+- No breaking changes detected
+
+### Manual Review Required
+
+- Minor updates (e.g., 1.0.0 → 1.1.0)
+- Major updates (e.g., 1.0.0 → 2.0.0)
+- Updates with known breaking changes
+
+## Secrets Management
+
+### GitHub Secrets
+
+All sensitive credentials are stored in GitHub Secrets:
+
+- Deploy keys (50 mirror repositories)
+- API tokens
+- Service credentials
+
+### Environment Variables
+
+- Never commit `.env` files (enforced by `.gitignore`)
+- Use `.env.example` files to document required variables
+- Load secrets at runtime from secure sources
+
+### Deploy Keys
+
+- Unique deploy key per mirror repository
+- Write-only access (can push but not read)
+- Rotated annually or on compromise
 
 ## Reporting Security Vulnerabilities
 
-If you discover a security vulnerability in this repository:
+If you discover a security vulnerability, please report it by:
 
-1. **DO NOT** open a public GitHub issue
-2. Contact via GitHub: Open a [GitHub Security Advisory](https://github.com/Krosebrook/source-of-truth-monorepo/security/advisories/new)
+1. **Do NOT** open a public issue
+2. Email security concerns to: [security@flashfusion.co]
 3. Include:
    - Description of the vulnerability
    - Steps to reproduce
    - Potential impact
    - Suggested fix (if any)
 
-We aim to respond within 48 hours and provide a fix within 7 days for critical issues.
+We will respond within 48 hours and provide updates every 72 hours until resolved.
 
-## Security Best Practices
+## Security Audit Results
 
-### For Contributors
+Latest audit results are available in:
 
-1. **Never commit secrets:**
-   - Use environment variables for credentials
-   - Keep `.env` files in `.gitignore`
-   - Use GitHub Secrets for CI/CD credentials
+- **Workflow Artifacts**: Check the Security workflow run artifacts for detailed audit reports
+- **PR Comments**: Renovate PRs include security impact analysis
+- **CI Logs**: Review security workflow logs for the latest scan results
 
-2. **Review dependencies:**
-   - Check npm package reputation before adding
-   - Prefer packages with active maintenance
-   - Review Renovate PRs promptly
+### Viewing Audit Results
 
-3. **Keep dependencies updated:**
-   - Review and merge Renovate PRs weekly
-   - Don't ignore security updates
-   - Test thoroughly after major updates
+1. Go to [Actions](https://github.com/Krosebrook/source-of-truth-monorepo/actions)
+2. Select "Security" workflow
+3. Download `dependency-audit-results` artifact from the latest run
 
-4. **Use security tools:**
-   - Enable GitHub Dependabot alerts
-   - Review security workflow results
-   - Act on vulnerability notifications
+## Compliance
 
-### For Maintainers
+### Current Status
 
-1. **Monitor security alerts:**
-   - Check GitHub Security tab regularly
-   - Review weekly audit reports
-   - Respond to Renovate PRs
+- ✅ Automated secret scanning (Gitleaks)
+- ✅ Automated dependency auditing (pnpm audit)
+- ✅ Automated dependency updates (Renovate)
+- ✅ CI/CD security gates
+- ✅ Security documentation
 
-2. **Configure secrets properly:**
-   - Use GitHub Secrets for sensitive data
-   - Rotate credentials periodically
-   - Use deploy keys with minimal permissions
+### Standards Followed
 
-3. **Review PRs for security:**
-   - Check for hardcoded credentials
-   - Verify dependency changes
-   - Ensure tests cover security scenarios
+- OWASP Top 10 awareness
+- Principle of Least Privilege
+- Defense in Depth
+- Secure by Default
 
-## Audit Results Archive
+## Additional Security Resources
 
-Security audit results are automatically stored as GitHub Actions artifacts:
+- [GitHub Security Advisories](https://github.com/advisories)
+- [npm Security Best Practices](https://docs.npmjs.com/security-best-practices)
+- [pnpm Security](https://pnpm.io/cli/audit)
+- [Renovate Documentation](https://docs.renovatebot.com/)
 
-- **Location:** Actions → Security workflow → Artifacts
-- **Retention:** 30 days
-- **Format:** Markdown report + raw audit output
+## Version History
 
-### Accessing Audit Results
+| Version | Date       | Changes                                      |
+| ------- | ---------- | -------------------------------------------- |
+| 1.0.0   | 2025-11-01 | Initial security policy and audit procedures |
 
-1. Go to repository Actions tab
-2. Click on "Security" workflow
-3. Select a workflow run
-4. Download "security-audit-results" artifact
-5. Review `audit-report.md` for summary
+---
 
-## Update Policies
-
-### Dependency Update Policy
-
-- **Critical vulnerabilities:** Immediate update required
-- **High severity:** Update within 7 days
-- **Moderate severity:** Update within 30 days
-- **Low severity:** Update with next regular maintenance
-
-### Exceptions Process
-
-If a vulnerability cannot be fixed immediately:
-
-1. Document the reason in a GitHub issue
-2. Implement workarounds/mitigations
-3. Set a timeline for resolution
-4. Track in security backlog
-
-## Compliance and Standards
-
-This repository follows:
-
-- OWASP Top 10 security best practices
-- npm security guidelines
-- GitHub security best practices
-- Regular dependency maintenance (weekly via Renovate)
-
-## Security Contacts
-
-- **Primary:** @Krosebrook
-- **Security Reporting:** [GitHub Security Advisories](https://github.com/Krosebrook/source-of-truth-monorepo/security/advisories/new)
-- **GitHub Security Advisories:** Enabled
-
-## Changelog
-
-- **2025-11-01:** Initial security policy created
-  - Gitleaks integration configured
-  - Dependency audit automation implemented
-  - Renovate bot configured for automatic updates
-  - Audit result archival implemented
+**Last Updated**: November 1, 2025  
+**Policy Owner**: @Krosebrook

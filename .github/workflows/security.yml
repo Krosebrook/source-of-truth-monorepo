@@ -43,65 +43,48 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run pnpm audit
+      - name: Run pnpm audit (all severities)
         id: audit
         run: |
-          mkdir -p audit-results
-          echo "# Dependency Audit Results" > audit-results/audit-report.md
-          echo "**Date:** $(date -u +%Y-%m-%d\ %H:%M:%S\ UTC)" >> audit-results/audit-report.md
-          echo "**Branch:** ${{ github.ref_name }}" >> audit-results/audit-report.md
-          echo "" >> audit-results/audit-report.md
-          
-          # Run audit and capture output
-          pnpm audit --audit-level=moderate > audit-results/audit-output.txt 2>&1 || true
-          
-          # Add to report
-          echo "## Audit Output" >> audit-results/audit-report.md
-          echo '```' >> audit-results/audit-report.md
-          cat audit-results/audit-output.txt >> audit-results/audit-report.md
-          echo '```' >> audit-results/audit-report.md
-          
-          # Check for vulnerabilities
-          if grep -q "vulnerabilities" audit-results/audit-output.txt; then
-            echo "status=vulnerabilities-found" >> $GITHUB_OUTPUT
-            echo "" >> audit-results/audit-report.md
-            echo "⚠️ **Vulnerabilities detected!** Please review and address them." >> audit-results/audit-report.md
-          else
-            echo "status=clean" >> $GITHUB_OUTPUT
-            echo "" >> audit-results/audit-report.md
-            echo "✅ **No vulnerabilities detected.**" >> audit-results/audit-report.md
-          fi
+          echo "Running dependency audit..."
+          pnpm audit --json > audit-results.json || true
+          cat audit-results.json
         continue-on-error: true
+
+      - name: Check for critical/high vulnerabilities
+        run: |
+          echo "Checking for critical and high severity vulnerabilities..."
+          if [ -f audit-results.json ]; then
+            # Install jq for JSON parsing
+            sudo apt-get update -qq && sudo apt-get install -y -qq jq > /dev/null
+            
+            # Count vulnerabilities by severity using jq
+            CRITICAL=$(jq '[.advisories[]? | select(.severity == "critical")] | length' audit-results.json 2>/dev/null || echo "0")
+            HIGH=$(jq '[.advisories[]? | select(.severity == "high")] | length' audit-results.json 2>/dev/null || echo "0")
+            
+            echo "Critical vulnerabilities: $CRITICAL"
+            echo "High vulnerabilities: $HIGH"
+            
+            if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 0 ]; then
+              echo "❌ Found critical or high severity vulnerabilities!"
+              echo "Please review and update dependencies"
+              exit 1
+            else
+              echo "✅ No critical or high severity vulnerabilities found"
+            fi
+          else
+            echo "⚠️ Audit results file not found, skipping vulnerability check"
+          fi
 
       - name: Upload audit results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: security-audit-results
-          path: audit-results/
+          name: dependency-audit-results
+          path: audit-results.json
           retention-days: 30
-
-      - name: Comment audit summary
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            let report = fs.readFileSync('audit-results/audit-report.md', 'utf8');
-            
-            // Truncate if report is too large (GitHub limit is 65,536 chars)
-            const maxLength = 65000;
-            if (report.length > maxLength) {
-              report = report.substring(0, maxLength) + '\n\n... (Report truncated. Download full report from workflow artifacts)';
-            }
-            
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: report
-            });
