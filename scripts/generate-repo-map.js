@@ -12,7 +12,6 @@ const REPO_ROOT = path.join(__dirname, '..');
 const IMPORT_SCRIPT = path.join(REPO_ROOT, 'scripts', 'import-github-repos.sh');
 const PROJECTS_DIR = path.join(REPO_ROOT, 'projects');
 const OUTPUT_FILE = path.join(REPO_ROOT, 'REPO_MAP.md');
-const PROGRESS_FILE = path.join(REPO_ROOT, 'docs', '.progress.yaml');
 
 /**
  * Parse the import script to extract repository definitions
@@ -22,12 +21,13 @@ function parseImportScript() {
   const repos = [];
   
   // Extract the repos from the import list in the script
+  // Look for the REPO_LIST_START marker for more robust parsing
   const lines = content.split('\n');
   let inList = false;
   
   for (const line of lines) {
-    // Start of the import list
-    if (line.includes("cat > /tmp/sot-import-list.txt")) {
+    // Start of the import list (look for marker or heredoc start)
+    if (line.includes('REPO_LIST_START') || line.includes("cat > /tmp/sot-import-list.txt")) {
       inList = true;
       continue;
     }
@@ -72,19 +72,19 @@ function getRepoMetadata(targetDir) {
   const fullPath = path.join(REPO_ROOT, targetDir);
   const metadata = {
     imported: false,
-    lastSync: null,
+    lastModified: null, // Directory modification time, not actual sync time
     maintainer: '@Krosebrook', // Default maintainer based on CODEOWNERS
   };
   
   if (fs.existsSync(fullPath)) {
     metadata.imported = true;
     
-    // Try to get last modification time
+    // Get last modification time as a proxy for import/update time
     try {
       const stats = fs.statSync(fullPath);
-      metadata.lastSync = stats.mtime.toISOString().split('T')[0];
+      metadata.lastModified = stats.mtime.toISOString().split('T')[0];
     } catch (e) {
-      // Ignore
+      // Ignore errors
     }
   }
   
@@ -213,12 +213,13 @@ Complete index of all repositories in the FlashFusion SoT monorepo.
 
   // Add local repos
   for (const repo of localRepos) {
+    const metadata = getRepoMetadata(repo.path);
     content += `#### ${repo.name}
 - **Path**: \`${repo.path}\`
 - **Status**: ✅ Imported
 - **Type**: Local-only repository
 - **Maintainer**: @Krosebrook
-
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
 `;
   }
 
@@ -239,7 +240,7 @@ Complete index of all repositories in the FlashFusion SoT monorepo.
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
 `;
     }
 
@@ -254,7 +255,7 @@ ${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
 `;
     }
 
@@ -269,7 +270,7 @@ ${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
 `;
     }
   }
@@ -287,7 +288,7 @@ ${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
 `;
     }
   }
@@ -305,7 +306,7 @@ ${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
 `;
     }
   }

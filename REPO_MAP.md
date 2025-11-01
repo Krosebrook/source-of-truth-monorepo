@@ -34,18 +34,21 @@ Complete index of all repositories in the FlashFusion SoT monorepo.
 - **Status**: ✅ Imported
 - **Type**: Local-only repository
 - **Maintainer**: @Krosebrook
+- **Last Modified**: 2025-11-01
 
 #### harvestflow
 - **Path**: `projects/local/harvestflow`
 - **Status**: ✅ Imported
 - **Type**: Local-only repository
 - **Maintainer**: @Krosebrook
+- **Last Modified**: 2025-11-01
 
 #### int-smart-triage-ai-2.0
 - **Path**: `projects/local/int-smart-triage-ai-2.0`
 - **Status**: ✅ Imported
 - **Type**: Local-only repository
 - **Maintainer**: @Krosebrook
+- **Last Modified**: 2025-11-01
 
 ### Krosebrook Organization (34)
 
@@ -385,4 +388,4 @@ For detailed import progress and task tracking, see:
 
 ---
 
-*Generated on 2025-11-01T07:35:58.063Z*
+*Generated on 2025-11-01T07:39:07.741Z*

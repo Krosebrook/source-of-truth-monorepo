@@ -53,6 +53,7 @@ import_repo() {
 }
 
 # Create temp import list
+# REPO_LIST_START - marker for parsing (do not remove)
 cat > /tmp/sot-import-list.txt <<'EOF'
 # Format: org|name|url|target_dir
 
