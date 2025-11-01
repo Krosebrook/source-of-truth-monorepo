@@ -17,7 +17,7 @@
 #   org|name|url|target_dir|status
 #   Example: krosebrook|FlashFusion|https://github.com/Krosebrook/FlashFusion.git|projects/krosebrook/core/flashfusion|active
 
-set -eo pipefail
+set -euo pipefail
 
 # Default configuration
 REPO_LIST_FILE="scripts/repo-list.txt"
@@ -152,14 +152,14 @@ import_repo() {
     # Check if archived and should skip
     if [ "$EXCLUDE_ARCHIVED" = true ] && [[ "$status" =~ ^(archived|deprecated)$ ]]; then
         log_skip "$name (status: $status)"
-        ((ARCHIVED++)) || true
+        ((ARCHIVED++))
         return 0
     fi
 
     # Skip if already exists
     if [ -d "$target_dir" ]; then
         log_skip "$name (already exists): $target_dir"
-        ((SKIPPED++)) || true
+        ((SKIPPED++))
         save_checkpoint "$org" "$name"
         return 0
     fi
@@ -172,7 +172,7 @@ import_repo() {
     
     # Clone with stdin redirected to /dev/null to prevent consuming loop input
     # Quiet mode to avoid verbose output
-    git clone --depth 1 --quiet "$url" "$temp_dir" </dev/null 2>/dev/null && {
+    if git clone --depth 1 --quiet "$url" "$temp_dir" </dev/null 2>/dev/null; then
         # Remove .git directory (flatten)
         rm -rf "$temp_dir/.git"
 
@@ -181,16 +181,16 @@ import_repo() {
         mv "$temp_dir" "$target_dir"
 
         log_success "$name -> $target_dir"
-        ((SUCCESS++)) || true
+        ((SUCCESS++))
         save_checkpoint "$org" "$name"
         return 0
-    } || {
+    else
         log_error "Could not clone $name from $url"
-        ((FAILED++)) || true
+        ((FAILED++))
         # Clean up failed temp directory
         rm -rf "$temp_dir"
         return 1
-    }
+    fi
 }
 
 # Check if repo list file exists
@@ -295,15 +295,7 @@ CURRENT_BATCH=0
 BATCH_COUNT=0
 FOUND_RESUME_POINT=false
 
-# Read repos into array to avoid stdin consumption issues
-mapfile -t REPO_LINES < "$REPO_LIST_FILE"
-
-log_info "Loaded ${#REPO_LINES[@]} lines from repo list"
-
-for line in "${REPO_LINES[@]}"; do
-    # Parse the line
-    IFS='|' read -r org name url target_dir status <<< "$line"
-    
+while IFS='|' read -r org name url target_dir status; do
     # Skip comments and empty lines
     [[ "$org" =~ ^#.*$ ]] && continue
     [[ -z "$org" ]] && continue
@@ -315,14 +307,14 @@ for line in "${REPO_LINES[@]}"; do
             log_info "Found resume point, continuing from next repo"
             continue
         else
-            ((SKIPPED++)) || true
+            ((SKIPPED++))
             continue
         fi
     fi
     
     # Batch management
     if [ $BATCH_COUNT -ge $BATCH_SIZE ]; then
-        ((CURRENT_BATCH++)) || true
+        ((CURRENT_BATCH++))
         log_info "Completed batch $CURRENT_BATCH ($BATCH_SIZE repos)"
         log_info "Pausing for 2 seconds before next batch..."
         sleep 2
@@ -333,9 +325,9 @@ for line in "${REPO_LINES[@]}"; do
     # Import the repo (with error handling to continue on failure)
     import_repo "$org" "$name" "$url" "$target_dir" "${status:-active}" || true
     
-    ((BATCH_COUNT++)) || true
+    ((BATCH_COUNT++))
     
-done
+done < "$REPO_LIST_FILE"
 
 
 # Summary
