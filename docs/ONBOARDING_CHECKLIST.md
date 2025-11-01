@@ -2,6 +2,12 @@
 
 > Complete guide for new team members joining FlashFusion SoT
 
+**Current Migration Status** (as of 2025-11-01):
+- ✅ 3 local repositories imported
+- ⏳ 50 GitHub repositories ready to import (see [Importing Repositories](/docs/tutorials/02-importing-repos.md))
+- ✅ Full documentation infrastructure in place
+- ✅ CI/CD workflows configured
+
 **Print this page** and check off items as you complete them!
 
 ---
@@ -119,10 +125,12 @@
 
 ### Project Familiarity
 
+**Note**: Currently only 3 local repositories are imported. To import the remaining 50 GitHub repositories, see the [Importing Repositories Tutorial](/docs/tutorials/02-importing-repos.md).
+
 - [ ] **Identify your primary project(s)**
   ```bash
-  ls projects/krosebrook/core/  # Core projects
-  ls projects/krosebrook/apps/  # Applications
+  ls projects/local/           # Currently imported (3 repos)
+  ls projects/krosebrook/      # Available after import
   ```
 
 - [ ] **Build and run your project**
