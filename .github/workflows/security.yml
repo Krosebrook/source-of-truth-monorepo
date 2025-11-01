@@ -43,10 +43,42 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run pnpm audit
-        run: pnpm -r audit --audit-level=moderate || true
+      - name: Run pnpm audit (all severities)
+        id: audit
+        run: |
+          echo "Running dependency audit..."
+          pnpm audit --json > audit-results.json || true
+          cat audit-results.json
         continue-on-error: true
+
+      - name: Check for critical/high vulnerabilities
+        run: |
+          echo "Checking for critical and high severity vulnerabilities..."
+          if [ -f audit-results.json ]; then
+            CRITICAL=$(cat audit-results.json | grep -o '"severity":"critical"' | wc -l || echo "0")
+            HIGH=$(cat audit-results.json | grep -o '"severity":"high"' | wc -l || echo "0")
+            echo "Critical vulnerabilities: $CRITICAL"
+            echo "High vulnerabilities: $HIGH"
+            if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 0 ]; then
+              echo "❌ Found critical or high severity vulnerabilities!"
+              echo "Please review and update dependencies"
+              exit 1
+            else
+              echo "✅ No critical or high severity vulnerabilities found"
+            fi
+          else
+            echo "⚠️ Audit results file not found, skipping vulnerability check"
+          fi
+
+      - name: Upload audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-audit-results
+          path: audit-results.json
+          retention-days: 30
