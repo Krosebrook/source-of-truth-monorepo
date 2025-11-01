@@ -27,6 +27,14 @@ importers:
         specifier: ^5.4.0
         version: 5.9.3
 
+  agents/claude-agent: {}
+
+  agents/codex-agent: {}
+
+  agents/gemini-agent: {}
+
+  agents/github-agent: {}
+
   projects/local/flashfusion-consolidated:
     devDependencies:
       '@types/node':
