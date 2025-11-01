@@ -85,6 +85,8 @@ Operational procedures for on-call engineers and daily operations.
 
 Comprehensive guides on specific topics.
 
+- **Contributor Onboarding**: [Quick Start Guide](/docs/guides/contributor-onboarding/quick-start.md)
+- **Monorepo Best Practices**: [Development Guidelines](/docs/guides/monorepo-best-practices/), [Mirror Repository Guide](/docs/guides/monorepo-best-practices/mirror-repository-best-practices.md)
 - **Agent Integration**: [Claude](/docs/guides/agent-integration/claude-agent.md), [Codex](/docs/guides/agent-integration/codex-agent.md), [Gemini](/docs/guides/agent-integration/gemini-agent.md), [GitHub](/docs/guides/agent-integration/github-agent.md)
 - **Security**: [Secret Management](/docs/guides/security/secret-management.md), [Vulnerability Reporting](/docs/guides/security/vulnerability-reporting.md)
 - **Contribution**: [Code Review Guidelines](/docs/guides/contribution/code-review-guidelines.md), [Release Process](/docs/guides/contribution/release-process.md)
@@ -95,8 +97,10 @@ Comprehensive guides on specific topics.
 
 ### For New Contributors
 1. [Getting Started](/GETTING_STARTED.md)
-2. [Quickstart Tutorial](/docs/tutorials/01-quickstart.md)
-3. [Contributing Guidelines](/CONTRIBUTING.md)
+2. [Contributor Quick Start](/docs/guides/contributor-onboarding/quick-start.md)
+3. [Onboarding Checklist](/docs/ONBOARDING_CHECKLIST.md)
+4. [Quickstart Tutorial](/docs/tutorials/01-quickstart.md)
+5. [Contributing Guidelines](/CONTRIBUTING.md)
 
 ### For Developers
 1. [Workspace Structure](/docs/reference/workspace-structure.md)
