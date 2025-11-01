@@ -2,7 +2,7 @@
   "name": "turborepo-flashfusion",
   "private": true,
   "scripts": {
-    "build": "turbo build",
+    "build": "echo 'No build needed - this is a turbo config package'",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "turbo format",
@@ -22,7 +22,7 @@
     "eslint": "^8.0.0",
     "prettier": "^3.0.0"
   },
-  "packageManager": "npm@10.0.0",
+  "packageManager": "pnpm@9.0.0",
   "workspaces": [
     "apps/*",
     "packages/*",
