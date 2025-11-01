@@ -60,10 +60,16 @@ jobs:
         run: |
           echo "Checking for critical and high severity vulnerabilities..."
           if [ -f audit-results.json ]; then
-            CRITICAL=$(cat audit-results.json | grep -o '"severity":"critical"' | wc -l || echo "0")
-            HIGH=$(cat audit-results.json | grep -o '"severity":"high"' | wc -l || echo "0")
+            # Install jq for JSON parsing
+            sudo apt-get update -qq && sudo apt-get install -y -qq jq > /dev/null
+            
+            # Count vulnerabilities by severity using jq
+            CRITICAL=$(jq '[.advisories[]? | select(.severity == "critical")] | length' audit-results.json 2>/dev/null || echo "0")
+            HIGH=$(jq '[.advisories[]? | select(.severity == "high")] | length' audit-results.json 2>/dev/null || echo "0")
+            
             echo "Critical vulnerabilities: $CRITICAL"
             echo "High vulnerabilities: $HIGH"
+            
             if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 0 ]; then
               echo "❌ Found critical or high severity vulnerabilities!"
               echo "Please review and update dependencies"

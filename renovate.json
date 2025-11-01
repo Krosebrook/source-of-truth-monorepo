@@ -33,12 +33,6 @@
       "assignees": ["Krosebrook"]
     },
     {
-      "matchDatasources": ["npm"],
-      "matchUpdateTypes": ["minor"],
-      "labels": ["dependencies", "minor-update"],
-      "automerge": false
-    },
-    {
       "matchPackageNames": ["typescript", "eslint", "prettier"],
       "labels": ["dependencies", "tooling"],
       "automerge": false,
