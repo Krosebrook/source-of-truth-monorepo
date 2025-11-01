@@ -1,6 +1,6 @@
 # Codex Agent
 
-OpenAI Codex integration agent.
+OpenAI code generation integration agent.
 
 ## Status
 
@@ -8,7 +8,9 @@ OpenAI Codex integration agent.
 
 ## Purpose
 
-This agent will provide unified CLI integration with OpenAI Codex following the standard agent contract defined in `shared/contracts/`.
+This agent will provide unified CLI integration with OpenAI's code generation models (GPT-4, o1, or similar) following the standard agent contract defined in `shared/contracts/`.
+
+**Note**: The directory retains the "codex" name for historical continuity, though OpenAI Codex was deprecated in March 2023. Modern implementations should use current OpenAI models.
 
 ## See Also
 

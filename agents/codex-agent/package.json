@@ -1,7 +1,7 @@
 {
   "name": "@flashfusion/codex-agent",
   "version": "0.0.0",
-  "description": "OpenAI Codex integration agent",
+  "description": "OpenAI code generation integration agent",
   "private": true,
   "main": "index.js",
   "scripts": {
