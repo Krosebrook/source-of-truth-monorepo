@@ -415,7 +415,18 @@ After completing this guide:
 
 ## Checklist
 
-Track your progress:
+Track your progress with the interactive checklist:
+
+```bash
+./scripts/onboarding-checklist.sh
+```
+
+This script will:
+- Show your onboarding progress
+- Track completed items
+- Provide next steps
+
+Or track manually:
 
 - [ ] Repository cloned
 - [ ] `./scripts/onboard-contributor.sh` completed
