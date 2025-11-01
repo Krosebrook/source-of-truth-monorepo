@@ -145,15 +145,26 @@ See: [shared/contracts/README.md](shared/contracts/README.md)
 - No `.env` files committed (see `.gitignore`)
 - **Setup Guide**: [Configure Deploy Keys](docs/how-to/configure-deploy-keys.md)
 
-### Audits
+### Security Audits
+
+We run automated security audits on every push and weekly:
+
+- **Gitleaks**: Secret scanning
+- **pnpm audit**: Dependency vulnerability scanning
+- **Renovate**: Automated dependency updates
 
 ```bash
-# Run security audit
-pnpm -r audit
+# Run security audit locally
+pnpm security:audit
 
-# Scan for secrets
-gh workflow run security.yml
+# Run security check (fails on moderate+ vulnerabilities)
+pnpm security:audit:check
+
+# View JSON audit results
+pnpm security:audit:json
 ```
+
+**Learn more**: See [SECURITY.md](SECURITY.md) and [docs/reference/security-audits.md](docs/reference/security-audits.md)
 
 ## Versioning & Releases
 

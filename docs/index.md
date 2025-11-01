@@ -94,21 +94,25 @@ Comprehensive guides on specific topics.
 ## Quick Navigation
 
 ### For New Contributors
+
 1. [Getting Started](/GETTING_STARTED.md)
 2. [Quickstart Tutorial](/docs/tutorials/01-quickstart.md)
 3. [Contributing Guidelines](/CONTRIBUTING.md)
 
 ### For Developers
+
 1. [Workspace Structure](/docs/reference/workspace-structure.md)
 2. [Build System (Turbo)](/docs/explanation/turbo-caching-internals.md)
 3. [CLI Reference](/docs/reference/cli-reference.md)
 
 ### For Operators
+
 1. [Daily Operations Runbook](/docs/runbooks/daily-operations.md)
 2. [Troubleshooting Guide](/docs/how-to/debug-build-failures.md)
 3. [Incident Response](/docs/runbooks/incident-response.md)
 
 ### For Architects
+
 1. [SoT Canonical Model](/docs/explanation/sot-canonical-model.md)
 2. [Architecture Decision Records](/docs/adr/)
 3. [System Design](/docs/explanation/)
@@ -158,4 +162,4 @@ See [CONTRIBUTING.md](/CONTRIBUTING.md) for full guidelines.
 
 ---
 
-*Documentation built with ❤️ following [Diátaxis](https://diataxis.fr/)*
+_Documentation built with ❤️ following [Diátaxis](https://diataxis.fr/)_
