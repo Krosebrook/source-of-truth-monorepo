@@ -130,6 +130,17 @@ See: [shared/contracts/README.md](shared/contracts/README.md)
 
 ## Documentation
 
+### Quick Start
+- [GETTING_STARTED.md](GETTING_STARTED.md) - Comprehensive getting started guide
+- [Contributor Quick Start](docs/guides/contributor-onboarding/quick-start.md) - 15-minute setup
+- [Onboarding Checklist](docs/ONBOARDING_CHECKLIST.md) - Track your progress
+
+### Guides
+- [Monorepo Best Practices](docs/guides/monorepo-best-practices/) - Development guidelines
+- [Mirror Repository Guide](docs/guides/monorepo-best-practices/mirror-repository-best-practices.md) - Working with mirrors
+- [All Guides](docs/guides/) - Complete guide index
+
+### Reference
 - [REPO_MAP.md](REPO_MAP.md) - Complete index of all 53 repositories
 - [shared/contracts/README.md](shared/contracts/README.md) - Agent contracts
 - [shared/logging/README.md](shared/logging/README.md) - Logging guide
@@ -172,13 +183,25 @@ pnpm release
 
 ## Contributing
 
+**New contributor?** Follow our automated onboarding:
+
+```bash
+./scripts/onboard-contributor.sh
+```
+
+**Quick workflow**:
+
 1. Create a feature branch
 2. Make changes in this SoT repo (not mirrors!)
 3. Run `pnpm lint && pnpm build && pnpm test`
-4. Create a PR
-5. After merge, CI automatically pushes to mirrors
+4. Create a changeset: `pnpm changeset`
+5. Create a PR
+6. After merge, CI automatically pushes to mirrors
 
-See: [CODEOWNERS](.github/CODEOWNERS)
+**Resources**:
+- [Contributor Quick Start](docs/guides/contributor-onboarding/quick-start.md) - Get started in 15 minutes
+- [Monorepo Best Practices](docs/guides/monorepo-best-practices/) - Development guidelines
+- [CODEOWNERS](.github/CODEOWNERS) - Code ownership
 
 ## Troubleshooting
 
