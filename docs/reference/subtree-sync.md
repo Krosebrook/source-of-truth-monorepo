@@ -10,7 +10,8 @@
 
 ## Overview
 
-The subtree synchronization system automatically pushes changes from the Source-of-Truth (SoT) monorepo to 50 individual mirror repositories using Git's subtree split functionality and GitHub Actions.
+The subtree synchronization system automatically pushes changes from the Source-of-Truth (SoT) monorepo to 50
+individual mirror repositories using Git's subtree split functionality and GitHub Actions.
 
 **Purpose**: Keep mirror repositories in sync with their corresponding directories in the SoT monorepo.
 
@@ -22,7 +23,7 @@ The subtree synchronization system automatically pushes changes from the Source-
 
 ### High-Level Flow
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    SoT Monorepo (main)                      │
 │  projects/                                                  │
@@ -52,16 +53,18 @@ The subtree synchronization system automatically pushes changes from the Source-
 │ FlashFusion  │  ... │    Archon    │  │     Dyad     │
 └──────────────┘      └──────────────┘  └──────────────┘
    (Read-only)           (Read-only)       (Read-only)
-```
+```text
 
 ### Component Breakdown
 
 #### 1. Source of Truth Monorepo
+
 - **Location**: `Krosebrook/source-of-truth-monorepo`
 - **Structure**: All 53 projects organized under `projects/`
 - **Ownership**: Canonical source - all development happens here
 
 #### 2. Subtree-Push Workflow
+
 - **File**: `.github/workflows/subtree-push.yml`
 - **Trigger Events**:
   - Push to `main` branch (automatic)
@@ -69,6 +72,7 @@ The subtree synchronization system automatically pushes changes from the Source-
 - **Permissions**: `contents: write`
 
 #### 3. Mirror Repositories
+
 - **Count**: 50 active mirrors
 - **Organizations**: Krosebrook (34), FlashFusionv1 (8), ChaosClubCo (8)
 - **Access**: Read-only for end users, write access via deploy keys
@@ -78,22 +82,25 @@ The subtree synchronization system automatically pushes changes from the Source-
 ## Workflow Configuration
 
 ### File Location
-```
+
+```text
 .github/workflows/subtree-push.yml
-```
+```text
 
 ### Triggers
 
 #### Automatic Trigger
+
 ```yaml
 on:
   push:
     branches: [main]
-```
+```text
 
 Runs automatically after any commit is merged to the `main` branch.
 
 #### Manual Trigger
+
 ```yaml
 on:
   workflow_dispatch:
@@ -104,9 +111,10 @@ on:
       repo:
         description: "Target repo URL (e.g., git@github.com:Krosebrook/FlashFusion.git)"
         required: false
-```
+```text
 
 **Usage**:
+
 ```bash
 # Sync specific project
 gh workflow run subtree-push.yml \
@@ -114,7 +122,7 @@ gh workflow run subtree-push.yml \
 
 # Sync all projects
 gh workflow run subtree-push.yml
-```
+```text
 
 ---
 
@@ -124,12 +132,13 @@ gh workflow run subtree-push.yml
 
 Mirror repositories are defined inline in the workflow file:
 
-```
+```text
 # Format: project_path|git_url|branch|secret_name
 projects/krosebrook/core/flashfusion|git@github.com:Krosebrook/FlashFusion.git|main|MIRROR_SSH_KEY_FLASHFUSION
-```
+```text
 
 **Fields**:
+
 - `project_path`: Path in SoT monorepo (e.g., `projects/krosebrook/core/flashfusion`)
 - `git_url`: SSH URL of mirror repository
 - `branch`: Target branch in mirror (usually `main` or `master`)
@@ -138,6 +147,7 @@ projects/krosebrook/core/flashfusion|git@github.com:Krosebrook/FlashFusion.git|m
 ### Complete Repository List
 
 #### Krosebrook Core (10 repos)
+
 | Project Path | Mirror Repository | Branch |
 |-------------|-------------------|---------|
 | `projects/krosebrook/core/flashfusion` | `Krosebrook/FlashFusion` | main |
@@ -152,6 +162,7 @@ projects/krosebrook/core/flashfusion|git@github.com:Krosebrook/FlashFusion.git|m
 | `projects/krosebrook/apps/intos` | `Krosebrook/Intos` | main |
 
 #### Krosebrook Apps (17 repos)
+
 | Project Path | Mirror Repository | Branch |
 |-------------|-------------------|---------|
 | `projects/krosebrook/apps/v0-template-evaluation-academy` | `Krosebrook/v0-template-evaluation-academy` | main |
@@ -173,6 +184,7 @@ projects/krosebrook/core/flashfusion|git@github.com:Krosebrook/FlashFusion.git|m
 | `projects/krosebrook/apps/open-flashfusion` | `Krosebrook/OpenFlashFusion` | main |
 
 #### Krosebrook Tools (7 repos)
+
 | Project Path | Mirror Repository | Branch |
 |-------------|-------------------|---------|
 | `projects/krosebrook/tools/claude-code-by-agents` | `Krosebrook/claude-code-by-agents` | main |
@@ -184,6 +196,7 @@ projects/krosebrook/core/flashfusion|git@github.com:Krosebrook/FlashFusion.git|m
 | `projects/krosebrook/tools/boilerplates` | `Krosebrook/boilerplates` | main |
 
 #### FlashFusionv1 (8 repos)
+
 | Project Path | Mirror Repository | Branch |
 |-------------|-------------------|---------|
 | `projects/flashfusionv1/flashfusion-creative-hub` | `FlashFusionv1/flashfusion-creative-hub` | main |
@@ -196,6 +209,7 @@ projects/krosebrook/core/flashfusion|git@github.com:Krosebrook/FlashFusion.git|m
 | `projects/flashfusionv1/open-lovablev1` | `FlashFusionv1/open-lovablev1` | main |
 
 #### ChaosClubCo (8 repos)
+
 | Project Path | Mirror Repository | Branch |
 |-------------|-------------------|---------|
 | `projects/chaosclubco/tiktok-story-ai` | `ChaosClubCo/tiktok-story-ai` | main |
@@ -213,19 +227,23 @@ projects/krosebrook/core/flashfusion|git@github.com:Krosebrook/FlashFusion.git|m
 
 ### What is Git Subtree Split?
 
-Git subtree split extracts a subdirectory's history into a separate branch, as if that subdirectory was always a standalone repository.
+Git subtree split extracts a subdirectory's history into a separate branch, as if that subdirectory was always
+a standalone repository.
 
 **Command**:
+
 ```bash
 git subtree split --prefix=<path> -b <branch>
-```
+```text
 
 **Example**:
+
 ```bash
 git subtree split --prefix=projects/krosebrook/core/flashfusion -b split-flashfusion
-```
+```text
 
 **Result**: Creates branch `split-flashfusion` containing only:
+
 - Files from `projects/krosebrook/core/flashfusion/`
 - Commit history touching those files
 - As if the project was always at the repository root
@@ -242,17 +260,18 @@ git push "$repo_url" "$SPLIT_BRANCH:$branch" --force-with-lease
 
 # 3. Clean up split branch
 git branch -D "$SPLIT_BRANCH"
-```
+```text
 
 ### Why `--force-with-lease`?
 
 ```yaml
 git push ... --force-with-lease
-```
+```text
 
 **Purpose**: Safely force-push to mirror repositories.
 
 **How it works**:
+
 - Updates mirror only if remote matches expected state
 - Prevents overwriting unexpected changes
 - Safer than plain `--force`
@@ -268,11 +287,13 @@ git push ... --force-with-lease
 Each mirror repository has a unique SSH deploy key:
 
 **Generation**:
+
 ```bash
 ssh-keygen -t ed25519 -C "sot-deploy-<repo>" -f <repo>_deploy_key -N ""
-```
+```text
 
 **Storage**:
+
 - **Public key**: Added to mirror repository settings (Settings → Deploy keys)
 - **Private key**: Stored in GitHub Actions secrets
 
@@ -281,6 +302,7 @@ ssh-keygen -t ed25519 -C "sot-deploy-<repo>" -f <repo>_deploy_key -N ""
 **Naming convention**: `MIRROR_SSH_KEY_<PROJECT_NAME>`
 
 **Examples**:
+
 - `MIRROR_SSH_KEY_FLASHFUSION`
 - `MIRROR_SSH_KEY_ARCHON`
 - `MIRROR_SSH_KEY_DYAD`
@@ -305,9 +327,10 @@ git push ...
 
 # Clean up key file
 rm -f "$KEY_FILE"
-```
+```text
 
 **Security notes**:
+
 - Keys exist only in memory during workflow execution
 - Temporary key files deleted after each push
 - Each key limited to single repository write access
@@ -319,7 +342,7 @@ rm -f "$KEY_FILE"
 
 ### Normal Execution Flow
 
-```
+```text
 1. Trigger: Push to main branch
    ↓
 2. Checkout: Full repository history (fetch-depth: 0)
@@ -339,23 +362,25 @@ rm -f "$KEY_FILE"
    h. Clean up SSH key file
    ↓
 6. Complete: All mirrors synchronized
-```
+```text
 
 ### Execution Time
 
 **Typical duration**: 15-25 minutes
+
 - ~20-30 seconds per repository
 - 50 repositories total
 - Sequential processing (one at a time)
 
 **Factors affecting duration**:
+
 - Repository size
 - Number of commits since last sync
 - GitHub Actions runner performance
 
 ### Output Example
 
-```
+```text
 === [1/50] Processing: projects/krosebrook/core/flashfusion
     Target: git@github.com:Krosebrook/FlashFusion.git (branch: main)
   → Creating subtree split...
@@ -371,7 +396,7 @@ rm -f "$KEY_FILE"
 ...
 
 === Subtree push complete ===
-```
+```text
 
 ---
 
@@ -380,18 +405,21 @@ rm -f "$KEY_FILE"
 ### Common Errors
 
 #### 1. Directory Not Exists
-```
+
+```text
 ⊙ Skipped: Directory does not exist
 ```
 
 **Cause**: Project path in mirror map doesn't exist in repository.
 
 **Resolution**: 
+
 - Remove entry from mirror map if project was deleted
 - Fix path if typo in configuration
 
 #### 2. Secret Not Found
-```
+
+```text
 ✗ Failed: Secret MIRROR_SSH_KEY_XXX not found
 ```
 
@@ -400,23 +428,27 @@ rm -f "$KEY_FILE"
 **Resolution**: Add secret via Settings → Secrets and variables → Actions
 
 #### 3. Push Failed
-```
+
+```text
 ✗ Failed: Could not push to git@github.com:Org/Repo.git
 ```
 
 **Causes**:
+
 - Deploy key not added to mirror repository
 - Deploy key doesn't have write access
 - Network/connectivity issue
 - Mirror repository doesn't exist
 
 **Resolution**:
+
 1. Verify deploy key is added to mirror repository
 2. Ensure "Allow write access" is checked
 3. Check repository exists and URL is correct
 
 #### 4. Subtree Split Failed
-```
+
+```text
 ✗ Failed: Could not create subtree split
 ```
 
@@ -431,11 +463,13 @@ rm -f "$KEY_FILE"
 ### GitHub Actions Logs
 
 **Access**:
-```
+
+```text
 Repository → Actions → Subtree Push workflow → Run details
 ```
 
 **What to check**:
+
 - Which repositories succeeded/failed
 - Error messages for failures
 - Execution time per repository
@@ -443,12 +477,14 @@ Repository → Actions → Subtree Push workflow → Run details
 ### Manual Testing
 
 **Test single repository**:
+
 ```bash
 gh workflow run subtree-push.yml \
   --field path="projects/krosebrook/core/flashfusion"
 ```
 
 **View run status**:
+
 ```bash
 gh run list --workflow=subtree-push.yml
 gh run view <run-id>
@@ -478,11 +514,13 @@ git branch -D test-split
 ### Adding New Mirror Repository
 
 1. **Add entry to workflow file** (`.github/workflows/subtree-push.yml`):
-   ```
+
+   ```text
    projects/org/new-project|git@github.com:Org/NewProject.git|main|MIRROR_SSH_KEY_NEW_PROJECT
    ```
 
 2. **Generate deploy key**:
+
    ```bash
    ssh-keygen -t ed25519 -C "sot-deploy-new-project" -f new_project_deploy_key -N ""
    ```
@@ -500,12 +538,14 @@ git branch -D test-split
    - Value: Private key content
 
 5. **Add secret to workflow env** (`.github/workflows/subtree-push.yml`):
+
    ```yaml
    env:
      MIRROR_SSH_KEY_NEW_PROJECT: ${{ secrets.MIRROR_SSH_KEY_NEW_PROJECT }}
    ```
 
 6. **Test**:
+
    ```bash
    gh workflow run subtree-push.yml --field path="projects/org/new-project"
    ```
@@ -522,6 +562,7 @@ git branch -D test-split
 **Frequency**: Every 6 months (recommended)
 
 **Process**:
+
 1. Generate new key pair
 2. Add new public key to mirror repository
 3. Update GitHub Actions secret with new private key
@@ -541,6 +582,7 @@ git branch -D test-split
 ### Future Improvements
 
 1. **Parallel execution**:
+
    ```yaml
    strategy:
      matrix:

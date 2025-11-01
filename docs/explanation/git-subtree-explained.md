@@ -10,18 +10,24 @@
 
 ## What is Git Subtree?
 
-Git subtree is a Git command that allows you to extract a subdirectory's history into a separate branch, or merge a separate repository into a subdirectory. It's part of the core Git distribution (unlike submodules which require special handling).
+Git subtree is a Git command that allows you to extract a subdirectory's history into a separate branch, or merge
+a separate repository into a subdirectory. It's part of the core Git distribution (unlike submodules which require
+special handling).
 
 ### The Two Main Operations
 
 #### 1. Subtree Split (What We Use)
+
 Extract a subdirectory as if it was always a standalone repository:
+
 ```bash
 git subtree split --prefix=path/to/directory -b new-branch
 ```
 
 #### 2. Subtree Add/Merge (Not Used in SoT)
+
 Merge an external repository into a subdirectory:
+
 ```bash
 git subtree add --prefix=path/to/directory repo-url branch
 ```
@@ -35,7 +41,8 @@ git subtree add --prefix=path/to/directory repo-url branch
 ### The Problem It Solves
 
 You have a monorepo like this:
-```
+
+```text
 source-of-truth-monorepo/
 ├── projects/
 │   ├── flashfusion/
@@ -50,6 +57,7 @@ source-of-truth-monorepo/
 ```
 
 You want to create a standalone repository for `flashfusion` that:
+
 - Contains only `flashfusion/` files (not `archon/` or `shared/`)
 - Has complete git history for those files
 - Shows commits as if `flashfusion` was always at the root
@@ -66,12 +74,14 @@ git subtree split --prefix=projects/flashfusion -b flashfusion-split
 ```
 
 Git walks through the entire commit history and identifies commits that:
+
 - Modified files in `projects/flashfusion/`
 - Have ancestors that modified those files
 - Are reachable from the current branch
 
 **Example**:
-```
+
+```text
 Monorepo history:
 A - B - C - D - E - F - G (main)
     │   │       │   │
@@ -91,14 +101,16 @@ B' - E' (only flashfusion commits, renumbered)
 For each identified commit, Git rewrites the file paths:
 
 **Original commit B**:
-```
+
+```text
 Modified files:
   - projects/flashfusion/src/main.ts
   - projects/flashfusion/package.json
 ```
 
 **Split commit B'**:
-```
+
+```text
 Modified files:
   - src/main.ts
   - package.json
@@ -109,17 +121,20 @@ The `projects/flashfusion/` prefix is removed, making it appear as if these file
 #### Step 3: Preserve Commit Metadata
 
 The split commits retain:
+
 - Original commit messages
 - Original author and date
 - Original commit relationships (parent/child)
 
 But get new:
+
 - Commit SHAs (because file paths changed)
 - Tree objects (new directory structure)
 
 #### Step 4: Create New Branch
 
 The result is a new branch (`flashfusion-split`) containing:
+
 - Only commits affecting `projects/flashfusion/`
 - With paths rewritten to be root-relative
 - With a new, independent commit history
@@ -170,6 +185,7 @@ def rewrite_commit(original_commit, prefix):
 ### Real Implementation
 
 Git's actual implementation is more sophisticated:
+
 - Uses tree objects and blobs efficiently
 - Handles merge commits correctly
 - Optimizes using commit grafts
@@ -182,7 +198,8 @@ Git's actual implementation is more sophisticated:
 ### Before Split
 
 **Monorepo structure**:
-```
+
+```text
 source-of-truth-monorepo/
 └── projects/
     └── flashfusion/
@@ -192,7 +209,8 @@ source-of-truth-monorepo/
 ```
 
 **Commit history**:
-```
+
+```text
 commit abc123 "Add new feature to flashfusion"
   Modified: projects/flashfusion/src/main.ts
 
@@ -212,7 +230,8 @@ git subtree split --prefix=projects/flashfusion -b flashfusion-split
 ### After Split
 
 **Split branch structure**:
-```
+
+```text
 flashfusion-split/
 ├── src/
 │   └── main.ts
@@ -220,7 +239,8 @@ flashfusion-split/
 ```
 
 **Split branch history**:
-```
+
+```text
 commit xyz123 "Add new feature to flashfusion"
   Modified: src/main.ts
 
@@ -237,15 +257,18 @@ commit uvw456 "Initialize flashfusion project"
 ### Subtree Split vs Filter-Branch
 
 #### Filter-Branch
+
 ```bash
 git filter-branch --subdirectory-filter projects/flashfusion
 ```
 
 **Similarities**:
+
 - Both extract subdirectory history
 - Both rewrite paths
 
 **Differences**:
+
 - **filter-branch**: Modifies current branch (destructive)
 - **subtree split**: Creates new branch (non-destructive)
 - **filter-branch**: Slower, rewrites all refs
@@ -256,16 +279,19 @@ git filter-branch --subdirectory-filter projects/flashfusion
 ### Subtree Split vs Submodules
 
 #### Submodules
+
 ```bash
 git submodule add git@github.com:Org/FlashFusion.git projects/flashfusion
 ```
 
 **Submodules approach**:
+
 - External repo linked into monorepo
 - Monorepo contains pointer to specific commit
 - Updates require explicit sync
 
 **Subtree approach (SoT model)**:
+
 - External repos are mirrors of monorepo subdirectories
 - Monorepo is source of truth
 - Updates automatic via CI
@@ -275,12 +301,14 @@ git submodule add git@github.com:Org/FlashFusion.git projects/flashfusion
 ### Subtree Split vs Mono-Repo Tools (Nx, Turborepo)
 
 **Mono-repo tools**:
+
 - Build/test orchestration
 - Dependency graphs
 - Caching strategies
 - **Don't** extract standalone repositories
 
 **Subtree split**:
+
 - Extracts standalone repositories
 - Maintains git history
 - **Doesn't** help with builds/tests
@@ -312,6 +340,7 @@ git submodule add git@github.com:Org/FlashFusion.git projects/flashfusion
 ### Alternative Approaches Considered
 
 #### 1. Manual Copying
+
 ```bash
 cp -r projects/flashfusion/ /tmp/flashfusion
 cd /tmp/flashfusion
@@ -322,28 +351,33 @@ git push mirror
 ```
 
 **Problems**:
+
 - ❌ Loses git history
 - ❌ Each sync is a single commit
 - ❌ Can't track changes over time
 
 #### 2. Git Subtree Add + Reverse
+
 ```bash
 # In mirror repo
 git subtree pull ../monorepo main --prefix=projects/flashfusion
 ```
 
 **Problems**:
+
 - ❌ Mirror becomes source of changes
 - ❌ Violates SoT canonical model
 - ❌ Requires bidirectional sync
 
 #### 3. Sparse Checkout
+
 ```bash
 git clone --filter=blob:none monorepo
 git sparse-checkout set projects/flashfusion
 ```
 
 **Problems**:
+
 - ❌ Still contains full monorepo metadata
 - ❌ Files remain under `projects/flashfusion/`
 - ❌ Not truly standalone
@@ -376,12 +410,14 @@ git subtree pull --prefix=projects/flashfusion external-repo main
 **Time complexity**: O(n) where n = total commits in monorepo
 
 **Optimizations**:
+
 - Git caches split results
 - Subsequent splits reuse cached data
 - Only recomputes if new commits exist
 
 **Typical performance**:
-```
+
+```text
 Monorepo: 10,000 commits, 50 projects
 Split operation: 5-10 seconds per project
 Total sync (50 projects): 4-8 minutes
@@ -390,6 +426,7 @@ Total sync (50 projects): 4-8 minutes
 ### Subtree Split Depth Limit
 
 You can limit history depth:
+
 ```bash
 git subtree split --prefix=projects/flashfusion --rejoin --onto=<commit>
 ```
@@ -411,6 +448,7 @@ git subtree split --prefix=projects/flashfusion -b split-branch
 ```
 
 To see the split result:
+
 ```bash
 git checkout split-branch
 ```
@@ -424,6 +462,7 @@ git subtree split --prefix=projects/flashfusion -b split-branch
 ```
 
 To push:
+
 ```bash
 git push mirror-repo split-branch:main
 ```
@@ -431,7 +470,8 @@ git push mirror-repo split-branch:main
 ### 3. Empty Directories Are Ignored
 
 Git doesn't track empty directories:
-```
+
+```bash
 projects/flashfusion/
 └── empty-dir/    # This won't appear in split
 
@@ -443,7 +483,8 @@ projects/flashfusion/
 ### 4. Large Binary Files
 
 Subtree split includes entire history:
-```
+
+```bash
 projects/flashfusion/
 └── large-file.bin (100 MB, changed 50 times)
 
@@ -455,7 +496,8 @@ Split result: Includes all 50 versions = 5 GB
 ### 5. Merge Commits
 
 Subtree split preserves merge structure:
-```
+
+```text
 Monorepo:
 A - B - C - M - D
      \     /
@@ -525,6 +567,7 @@ ls -la
 **Common error**: "Could not create subtree split"
 
 **Cause 1**: No commits touch the specified prefix
+
 ```bash
 # Check if any commits touch the path
 git log --all -- projects/flashfusion/
@@ -533,6 +576,7 @@ git log --all -- projects/flashfusion/
 ```
 
 **Cause 2**: Path doesn't exist
+
 ```bash
 # Verify path exists
 ls -la projects/flashfusion/
@@ -646,7 +690,8 @@ git push mirror-repo split:main --force
 **Temporary storage**: Split branch requires space for rewritten commits.
 
 **Estimate**:
-```
+
+```bash
 Split size ≈ (number of commits touching path) × (average commit size)
 
 Example:
@@ -658,6 +703,7 @@ Example:
 ### Optimization Techniques
 
 #### 1. Cache Split Results (Git Does This Automatically)
+
 ```bash
 # First split: slow
 git subtree split --prefix=projects/flashfusion -b split1
@@ -667,12 +713,14 @@ git subtree split --prefix=projects/flashfusion -b split2
 ```
 
 #### 2. Limit Split Depth (Not Recommended)
+
 ```bash
 # Only include last 100 commits
 git subtree split --prefix=projects/flashfusion --rejoin --onto=HEAD~100 -b split
 ```
 
 #### 3. Parallelize Multiple Splits
+
 ```yaml
 strategy:
   matrix:
@@ -689,6 +737,7 @@ steps:
 ### git filter-repo (Alternative)
 
 Modern alternative to filter-branch:
+
 ```bash
 git filter-repo --subdirectory-filter projects/flashfusion
 ```
@@ -699,6 +748,7 @@ git filter-repo --subdirectory-filter projects/flashfusion
 ### git read-tree (Low-level)
 
 Used internally by subtree:
+
 ```bash
 git read-tree --prefix=projects/flashfusion external-repo/main
 ```
@@ -711,15 +761,18 @@ git read-tree --prefix=projects/flashfusion external-repo/main
 ## Further Reading
 
 ### Git Documentation
+
 - [git-subtree(1) Manual Page](https://git-scm.com/docs/git-subtree)
 - [Git Subtree Tutorial](https://www.atlassian.com/git/tutorials/git-subtree)
 
 ### Related SoT Documentation
+
 - [Subtree Sync Reference](/docs/reference/subtree-sync.md) - Workflow implementation
 - [SoT Canonical Model](/docs/explanation/sot-canonical-model.md) - Architecture
 - [How to Configure Deploy Keys](/docs/how-to/configure-deploy-keys.md) - Setup guide
 
 ### External Resources
+
 - [Git Subtree vs Submodule](https://stackoverflow.com/questions/31769820/differences-between-git-submodule-and-subtree)
 - [Git Internals - Tree Objects](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)
 
@@ -728,6 +781,7 @@ git read-tree --prefix=projects/flashfusion external-repo/main
 ## Summary
 
 **Git subtree split**:
+
 - Extracts subdirectory history into standalone branch
 - Rewrites paths to be root-relative
 - Preserves commits, authors, dates, messages
@@ -735,6 +789,7 @@ git read-tree --prefix=projects/flashfusion external-repo/main
 - Designed for creating mirror repositories
 
 **Perfect for SoT because**:
+
 - Automated (one command, no interaction)
 - Preserves full git history
 - Creates truly standalone repositories
@@ -742,6 +797,7 @@ git read-tree --prefix=projects/flashfusion external-repo/main
 - Built into Git (no extra dependencies)
 
 **In practice**:
+
 ```bash
 # The core operation powering our 50 mirror repos
 git subtree split --prefix=projects/org/repo -b split
