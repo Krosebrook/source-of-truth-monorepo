@@ -115,7 +115,7 @@ echo ""
 echo "Phase 4: GitHub Actions Secrets"
 echo "================================"
 
-REPO="Krosebrook/source-of-truth-monorepo"
+REPO="${DEPLOY_KEYS_REPO:-Krosebrook/source-of-truth-monorepo}"
 
 # Skip interactive gh commands in non-interactive environments
 check_warn "GitHub Actions secrets check requires authenticated GitHub CLI session"

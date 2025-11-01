@@ -335,7 +335,7 @@ Set a calendar reminder for 6 months from activation date.
 5. Remove old deploy keys from GitHub repos
 6. Clean up local keys: `rm -rf /tmp/sot-deploy-keys/`
 
-**Next rotation date**: _____________ (fill in after activation)
+**Next rotation date**: _____________ (format: YYYY-MM-DD, e.g., 2026-05-01)
 
 ---
 
