@@ -134,8 +134,20 @@ See: [shared/contracts/README.md](shared/contracts/README.md)
 - [shared/contracts/README.md](shared/contracts/README.md) - Agent contracts
 - [shared/logging/README.md](shared/logging/README.md) - Logging guide
 - [Deploy Keys Setup](docs/how-to/configure-deploy-keys.md) - Mirror sync configuration
+- [Security Policy](SECURITY.md) - Security practices and audit procedures
+- [Security Audit Guide](docs/security/README.md) - Audit results and review process
+- [Renovate Guide](docs/security/renovate-guide.md) - Automated dependency updates
 
 ## Security
+
+**See: [SECURITY.md](SECURITY.md) for complete security policy**
+
+### Automated Security
+
+- **Gitleaks:** Scans for secrets on every push and PR
+- **Dependency Audit:** Runs `pnpm audit` on all workspaces
+- **Renovate Bot:** Automated dependency updates (Mondays @ 6 AM UTC)
+- **Audit Reports:** Saved as workflow artifacts for 30 days
 
 ### Secrets Management
 
