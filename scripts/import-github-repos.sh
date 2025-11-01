@@ -15,6 +15,11 @@
 #
 # Repo list format (one per line):
 #   org|name|url|target_dir|status
+#   
+#   - name: Only alphanumeric characters, dots (.), hyphens (-), and underscores (_)
+#   - url: Must use https:// protocol (git:// not allowed for security)
+#   - status: active, archived, or deprecated
+#   
 #   Example: krosebrook|FlashFusion|https://github.com/Krosebrook/FlashFusion.git|projects/krosebrook/core/flashfusion|active
 
 set -eo pipefail
@@ -158,14 +163,16 @@ import_repo() {
     local status=${5:-active}
     
     # Validate inputs to prevent path traversal and injection
-    if [[ "$name" == *".."* ]] || [[ "$name" == *"/"* ]]; then
-        log_error "$name: Repository name contains invalid characters"
+    # Allow only alphanumeric, hyphens, underscores, and dots in repo names
+    if ! [[ "$name" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+        log_error "$name: Repository name contains invalid characters (only alphanumeric, dots, hyphens, and underscores allowed)"
         ((FAILED++)) || true
         return 1
     fi
     
-    if [[ "$url" != https://* ]] && [[ "$url" != git://* ]]; then
-        log_error "$name: URL must use https:// or git:// protocol"
+    # Only allow https:// protocol for security (unencrypted git:// is vulnerable to MITM)
+    if [[ "$url" != https://* ]]; then
+        log_error "$name: URL must use https:// protocol"
         ((FAILED++)) || true
         return 1
     fi
