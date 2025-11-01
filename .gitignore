@@ -80,3 +80,8 @@ serviceAccount.json
 tmp/
 temp/
 *.tmp
+
+# Import script artifacts
+.import-checkpoint
+logs/
+
