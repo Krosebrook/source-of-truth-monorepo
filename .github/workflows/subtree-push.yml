@@ -32,27 +32,204 @@ jobs:
       - name: Setup mirror map
         run: |
           cat > /tmp/mirrors.txt <<'EOF'
+          # Format: project_path|git_url|branch|secret_name
+          # Krosebrook Core (10)
           projects/krosebrook/core/flashfusion|git@github.com:Krosebrook/FlashFusion.git|main|MIRROR_SSH_KEY_FLASHFUSION
-          projects/krosebrook/core/flashfusionwebsite|git@github.com:Krosebrook/Flashfusionwebsite.git|main|MIRROR_SSH_KEY_WEBSITE
-          projects/krosebrook/core/flashfusion-unified|git@github.com:Krosebrook/FlashFusion-Unified.git|master|MIRROR_SSH_KEY_UNIFIED
-          projects/krosebrook/core/theaidashboard|git@github.com:Krosebrook/theaidashboard.git|main|MIRROR_SSH_KEY_DASHBOARD
-          projects/flashfusionv1/flashfusion-creative-hub|git@github.com:FlashFusionv1/flashfusion-creative-hub.git|main|MIRROR_SSH_KEY_CREATIVE
+          projects/krosebrook/core/flashfusionwebsite|git@github.com:Krosebrook/Flashfusionwebsite.git|main|MIRROR_SSH_KEY_FLASHFUSIONWEBSITE
+          projects/krosebrook/core/flashfusion-unified|git@github.com:Krosebrook/FlashFusion-Unified.git|master|MIRROR_SSH_KEY_FLASHFUSION_UNIFIED
+          projects/krosebrook/core/mono-turbo-repo-flashfusion|git@github.com:Krosebrook/MonoTurboRepo-FlashFusion.git|main|MIRROR_SSH_KEY_MONO_TURBO_REPO
+          projects/krosebrook/core/theaidashboard|git@github.com:Krosebrook/theaidashboard.git|main|MIRROR_SSH_KEY_THEAIDASHBOARD
+          projects/krosebrook/apps/int-smart-triage-ai-2.0|git@github.com:Krosebrook/INT-Smart-Triage-AI-2.0.git|main|MIRROR_SSH_KEY_INT_SMART_TRIAGE_2
+          projects/krosebrook/tools/claude-code-dev-kit|git@github.com:Krosebrook/Claude-Code-Development-Kit.git|main|MIRROR_SSH_KEY_CLAUDE_CODE_DEV_KIT
+          projects/krosebrook/apps/v0-ai-agent-builder|git@github.com:Krosebrook/v0-ai-agent-builder.git|main|MIRROR_SSH_KEY_V0_AI_AGENT_BUILDER
+          projects/krosebrook/apps/archon|git@github.com:Krosebrook/Archon.git|main|MIRROR_SSH_KEY_ARCHON
+          projects/krosebrook/apps/intos|git@github.com:Krosebrook/Intos.git|main|MIRROR_SSH_KEY_INTOS
+          # Krosebrook Apps (17)
+          projects/krosebrook/apps/v0-template-evaluation-academy|git@github.com:Krosebrook/v0-template-evaluation-academy.git|main|MIRROR_SSH_KEY_V0_TEMPLATE_EVAL
+          projects/krosebrook/apps/kinsleyscreativesuite|git@github.com:Krosebrook/KinsleysCreativeSuite.git|main|MIRROR_SSH_KEY_KINSLEYSCREATIVESUITE
+          projects/krosebrook/apps/octavestudio|git@github.com:Krosebrook/OctaveStudio.git|main|MIRROR_SSH_KEY_OCTAVESTUDIO
+          projects/krosebrook/apps/universalwriterai|git@github.com:Krosebrook/UniversalWriterAI.git|main|MIRROR_SSH_KEY_UNIVERSALWRITERAI
+          projects/krosebrook/apps/templateevaluationacademy|git@github.com:Krosebrook/Templateevaluationacademy.git|main|MIRROR_SSH_KEY_TEMPLATEEVALACADEMY
+          projects/krosebrook/apps/mycontextengine|git@github.com:Krosebrook/MyContextEngine.git|main|MIRROR_SSH_KEY_MYCONTEXTENGINE
+          projects/krosebrook/apps/creatorstudiolite|git@github.com:Krosebrook/CreatorStudioLite.git|main|MIRROR_SSH_KEY_CREATORSTUDIOLITE
+          projects/krosebrook/apps/universalaigen|git@github.com:Krosebrook/UniversalAIGen.git|main|MIRROR_SSH_KEY_UNIVERSALAIGEN
+          projects/krosebrook/apps/flashfusion-learn|git@github.com:Krosebrook/FLashFusion-Learn.git|main|MIRROR_SSH_KEY_FLASHFUSION_LEARN
+          projects/krosebrook/apps/lovable-prompt-artist|git@github.com:Krosebrook/lovable-prompt-artist.git|main|MIRROR_SSH_KEY_LOVABLE_PROMPT_ARTIST
+          projects/krosebrook/apps/analyst-cockpit-ui|git@github.com:Krosebrook/analyst-cockpit-ui.git|main|MIRROR_SSH_KEY_ANALYST_COCKPIT_UI
+          projects/krosebrook/apps/flashfusion-lite-ecommerce|git@github.com:Krosebrook/flashfusion-lite-ecommerce.git|main|MIRROR_SSH_KEY_FLASHFUSION_LITE_ECOM
+          projects/krosebrook/apps/int-smart-triage-ai-3.0|git@github.com:Krosebrook/int-smart-triage-ai-3.0.git|main|MIRROR_SSH_KEY_INT_SMART_TRIAGE_3
+          projects/krosebrook/apps/int-triage-ai-3.0|git@github.com:Krosebrook/int-triage-ai.3.0.git|main|MIRROR_SSH_KEY_INT_TRIAGE_AI_3
+          projects/krosebrook/apps/project-nexus|git@github.com:Krosebrook/project-nexus.git|main|MIRROR_SSH_KEY_PROJECT_NEXUS
+          projects/krosebrook/apps/saas-validator-suite|git@github.com:Krosebrook/saas-validator-suite.git|main|MIRROR_SSH_KEY_SAAS_VALIDATOR_SUITE
+          projects/krosebrook/apps/open-flashfusion|git@github.com:Krosebrook/OpenFlashFusion.git|main|MIRROR_SSH_KEY_OPEN_FLASHFUSION
+          # Krosebrook Tools (7)
+          projects/krosebrook/tools/claude-code-by-agents|git@github.com:Krosebrook/claude-code-by-agents.git|main|MIRROR_SSH_KEY_CLAUDE_CODE_BY_AGENTS
+          projects/krosebrook/tools/metamcp|git@github.com:Krosebrook/metamcp.git|main|MIRROR_SSH_KEY_METAMCP
+          projects/krosebrook/tools/playwright-mcp|git@github.com:Krosebrook/playwright-mcp.git|main|MIRROR_SSH_KEY_PLAYWRIGHT_MCP
+          projects/krosebrook/tools/claude-agent-sdk-typescript|git@github.com:Krosebrook/claude-agent-sdk-typescript.git|main|MIRROR_SSH_KEY_CLAUDE_AGENT_SDK_TS
+          projects/krosebrook/tools/mcp-server-docker|git@github.com:Krosebrook/mcp-server-docker.git|main|MIRROR_SSH_KEY_MCP_SERVER_DOCKER
+          projects/krosebrook/tools/superpowers|git@github.com:Krosebrook/superpowers.git|main|MIRROR_SSH_KEY_SUPERPOWERS
+          projects/krosebrook/tools/boilerplates|git@github.com:Krosebrook/boilerplates.git|main|MIRROR_SSH_KEY_BOILERPLATES
+          # FlashFusionv1 (8)
+          projects/flashfusionv1/flashfusion-creative-hub|git@github.com:FlashFusionv1/flashfusion-creative-hub.git|main|MIRROR_SSH_KEY_CREATIVE_HUB
+          projects/flashfusionv1/collabnet-visualizer-111|git@github.com:FlashFusionv1/collabnet-visualizer-111.git|main|MIRROR_SSH_KEY_COLLABNET_VISUALIZER
+          projects/flashfusionv1/pulse-robot-template-40849|git@github.com:FlashFusionv1/pulse-robot-template-40849.git|main|MIRROR_SSH_KEY_PULSE_ROBOT_TEMPLATE
+          projects/flashfusionv1/nimble-fab-flow|git@github.com:FlashFusionv1/nimble-fab-flow.git|main|MIRROR_SSH_KEY_NIMBLE_FAB_FLOW
+          projects/flashfusionv1/loveable-supabase|git@github.com:FlashFusionv1/loveable-supabase.git|main|MIRROR_SSH_KEY_LOVEABLE_SUPABASE
+          projects/flashfusionv1/dyad|git@github.com:FlashFusionv1/dyad.git|main|MIRROR_SSH_KEY_DYAD
+          projects/flashfusionv1/spec-kit|git@github.com:FlashFusionv1/spec-kit.git|main|MIRROR_SSH_KEY_SPEC_KIT
+          projects/flashfusionv1/open-lovablev1|git@github.com:FlashFusionv1/open-lovablev1.git|main|MIRROR_SSH_KEY_OPEN_LOVABLEV1
+          # ChaosClubCo (8)
+          projects/chaosclubco/tiktok-story-ai|git@github.com:ChaosClubCo/tiktok-story-ai.git|main|MIRROR_SSH_KEY_TIKTOK_STORY_AI
+          projects/chaosclubco/context7|git@github.com:ChaosClubCo/context7.git|main|MIRROR_SSH_KEY_CONTEXT7
+          projects/chaosclubco/supabase-js|git@github.com:ChaosClubCo/supabase-js.git|main|MIRROR_SSH_KEY_SUPABASE_JS
+          projects/chaosclubco/compose-for-agents|git@github.com:ChaosClubCo/compose-for-agents.git|main|MIRROR_SSH_KEY_COMPOSE_FOR_AGENTS
+          projects/chaosclubco/flashfusion-ide|git@github.com:ChaosClubCo/flashfusion-ide.git|main|MIRROR_SSH_KEY_FLASHFUSION_IDE
+          projects/chaosclubco/superclaude-1|git@github.com:ChaosClubCo/SuperClaude-1.git|main|MIRROR_SSH_KEY_SUPERCLAUDE_1
+          projects/chaosclubco/superclaude|git@github.com:ChaosClubCo/SuperClaude.git|main|MIRROR_SSH_KEY_SUPERCLAUDE
+          projects/chaosclubco/turborepo-flashfusion|git@github.com:ChaosClubCo/turborepo-flashfusion.git|main|MIRROR_SSH_KEY_TURBOREPO_FLASHFUSION
           EOF
 
       - name: Info
         run: |
-          echo "⚠️  Subtree push disabled until deploy keys are configured"
-          echo "To enable:"
-          echo "1. Generate deploy keys for each mirror repo"
-          echo "2. Add keys as GitHub Secrets: MIRROR_SSH_KEY_*"
-          echo "3. Uncomment split & push logic below"
+          echo "⚠️  Subtree push currently disabled until deploy keys are configured"
+          echo ""
+          echo "📚 Complete setup guide: docs/how-to/configure-deploy-keys.md"
+          echo ""
+          echo "Quick setup:"
+          echo "  1. Run: ./scripts/generate-deploy-keys.sh"
+          echo "  2. Add public keys to each GitHub repository (with write access)"
+          echo "  3. Run: ./scripts/add-secrets-to-github.sh"
+          echo "  4. Uncomment the 'Split & push mirrors' step in this workflow"
+          echo ""
+          echo "Total mirror repositories: 50"
+          echo "  - Krosebrook: 34 repos"
+          echo "  - FlashFusionv1: 8 repos"
+          echo "  - ChaosClubCo: 8 repos"
 
       # Uncomment when deploy keys are configured:
+      # - name: Setup SSH for deploy keys
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     ssh-keyscan github.com >> ~/.ssh/known_hosts
+      #     chmod 700 ~/.ssh
+      #
       # - name: Split & push mirrors
       #   run: |
+      #     # Count repos to process
+      #     TOTAL=$(grep -v '^#' /tmp/mirrors.txt | grep -v '^$' | wc -l)
+      #     CURRENT=0
+      #     
       #     while IFS='|' read -r path repo branch secret; do
-      #       if [ -n "${{ github.event.inputs.path }}" ] && [ "$path" != "${{ github.event.inputs.path }}" ]; then continue; fi
-      #       echo "=== Split $path → $repo ($branch)"
-      #       # Add deploy key
-      #       # Split and push
+      #       # Skip comments and empty lines
+      #       [[ "$path" =~ ^#.*$ ]] && continue
+      #       [[ -z "$path" ]] && continue
+      #       
+      #       # Filter by manual input if provided
+      #       if [ -n "${{ github.event.inputs.path }}" ] && [ "$path" != "${{ github.event.inputs.path }}" ]; then
+      #         continue
+      #       fi
+      #       
+      #       ((CURRENT++))
+      #       echo ""
+      #       echo "=== [$CURRENT/$TOTAL] Processing: $path"
+      #       echo "    Target: $repo (branch: $branch)"
+      #       
+      #       # Check if project directory exists
+      #       if [ ! -d "$path" ]; then
+      #         echo "⊙ Skipped: Directory does not exist"
+      #         continue
+      #       fi
+      #       
+      #       # Setup SSH key for this repo
+      #       SSH_KEY="${!secret}"
+      #       if [ -z "$SSH_KEY" ]; then
+      #         echo "✗ Failed: Secret $secret not found"
+      #         continue
+      #       fi
+      #       
+      #       # Write SSH key to file
+      #       KEY_FILE="/tmp/deploy_key_${CURRENT}"
+      #       echo "$SSH_KEY" > "$KEY_FILE"
+      #       chmod 600 "$KEY_FILE"
+      #       
+      #       # Configure SSH to use this key
+      #       export GIT_SSH_COMMAND="ssh -i $KEY_FILE -o StrictHostKeyChecking=no"
+      #       
+      #       # Create subtree split
+      #       echo "  → Creating subtree split..."
+      #       SPLIT_BRANCH="split-$(basename $path)-$(date +%s)"
+      #       if git subtree split --prefix="$path" -b "$SPLIT_BRANCH" >/dev/null 2>&1; then
+      #         echo "  → Pushing to $repo..."
+      #         
+      #         # Push to mirror
+      #         if git push "$repo" "$SPLIT_BRANCH:$branch" --force 2>&1; then
+      #           echo "✓ Success: Pushed to $repo"
+      #         else
+      #           echo "✗ Failed: Could not push to $repo"
+      #         fi
+      #         
+      #         # Clean up split branch
+      #         git branch -D "$SPLIT_BRANCH" >/dev/null 2>&1
+      #       else
+      #         echo "✗ Failed: Could not create subtree split"
+      #       fi
+      #       
+      #       # Clean up SSH key
+      #       rm -f "$KEY_FILE"
+      #       
       #     done < /tmp/mirrors.txt
+      #     
+      #     echo ""
+      #     echo "=== Subtree push complete ==="
+      #   env:
+      #     MIRROR_SSH_KEY_FLASHFUSION: ${{ secrets.MIRROR_SSH_KEY_FLASHFUSION }}
+      #     MIRROR_SSH_KEY_FLASHFUSIONWEBSITE: ${{ secrets.MIRROR_SSH_KEY_FLASHFUSIONWEBSITE }}
+      #     MIRROR_SSH_KEY_FLASHFUSION_UNIFIED: ${{ secrets.MIRROR_SSH_KEY_FLASHFUSION_UNIFIED }}
+      #     MIRROR_SSH_KEY_MONO_TURBO_REPO: ${{ secrets.MIRROR_SSH_KEY_MONO_TURBO_REPO }}
+      #     MIRROR_SSH_KEY_THEAIDASHBOARD: ${{ secrets.MIRROR_SSH_KEY_THEAIDASHBOARD }}
+      #     MIRROR_SSH_KEY_INT_SMART_TRIAGE_2: ${{ secrets.MIRROR_SSH_KEY_INT_SMART_TRIAGE_2 }}
+      #     MIRROR_SSH_KEY_CLAUDE_CODE_DEV_KIT: ${{ secrets.MIRROR_SSH_KEY_CLAUDE_CODE_DEV_KIT }}
+      #     MIRROR_SSH_KEY_V0_AI_AGENT_BUILDER: ${{ secrets.MIRROR_SSH_KEY_V0_AI_AGENT_BUILDER }}
+      #     MIRROR_SSH_KEY_ARCHON: ${{ secrets.MIRROR_SSH_KEY_ARCHON }}
+      #     MIRROR_SSH_KEY_INTOS: ${{ secrets.MIRROR_SSH_KEY_INTOS }}
+      #     MIRROR_SSH_KEY_V0_TEMPLATE_EVAL: ${{ secrets.MIRROR_SSH_KEY_V0_TEMPLATE_EVAL }}
+      #     MIRROR_SSH_KEY_KINSLEYSCREATIVESUITE: ${{ secrets.MIRROR_SSH_KEY_KINSLEYSCREATIVESUITE }}
+      #     MIRROR_SSH_KEY_OCTAVESTUDIO: ${{ secrets.MIRROR_SSH_KEY_OCTAVESTUDIO }}
+      #     MIRROR_SSH_KEY_UNIVERSALWRITERAI: ${{ secrets.MIRROR_SSH_KEY_UNIVERSALWRITERAI }}
+      #     MIRROR_SSH_KEY_TEMPLATEEVALACADEMY: ${{ secrets.MIRROR_SSH_KEY_TEMPLATEEVALACADEMY }}
+      #     MIRROR_SSH_KEY_MYCONTEXTENGINE: ${{ secrets.MIRROR_SSH_KEY_MYCONTEXTENGINE }}
+      #     MIRROR_SSH_KEY_CREATORSTUDIOLITE: ${{ secrets.MIRROR_SSH_KEY_CREATORSTUDIOLITE }}
+      #     MIRROR_SSH_KEY_UNIVERSALAIGEN: ${{ secrets.MIRROR_SSH_KEY_UNIVERSALAIGEN }}
+      #     MIRROR_SSH_KEY_FLASHFUSION_LEARN: ${{ secrets.MIRROR_SSH_KEY_FLASHFUSION_LEARN }}
+      #     MIRROR_SSH_KEY_LOVABLE_PROMPT_ARTIST: ${{ secrets.MIRROR_SSH_KEY_LOVABLE_PROMPT_ARTIST }}
+      #     MIRROR_SSH_KEY_ANALYST_COCKPIT_UI: ${{ secrets.MIRROR_SSH_KEY_ANALYST_COCKPIT_UI }}
+      #     MIRROR_SSH_KEY_FLASHFUSION_LITE_ECOM: ${{ secrets.MIRROR_SSH_KEY_FLASHFUSION_LITE_ECOM }}
+      #     MIRROR_SSH_KEY_INT_SMART_TRIAGE_3: ${{ secrets.MIRROR_SSH_KEY_INT_SMART_TRIAGE_3 }}
+      #     MIRROR_SSH_KEY_INT_TRIAGE_AI_3: ${{ secrets.MIRROR_SSH_KEY_INT_TRIAGE_AI_3 }}
+      #     MIRROR_SSH_KEY_PROJECT_NEXUS: ${{ secrets.MIRROR_SSH_KEY_PROJECT_NEXUS }}
+      #     MIRROR_SSH_KEY_SAAS_VALIDATOR_SUITE: ${{ secrets.MIRROR_SSH_KEY_SAAS_VALIDATOR_SUITE }}
+      #     MIRROR_SSH_KEY_OPEN_FLASHFUSION: ${{ secrets.MIRROR_SSH_KEY_OPEN_FLASHFUSION }}
+      #     MIRROR_SSH_KEY_CLAUDE_CODE_BY_AGENTS: ${{ secrets.MIRROR_SSH_KEY_CLAUDE_CODE_BY_AGENTS }}
+      #     MIRROR_SSH_KEY_METAMCP: ${{ secrets.MIRROR_SSH_KEY_METAMCP }}
+      #     MIRROR_SSH_KEY_PLAYWRIGHT_MCP: ${{ secrets.MIRROR_SSH_KEY_PLAYWRIGHT_MCP }}
+      #     MIRROR_SSH_KEY_CLAUDE_AGENT_SDK_TS: ${{ secrets.MIRROR_SSH_KEY_CLAUDE_AGENT_SDK_TS }}
+      #     MIRROR_SSH_KEY_MCP_SERVER_DOCKER: ${{ secrets.MIRROR_SSH_KEY_MCP_SERVER_DOCKER }}
+      #     MIRROR_SSH_KEY_SUPERPOWERS: ${{ secrets.MIRROR_SSH_KEY_SUPERPOWERS }}
+      #     MIRROR_SSH_KEY_BOILERPLATES: ${{ secrets.MIRROR_SSH_KEY_BOILERPLATES }}
+      #     MIRROR_SSH_KEY_CREATIVE_HUB: ${{ secrets.MIRROR_SSH_KEY_CREATIVE_HUB }}
+      #     MIRROR_SSH_KEY_COLLABNET_VISUALIZER: ${{ secrets.MIRROR_SSH_KEY_COLLABNET_VISUALIZER }}
+      #     MIRROR_SSH_KEY_PULSE_ROBOT_TEMPLATE: ${{ secrets.MIRROR_SSH_KEY_PULSE_ROBOT_TEMPLATE }}
+      #     MIRROR_SSH_KEY_NIMBLE_FAB_FLOW: ${{ secrets.MIRROR_SSH_KEY_NIMBLE_FAB_FLOW }}
+      #     MIRROR_SSH_KEY_LOVEABLE_SUPABASE: ${{ secrets.MIRROR_SSH_KEY_LOVEABLE_SUPABASE }}
+      #     MIRROR_SSH_KEY_DYAD: ${{ secrets.MIRROR_SSH_KEY_DYAD }}
+      #     MIRROR_SSH_KEY_SPEC_KIT: ${{ secrets.MIRROR_SSH_KEY_SPEC_KIT }}
+      #     MIRROR_SSH_KEY_OPEN_LOVABLEV1: ${{ secrets.MIRROR_SSH_KEY_OPEN_LOVABLEV1 }}
+      #     MIRROR_SSH_KEY_TIKTOK_STORY_AI: ${{ secrets.MIRROR_SSH_KEY_TIKTOK_STORY_AI }}
+      #     MIRROR_SSH_KEY_CONTEXT7: ${{ secrets.MIRROR_SSH_KEY_CONTEXT7 }}
+      #     MIRROR_SSH_KEY_SUPABASE_JS: ${{ secrets.MIRROR_SSH_KEY_SUPABASE_JS }}
+      #     MIRROR_SSH_KEY_COMPOSE_FOR_AGENTS: ${{ secrets.MIRROR_SSH_KEY_COMPOSE_FOR_AGENTS }}
+      #     MIRROR_SSH_KEY_FLASHFUSION_IDE: ${{ secrets.MIRROR_SSH_KEY_FLASHFUSION_IDE }}
+      #     MIRROR_SSH_KEY_SUPERCLAUDE_1: ${{ secrets.MIRROR_SSH_KEY_SUPERCLAUDE_1 }}
+      #     MIRROR_SSH_KEY_SUPERCLAUDE: ${{ secrets.MIRROR_SSH_KEY_SUPERCLAUDE }}
+      #     MIRROR_SSH_KEY_TURBOREPO_FLASHFUSION: ${{ secrets.MIRROR_SSH_KEY_TURBOREPO_FLASHFUSION }}
