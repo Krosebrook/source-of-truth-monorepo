@@ -1,0 +1,12 @@
+{
+  "name": "@flashfusion/claude-agent",
+  "version": "0.0.0",
+  "description": "Anthropic Claude integration agent",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Ready for implementation'",
+    "lint": "echo 'Ready for implementation'",
+    "test": "echo 'Ready for implementation'"
+  }
+}
