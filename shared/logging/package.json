@@ -2,10 +2,14 @@
   "name": "@flashfusion/logging",
   "version": "1.0.0",
   "description": "Structured JSON logging for FlashFusion SoT",
+  "type": "module",
   "main": "json-logger.ts",
   "types": "json-logger.ts",
   "private": true,
   "scripts": {
     "test": "node --test tests/*.test.js"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6"
   }
 }
