@@ -42,6 +42,11 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         -b|--batch-size)
+            # Validate batch size is a positive integer
+            if ! [[ "$2" =~ ^[0-9]+$ ]] || [ "$2" -lt 1 ] || [ "$2" -gt 100 ]; then
+                echo "Error: Batch size must be a positive integer between 1 and 100"
+                exit 1
+            fi
             BATCH_SIZE="$2"
             shift 2
             ;;
@@ -54,6 +59,11 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         -l|--log-file)
+            # Basic validation for log file path - must not contain ../
+            if [[ "$2" == *".."* ]]; then
+                echo "Error: Log file path cannot contain '..'"
+                exit 1
+            fi
             LOG_FILE="$2"
             shift 2
             ;;
@@ -146,6 +156,25 @@ import_repo() {
     local url=$3
     local target_dir=$4
     local status=${5:-active}
+    
+    # Validate inputs to prevent path traversal and injection
+    if [[ "$name" == *".."* ]] || [[ "$name" == *"/"* ]]; then
+        log_error "$name: Repository name contains invalid characters"
+        ((FAILED++)) || true
+        return 1
+    fi
+    
+    if [[ "$url" != https://* ]] && [[ "$url" != git://* ]]; then
+        log_error "$name: URL must use https:// or git:// protocol"
+        ((FAILED++)) || true
+        return 1
+    fi
+    
+    if [[ "$target_dir" == *".."* ]]; then
+        log_error "$name: Target directory contains path traversal sequence"
+        ((FAILED++)) || true
+        return 1
+    fi
 
     log_info "Importing $name from $org..."
 
@@ -307,6 +336,13 @@ for line in "${REPO_LINES[@]}"; do
     # Skip comments and empty lines
     [[ "$org" =~ ^#.*$ ]] && continue
     [[ -z "$org" ]] && continue
+    
+    # Validate parsed fields
+    if [[ -z "$name" ]] || [[ -z "$url" ]] || [[ -z "$target_dir" ]]; then
+        log_error "Invalid repo entry (missing fields): $line"
+        ((FAILED++)) || true
+        continue
+    fi
     
     # Handle resume mode - skip until we find the checkpoint
     if [ "$RESUME" = true ] && [ "$FOUND_RESUME_POINT" = false ]; then
