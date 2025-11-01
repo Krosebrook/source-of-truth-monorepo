@@ -1,0 +1,10 @@
+{
+  "name": "@flashfusion/test-utils",
+  "version": "1.0.0",
+  "description": "Shared test utilities for FlashFusion SoT monorepo",
+  "main": "index.ts",
+  "types": "index.ts",
+  "private": true,
+  "keywords": ["testing", "utilities", "shared"],
+  "license": "MIT"
+}

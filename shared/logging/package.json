@@ -4,5 +4,8 @@
   "description": "Structured JSON logging for FlashFusion SoT",
   "main": "json-logger.ts",
   "types": "json-logger.ts",
-  "private": true
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
 }
