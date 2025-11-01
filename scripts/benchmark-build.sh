@@ -58,8 +58,12 @@ measure_build "Force Rebuild" "--force"
 
 # Benchmark 4: Single package change simulation
 echo -e "${GREEN}[4/5] Incremental Build (Single Package Change)${NC}"
-# Touch a file to simulate a change
-SAMPLE_FILE=$(find projects -name "package.json" -type f | head -1)
+# Touch a safe file to simulate a change (README or similar)
+SAMPLE_FILE=$(find projects -name "README.md" -type f | head -1)
+if [ -z "$SAMPLE_FILE" ]; then
+    # Fallback to tsconfig.json if no README found
+    SAMPLE_FILE=$(find projects -name "tsconfig.json" -type f | head -1)
+fi
 if [ -n "$SAMPLE_FILE" ]; then
     touch "$SAMPLE_FILE"
     measure_build "Incremental Build" ""
