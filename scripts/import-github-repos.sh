@@ -139,11 +139,22 @@ echo -e "✗ Failed: $FAILED"
 echo ""
 
 if [ $SUCCESS -gt 0 ]; then
+    echo ""
+    echo "=== Auto-updating REPO_MAP.md ==="
+    if command -v node &> /dev/null; then
+        node scripts/generate-repo-map.js
+        echo -e "${GREEN}✓ REPO_MAP.md updated${NC}"
+    else
+        echo -e "${YELLOW}⚠ Node.js not found. Run 'pnpm run generate:repo-map' manually${NC}"
+    fi
+    
+    echo ""
     echo "Next steps:"
     echo "  1. Review imported repos: ls -la projects/"
-    echo "  2. Commit: git add projects/ && git commit -m 'feat: Import GitHub repos'"
-    echo "  3. Push: git push"
-    echo "  4. Run: pnpm install"
+    echo "  2. Review REPO_MAP.md: cat REPO_MAP.md"
+    echo "  3. Commit: git add projects/ REPO_MAP.md && git commit -m 'feat: Import GitHub repos'"
+    echo "  4. Push: git push"
+    echo "  5. Run: pnpm install"
 fi
 
 # Cleanup

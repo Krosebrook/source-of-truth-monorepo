@@ -73,6 +73,7 @@ function getRepoMetadata(targetDir) {
   const metadata = {
     imported: false,
     lastSync: null,
+    maintainer: '@Krosebrook', // Default maintainer based on CODEOWNERS
   };
   
   if (fs.existsSync(fullPath)) {
@@ -216,6 +217,7 @@ Complete index of all repositories in the FlashFusion SoT monorepo.
 - **Path**: \`${repo.path}\`
 - **Status**: ✅ Imported
 - **Type**: Local-only repository
+- **Maintainer**: @Krosebrook
 
 `;
   }
@@ -236,8 +238,8 @@ Complete index of all repositories in the FlashFusion SoT monorepo.
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}` : ''}
-
+- **Maintainer**: ${metadata.maintainer}
+${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
 `;
     }
 
@@ -251,8 +253,8 @@ ${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}` : ''}
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}` : ''}
-
+- **Maintainer**: ${metadata.maintainer}
+${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
 `;
     }
 
@@ -266,8 +268,8 @@ ${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}` : ''}
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}` : ''}
-
+- **Maintainer**: ${metadata.maintainer}
+${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
 `;
     }
   }
@@ -284,8 +286,8 @@ ${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}` : ''}
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}` : ''}
-
+- **Maintainer**: ${metadata.maintainer}
+${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
 `;
     }
   }
@@ -302,8 +304,8 @@ ${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}` : ''}
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
-${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}` : ''}
-
+- **Maintainer**: ${metadata.maintainer}
+${metadata.lastSync ? `- **Last Sync**: ${metadata.lastSync}\n` : ''}
 `;
     }
   }
