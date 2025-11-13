@@ -21,7 +21,7 @@
     "validate": "pnpm lint && pnpm type-check && pnpm test"
   },
   "devDependencies": {
-    "turbo": "^1.11.0",
+    "turbo": "^2.1.0",
     "typescript": "^5.0.0",
     "eslint": "^8.0.0",
     "prettier": "^3.0.0",

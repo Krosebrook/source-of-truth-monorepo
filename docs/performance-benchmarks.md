@@ -92,13 +92,13 @@ Status: ✅ Baseline established
 Time: 4.406s (real time) 
 Packages Built: 2 successful (from cache)
 Cache Hit Ratio: 100% (2/2 successful packages)
-Speedup: ~15% faster (limited by npm overhead in some packages)
+Speedup: ~15% faster (limited by pnpm overhead in some packages)
 Status: ✅ Caching working effectively
 ```
 
 **Note**: The similar times are due to:
 1. Small number of packages that successfully build (2/10)
-2. npm subprocess overhead in package scripts
+2. pnpm subprocess overhead in package scripts
 3. Build failures prevent full cache effectiveness measurement
 
 #### Incremental Build
