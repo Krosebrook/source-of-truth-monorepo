@@ -10,7 +10,8 @@
 
 ## Welcome
 
-This documentation covers all aspects of the FlashFusion Source-of-Truth monorepo, a unified consolidation of 53 repositories across the FlashFusion ecosystem.
+This documentation covers all aspects of the FlashFusion Source-of-Truth monorepo, a unified consolidation of
+53 repositories across the FlashFusion ecosystem.
 
 **New here?** Start with [Getting Started](/GETTING_STARTED.md) or the [Quickstart Tutorial](/docs/tutorials/01-quickstart.md).
 
@@ -47,6 +48,7 @@ We follow the **[Diátaxis Framework](https://diataxis.fr/)**, organizing docs i
 
 - [Workspace Structure](/docs/reference/workspace-structure.md)
 - [CLI Reference](/docs/reference/cli-reference.md)
+- [Subtree Synchronization](/docs/reference/subtree-sync.md)
 - [Configuration Reference](/docs/reference/configuration-reference.md)
 - [API Documentation](/docs/reference/api/)
 - [Repository Map](/REPO_MAP.md)
@@ -85,7 +87,9 @@ Operational procedures for on-call engineers and daily operations.
 
 Comprehensive guides on specific topics.
 
-- **Agent Integration**: [Claude](/docs/guides/agent-integration/claude-agent.md), [Codex](/docs/guides/agent-integration/codex-agent.md), [Gemini](/docs/guides/agent-integration/gemini-agent.md), [GitHub](/docs/guides/agent-integration/github-agent.md)
+- **Agent Integration**: [Claude](/docs/guides/agent-integration/claude-agent.md),
+  [Codex](/docs/guides/agent-integration/codex-agent.md), [Gemini](/docs/guides/agent-integration/gemini-agent.md),
+  [GitHub](/docs/guides/agent-integration/github-agent.md)
 - **Security**: [Secret Management](/docs/guides/security/secret-management.md), [Vulnerability Reporting](/docs/guides/security/vulnerability-reporting.md)
 - **Contribution**: [Code Review Guidelines](/docs/guides/contribution/code-review-guidelines.md), [Release Process](/docs/guides/contribution/release-process.md)
 
@@ -94,21 +98,25 @@ Comprehensive guides on specific topics.
 ## Quick Navigation
 
 ### For New Contributors
+
 1. [Getting Started](/GETTING_STARTED.md)
 2. [Quickstart Tutorial](/docs/tutorials/01-quickstart.md)
 3. [Contributing Guidelines](/CONTRIBUTING.md)
 
 ### For Developers
+
 1. [Workspace Structure](/docs/reference/workspace-structure.md)
 2. [Build System (Turbo)](/docs/explanation/turbo-caching-internals.md)
 3. [CLI Reference](/docs/reference/cli-reference.md)
 
 ### For Operators
+
 1. [Daily Operations Runbook](/docs/runbooks/daily-operations.md)
 2. [Troubleshooting Guide](/docs/how-to/debug-build-failures.md)
 3. [Incident Response](/docs/runbooks/incident-response.md)
 
 ### For Architects
+
 1. [SoT Canonical Model](/docs/explanation/sot-canonical-model.md)
 2. [Architecture Decision Records](/docs/adr/)
 3. [System Design](/docs/explanation/)
@@ -158,4 +166,4 @@ See [CONTRIBUTING.md](/CONTRIBUTING.md) for full guidelines.
 
 ---
 
-*Documentation built with ❤️ following [Diátaxis](https://diataxis.fr/)*
+_Documentation built with ❤️ following [Diátaxis](https://diataxis.fr/)_

@@ -34,57 +34,162 @@ Best for: Importing local directories or single repos
 ### Step 1: Review the Import Script
 
 ```bash
-cat scripts/import-github-repos.sh
+# View help and available options
+./scripts/import-github-repos.sh --help
 ```
 
-The script imports 50 repositories from GitHub organizations.
+The enhanced script supports:
+- **Batch operations**: Process repos in configurable batches (20-50 repos)
+- **Custom repo lists**: Use external files instead of hardcoded lists
+- **Resume capability**: Continue from last checkpoint after failures
+- **Logging**: Detailed logs saved to `logs/import-TIMESTAMP.log`
+- **Filtering**: Exclude archived/deprecated repositories
 
-### Step 2: Run the Import
+### Step 2: Prepare Your Repo List
+
+The script uses `scripts/repo-list.txt` by default. Format:
+
+```
+org|name|url|target_dir|status
+
+# Example entries:
+krosebrook|FlashFusion|https://github.com/Krosebrook/FlashFusion.git|projects/krosebrook/core/flashfusion|active
+krosebrook|OldProject|https://github.com/Krosebrook/OldProject.git|projects/krosebrook/archived/oldproject|archived
+```
+
+If the file doesn't exist, the script will create a default one with 50 repos.
+
+### Step 3: Run the Import (Basic)
 
 ```bash
-cd /home/kyler/source-of-truth-monorepo
+# Import all repos with defaults (batch size: 30)
 ./scripts/import-github-repos.sh
 ```
 
+### Step 4: Advanced Usage Examples
+
+**Import with custom batch size:**
+```bash
+# Process 20 repos at a time (good for rate limiting)
+./scripts/import-github-repos.sh --batch-size 20
+```
+
+**Use a custom repo list:**
+```bash
+# Create your own list
+cat > my-repos.txt <<EOF
+myorg|repo1|https://github.com/myorg/repo1.git|projects/myorg/repo1|active
+myorg|repo2|https://github.com/myorg/repo2.git|projects/myorg/repo2|active
+EOF
+
+# Import from custom list
+./scripts/import-github-repos.sh --file my-repos.txt --batch-size 10
+```
+
+**Exclude archived repositories:**
+```bash
+# Skip any repos marked as 'archived' or 'deprecated'
+./scripts/import-github-repos.sh --exclude-archived
+```
+
+**Resume from checkpoint:**
+```bash
+# If import fails partway through, resume from last success
+./scripts/import-github-repos.sh --resume
+```
+
+**Custom log location:**
+```bash
+# Save logs to specific file
+./scripts/import-github-repos.sh --log-file my-import.log
+```
+
+**Complete example (310+ repos):**
+```bash
+# Import 310 repos in batches of 25, excluding archived ones
+./scripts/import-github-repos.sh \
+  --file scripts/repo-list.txt \
+  --batch-size 25 \
+  --exclude-archived \
+  --log-file logs/bulk-import.log
+```
+
+### Step 5: Monitor Progress
+
 **What happens**:
-1. Script reads repository list from embedded config
-2. Clones each repo (--depth 1 for speed)
-3. Removes .git directory (flattens)
-4. Moves to `projects/org/name/`
-5. Shows progress (✓ success, ⊙ skipped, ✗ failed)
+1. Script reads repository list from file
+2. Processes repos in batches (default: 30 at a time)
+3. Clones each repo (--depth 1 for speed)
+4. Removes .git directory (flattens)
+5. Moves to target directory
+6. Saves checkpoint after each successful import
+7. Shows progress with colored output
+8. Logs everything to file
 
 **Expected output**:
 ```
 === FlashFusion SoT GitHub Repo Importer ===
+Started at: 2025-11-01 12:00:00
+Repo list: scripts/repo-list.txt
+Batch size: 30
+Resume mode: false
+Exclude archived: false
+Log file: logs/import-20251101_120000.log
 
-Importing FlashFusion from krosebrook...
-✓ Success: projects/krosebrook/core/flashfusion
+ℹ Total repositories to process: 310
 
-Importing Flashfusionwebsite from krosebrook...
-✓ Success: projects/krosebrook/core/flashfusionwebsite
+ℹ Importing FlashFusion from krosebrook...
+✓ Success: FlashFusion -> projects/krosebrook/core/flashfusion
+
+ℹ Importing Flashfusionwebsite from krosebrook...
+✓ Success: Flashfusionwebsite -> projects/krosebrook/core/flashfusionwebsite
+
+...
+
+ℹ Completed batch 1 (30 repos)
+ℹ Pausing for 2 seconds before next batch...
 
 ...
 
 === Import Summary ===
-✓ Success: 50
-⊙ Skipped: 0
-✗ Failed: 0
+Completed at: 2025-11-01 14:30:00
+✓ Success: 285
+⊙ Skipped: 20
+✗ Failed: 5
+Total processed: 310
+
+Log file: logs/import-20251101_120000.log
 ```
 
-### Step 3: Commit Imported Repos
+### Step 6: Handle Failures
+
+If some imports fail:
+
+```bash
+# Review the log file for errors
+cat logs/import-20251101_120000.log | grep ERROR
+
+# Resume from the last successful import
+./scripts/import-github-repos.sh --resume
+
+# The script will skip already-imported repos and continue
+```
+
+### Step 7: Commit Imported Repos
 
 ```bash
 git add projects/
 git status  # Review what was imported
 
-git commit -m "feat: Import 50 GitHub repositories
+git commit -m "feat: Import GitHub repositories (batch 1)
 
-Imported from:
-- Krosebrook (34 repos)
-- flashfusionv1 (8 repos)
-- ChaosClubCo (8 repos)
+Imported 285 repositories from:
+- Krosebrook (200+ repos)
+- flashfusionv1 (40+ repos)
+- ChaosClubCo (45+ repos)
 
 All repos flattened (no git history).
+See logs/import-20251101_120000.log for details.
 
 🤖 Generated with Claude Code (https://claude.com/claude-code)
 
@@ -289,6 +394,39 @@ pnpm install
 
 # Verify pnpm-workspace.yaml includes the path
 cat pnpm-workspace.yaml
+```
+
+### Import script hangs or times out
+
+```bash
+# Reduce batch size to avoid rate limiting
+./scripts/import-github-repos.sh --batch-size 10
+
+# Or add delays between batches by editing the script
+```
+
+### Need to restart import from scratch
+
+```bash
+# Remove checkpoint file
+rm -f .import-checkpoint
+
+# Start fresh
+./scripts/import-github-repos.sh
+```
+
+### Review logs for specific errors
+
+```bash
+# View all errors
+grep ERROR logs/import-*.log
+
+# View last import log
+ls -t logs/import-*.log | head -1 | xargs cat
+
+# Count successes and failures
+grep -c SUCCESS logs/import-20251101_120000.log
+grep -c ERROR logs/import-20251101_120000.log
 ```
 
 ---

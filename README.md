@@ -103,7 +103,10 @@ pnpm --filter @flashfusion/project-name lint
 
 - **CI** (`ci.yml`): Runs lint, build, test on every push/PR
 - **Security** (`security.yml`): gitleaks scan + dependency audit
-- **Subtree Push** (`subtree-push.yml`): Pushes changes to mirrors (requires deploy keys)
+- **Subtree Push** (`subtree-push.yml`): Pushes changes to 50 mirrors (requires deploy keys)
+  - **Status**: ⏳ Ready for deployment (pending key configuration)
+  - **Setup Guide**: [Configure Deploy Keys](docs/how-to/configure-deploy-keys.md)
+  - **Quick Start**: [How-To README](docs/how-to/README.md)
 
 ### Turbo Caching
 
@@ -130,24 +133,50 @@ See: [shared/contracts/README.md](shared/contracts/README.md)
 - [REPO_MAP.md](REPO_MAP.md) - Complete index of all 53 repositories
 - [shared/contracts/README.md](shared/contracts/README.md) - Agent contracts
 - [shared/logging/README.md](shared/logging/README.md) - Logging guide
+- [Deploy Keys Setup](docs/how-to/configure-deploy-keys.md) - Mirror sync configuration
+- [Security Policy](SECURITY.md) - Security practices and audit procedures
+- [Security Audit Guide](docs/security/README.md) - Audit results and review process
+- [Renovate Guide](docs/security/renovate-guide.md) - Automated dependency updates
 
 ## Security
+
+**See: [SECURITY.md](SECURITY.md) for complete security policy**
+
+### Automated Security
+
+- **Gitleaks:** Scans for secrets on every push and PR
+- **Dependency Audit:** Runs `pnpm audit` on all workspaces
+- **Renovate Bot:** Automated dependency updates (Mondays @ 6 AM UTC)
+- **Audit Reports:** Saved as workflow artifacts for 30 days
 
 ### Secrets Management
 
 - All secrets stored in GitHub Secrets
-- Deploy keys provisioned per-mirror (write-only)
+- Deploy keys provisioned per-mirror (write-only, unique per repo)
+- 50 mirror repositories configured (pending key setup)
 - No `.env` files committed (see `.gitignore`)
+- **Setup Guide**: [Configure Deploy Keys](docs/how-to/configure-deploy-keys.md)
 
-### Audits
+### Security Audits
+
+We run automated security audits on every push and weekly:
+
+- **Gitleaks**: Secret scanning
+- **pnpm audit**: Dependency vulnerability scanning
+- **Renovate**: Automated dependency updates
 
 ```bash
-# Run security audit
-pnpm -r audit
+# Run security audit locally
+pnpm security:audit
 
-# Scan for secrets
-gh workflow run security.yml
+# Run security check (fails on moderate+ vulnerabilities)
+pnpm security:audit:check
+
+# View JSON audit results
+pnpm security:audit:json
 ```
+
+**Learn more**: See [SECURITY.md](SECURITY.md) and [docs/reference/security-audits.md](docs/reference/security-audits.md)
 
 ## Versioning & Releases
 
