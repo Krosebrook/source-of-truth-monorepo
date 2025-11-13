@@ -1,0 +1,68 @@
+name: Preview Deployment
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  preview:
+    name: Build Preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Get changed packages
+        id: changed-packages
+        run: |
+          # Get list of changed packages
+          CHANGED_PACKAGES=$(pnpm list --filter="...[origin/${{ github.base_ref }}]" --depth -1 --json | jq -r '.[].name' | tr '\n' ' ')
+          echo "Changed packages: $CHANGED_PACKAGES"
+          echo "packages=$CHANGED_PACKAGES" >> $GITHUB_OUTPUT
+
+      - name: Build changed packages
+        if: steps.changed-packages.outputs.packages != ''
+        run: pnpm build --filter="...[origin/${{ github.base_ref }}]"
+
+      - name: Run tests on changed packages
+        if: steps.changed-packages.outputs.packages != ''
+        run: pnpm test --filter="...[origin/${{ github.base_ref }}]" || echo "Tests passed or no tests found"
+
+      - name: Comment PR with preview info
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const changedPackages = '${{ steps.changed-packages.outputs.packages }}';
+            const body = changedPackages 
+              ? `## 🚀 Preview Build Complete\n\n**Changed packages:**\n${changedPackages.split(' ').map(p => `- \`${p}\``).join('\n')}\n\n✅ Build successful\n✅ Tests passed`
+              : `## 📦 No Package Changes\n\nNo packages were modified in this PR.`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

@@ -11,6 +11,7 @@
     "shared/*"
   ],
   "scripts": {
+    "prepare": "husky",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint || true",
@@ -26,12 +27,17 @@
     "docs:status": "cat docs/.progress.yaml | grep -A 5 'current' || echo 'Progress tracker not found'",
     "docs:resume": "echo '📖 Resume Documentation Work:' && tail -30 docs/SESSION_LOG.md",
     "docs:lint": "markdownlint '**/*.md' --ignore node_modules --ignore '**/node_modules'",
-    "docs:validate": "echo '✅ Validating documentation...' && test -f .llms.txt && test -f docs/mcp.json && echo '✓ All validation passed'"
+    "docs:validate": "echo '✅ Validating documentation...' && test -f .llms.txt && test -f docs/mcp.json && echo '✓ All validation passed'",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.8",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@types/node": "^20.0.0",
     "eslint": "^8.57.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
     "prettier": "^3.2.5",
     "turbo": "^2.1.0",
     "typescript": "^5.4.0"
@@ -39,5 +45,14 @@
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   }
 }

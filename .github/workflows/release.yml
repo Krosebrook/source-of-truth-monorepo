@@ -1,0 +1,78 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".changeset/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all packages
+        run: pnpm build
+
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          version: pnpm changeset version
+          commit: "chore(release): version packages"
+          title: "chore(release): version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Generate Changelog
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          echo "Packages published:"
+          echo "${{ steps.changesets.outputs.publishedPackages }}"
+
+      - name: Create GitHub Release
+        if: steps.changesets.outputs.published == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.changesets.outputs.version }}
+          release_name: Release v${{ steps.changesets.outputs.version }}
+          body: |
+            Release created by GitHub Actions
+
+            Published packages:
+            ${{ steps.changesets.outputs.publishedPackages }}
+          draft: false
+          prerelease: false
