@@ -148,20 +148,20 @@ The result is a new branch (`flashfusion-split`) containing:
 ```python
 def subtree_split(prefix, target_branch):
     relevant_commits = []
-    
+
     # Walk all commits in current branch
     for commit in git_log():
         files_changed = commit.get_changed_files()
-        
+
         # Check if any changed files are in our prefix
         if any(file.startswith(prefix) for file in files_changed):
             # Create new commit with paths rewritten
             new_commit = rewrite_commit(commit, prefix)
             relevant_commits.append(new_commit)
-    
+
     # Create branch pointing to the new commit chain
     git_branch(target_branch, relevant_commits[-1])
-    
+
     return target_branch
 
 def rewrite_commit(original_commit, prefix):
@@ -171,7 +171,7 @@ def rewrite_commit(original_commit, prefix):
         if path.startswith(prefix + '/'):
             new_path = path[len(prefix) + 1:]  # Remove "prefix/"
             new_files[new_path] = content
-    
+
     # Create new commit with same metadata, new paths
     return Commit(
         files=new_files,
@@ -329,13 +329,13 @@ git submodule add git@github.com:Org/FlashFusion.git projects/flashfusion
 
 ### How Subtree Meets Requirements
 
-| Requirement | How Subtree Satisfies |
-|-------------|----------------------|
-| Preserve history | Split includes all commits touching the subdirectory |
-| Standalone repos | Rewritten paths make it appear as standalone repo |
-| Automated | Single command, no interaction needed |
-| Root-level paths | `--prefix` removes monorepo directory nesting |
-| Read-only mirrors | Can force-push split branch to overwrite mirror |
+| Requirement       | How Subtree Satisfies                                |
+| ----------------- | ---------------------------------------------------- |
+| Preserve history  | Split includes all commits touching the subdirectory |
+| Standalone repos  | Rewritten paths make it appear as standalone repo    |
+| Automated         | Single command, no interaction needed                |
+| Root-level paths  | `--prefix` removes monorepo directory nesting        |
+| Read-only mirrors | Can force-push split branch to overwrite mirror      |
 
 ### Alternative Approaches Considered
 
@@ -647,12 +647,12 @@ git push mirror-repo split:main --force
   run: |
     SPLIT_BRANCH="split-flashfusion-${{ github.run_number }}"
     git subtree split --prefix=projects/flashfusion -b "$SPLIT_BRANCH"
-    
+
     # Push to mirror
     git push git@github.com:Org/FlashFusion.git \
       "$SPLIT_BRANCH:main" \
       --force-with-lease
-    
+
     # Clean up
     git branch -D "$SPLIT_BRANCH"
 ```
@@ -665,9 +665,9 @@ git push mirror-repo split:main --force
     mkdir -p ~/.ssh
     echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
     chmod 600 ~/.ssh/deploy_key
-    
+
     export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key"
-    
+
     # Now subtree push will use this key
     git subtree split --prefix=projects/flashfusion -b split
     git push git@github.com:Org/FlashFusion.git split:main
@@ -679,11 +679,11 @@ git push mirror-repo split:main --force
 
 ### Time Complexity
 
-| Operation | Complexity | Typical Time |
-|-----------|-----------|--------------|
-| First split | O(n) commits | 5-15 seconds |
-| Subsequent split (cached) | O(m) new commits | 1-5 seconds |
-| Force push | O(k) size of repo | 2-10 seconds |
+| Operation                 | Complexity        | Typical Time |
+| ------------------------- | ----------------- | ------------ |
+| First split               | O(n) commits      | 5-15 seconds |
+| Subsequent split (cached) | O(m) new commits  | 1-5 seconds  |
+| Force push                | O(k) size of repo | 2-10 seconds |
 
 ### Space Complexity
 
@@ -725,7 +725,7 @@ git subtree split --prefix=projects/flashfusion --rejoin --onto=HEAD~100 -b spli
 strategy:
   matrix:
     project: [flashfusion, archon, dyad]
-  
+
 steps:
   - run: git subtree split --prefix=projects/${{ matrix.project }} -b split
 ```

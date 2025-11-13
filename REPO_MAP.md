@@ -6,10 +6,10 @@ Complete index of repositories in the FlashFusion SoT monorepo.
 
 ## Summary
 
-- **Local**: 3 repos ✅ *Imported*
-- **Krosebrook**: 34 repos ⏳ *Pending import*
-- **flashfusionv1**: 8 repos ⏳ *Pending import*
-- **ChaosClubCo**: 8 repos ⏳ *Pending import*
+- **Local**: 3 repos ✅ _Imported_
+- **Krosebrook**: 34 repos ⏳ _Pending import_
+- **flashfusionv1**: 8 repos ⏳ _Pending import_
+- **ChaosClubCo**: 8 repos ⏳ _Pending import_
 - **Total**: 53 repos (3 imported, 50 pending)
 
 ## Migration Status
@@ -39,26 +39,26 @@ The following 50 repositories are ready to be imported using the import script:
 
 #### Krosebrook Core Repositories (27 repos - Pending)
 
-*To be imported from github.com/Krosebrook organization*
+_To be imported from github.com/Krosebrook organization_
 
 - List will be populated after import using `./scripts/import-github-repos.sh`
 - See `scripts/repo-list.txt` for complete list
 
 #### Krosebrook Tools Repositories (7 repos - Pending)
 
-*To be imported from github.com/Krosebrook organization*
+_To be imported from github.com/Krosebrook organization_
 
 - List will be populated after import
 
 #### flashfusionv1 Repositories (8 repos - Pending)
 
-*To be imported from github.com/flashfusionv1 organization*
+_To be imported from github.com/flashfusionv1 organization_
 
 - List will be populated after import
 
 #### ChaosClubCo Repositories (8 repos - Pending)
 
-*To be imported from github.com/ChaosClubCo organization*
+_To be imported from github.com/ChaosClubCo organization_
 
 - List will be populated after import
 
@@ -104,6 +104,7 @@ projects/
 ## Infrastructure Status
 
 ### ✅ Completed
+
 - [x] Documentation structure (Diátaxis framework)
 - [x] CI/CD workflows (ci.yml, security.yml, docs.yml)
 - [x] Deploy keys infrastructure (subtree-push.yml)
@@ -112,6 +113,7 @@ projects/
 - [x] Build system (Turborepo)
 
 ### ⏳ Pending
+
 - [ ] Import 50 GitHub repositories
 - [ ] Configure deploy keys for mirror sync
 - [ ] Test full monorepo build
@@ -119,6 +121,6 @@ projects/
 
 ---
 
-*This file will be auto-generated after all repos are imported using the import script.*
+_This file will be auto-generated after all repos are imported using the import script._
 
 **Last Updated**: 2025-11-01

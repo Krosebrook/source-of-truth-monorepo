@@ -5,17 +5,19 @@
 **Login to GoDaddy:** https://dcc.godaddy.com/manage/dns
 
 **Delete existing records for:**
+
 - @ (root domain)
 - www
 
 **Add these EXACT records:**
+
 ```
 Record Type: CNAME
 Name: @
 Value: cname.vercel-dns.com
 TTL: 1 Hour
 
-Record Type: CNAME  
+Record Type: CNAME
 Name: www
 Value: cname.vercel-dns.com
 TTL: 1 Hour
@@ -30,6 +32,7 @@ TTL: 1 Hour
 **Go to:** https://vercel.com/chaos-collective/flashfusion/settings/domains
 
 **Add these domains:**
+
 1. Click "Add Domain" → Enter: `flashfusion.co` → Click "Add"
 2. Click "Add Domain" → Enter: `www.flashfusion.co` → Click "Add"
 
@@ -42,6 +45,7 @@ TTL: 1 Hour
 ## ✅ STEP 3: GitHub Secrets (Auto-Deployment)
 
 **First, get your Vercel IDs:**
+
 ```bash
 cd C:\Users\kyler\FlashFusion-Unified
 vercel whoami
@@ -52,10 +56,10 @@ vercel project ls
 
 **Add these secrets:**
 
-| Secret Name | Value | Where to Find |
-|-------------|-------|---------------|
-| `VERCEL_TOKEN` | (from your .env file) | Your VERCEL_TOKEN value |
-| `VERCEL_ORG_ID` | (from vercel whoami) | Team ID or username |
+| Secret Name         | Value                    | Where to Find              |
+| ------------------- | ------------------------ | -------------------------- |
+| `VERCEL_TOKEN`      | (from your .env file)    | Your VERCEL_TOKEN value    |
+| `VERCEL_ORG_ID`     | (from vercel whoami)     | Team ID or username        |
 | `VERCEL_PROJECT_ID` | (from vercel project ls) | Project ID for flashfusion |
 
 **✅ Mark when complete:** [ ]
@@ -65,6 +69,7 @@ vercel project ls
 ## ✅ STEP 4: Test & Verify
 
 **Run these commands:**
+
 ```bash
 cd C:\Users\kyler\FlashFusion-Unified
 
@@ -80,8 +85,9 @@ git push origin master
 ```
 
 **Check these URLs:**
+
 - https://flashfusion.co
-- https://www.flashfusion.co  
+- https://www.flashfusion.co
 - https://flashfusion.co/health
 
 **✅ Mark when complete:** [ ]
@@ -91,6 +97,7 @@ git push origin master
 ## 🎉 SUCCESS CRITERIA
 
 When complete, you should see:
+
 - ✅ FlashFusion.co loads the beautiful interface
 - ✅ SSL certificate (🔒 in browser)
 - ✅ GitHub Actions show successful deployment
@@ -103,12 +110,14 @@ When complete, you should see:
 ## 🆘 Need Help?
 
 If stuck, run:
+
 ```bash
 npm run domain-setup    # Setup guide
 npm run verify-pipeline # Test status
 ```
 
 Or check:
+
 - Vercel deployment logs
 - GitHub Actions tab
 - DNS propagation: https://dnschecker.org

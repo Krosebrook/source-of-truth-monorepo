@@ -5,20 +5,20 @@
  * Helps establish and verify Supabase database connection
  */
 
-const https = require('https');
-const readline = require('readline');
-const fs = require('fs');
-const path = require('path');
+const https = require("https");
+const readline = require("readline");
+const fs = require("fs");
+const path = require("path");
 
 // Colors for console output
 const colors = {
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  cyan: '\x1b[36m',
-  reset: '\x1b[0m',
-  bold: '\x1b[1m'
+  red: "\x1b[31m",
+  green: "\x1b[32m",
+  yellow: "\x1b[33m",
+  blue: "\x1b[34m",
+  cyan: "\x1b[36m",
+  reset: "\x1b[0m",
+  bold: "\x1b[1m",
 };
 
 const log = (color, message) => console.log(`${colors[color]}${message}${colors.reset}`);
@@ -26,17 +26,17 @@ const log = (color, message) => console.log(`${colors[color]}${message}${colors.
 // Read current .env file
 function readEnvFile() {
   try {
-    const envPath = path.join(process.cwd(), '.env');
-    const envContent = fs.readFileSync(envPath, 'utf8');
+    const envPath = path.join(process.cwd(), ".env");
+    const envContent = fs.readFileSync(envPath, "utf8");
     const env = {};
-    
-    envContent.split('\n').forEach(line => {
+
+    envContent.split("\n").forEach((line) => {
       const match = line.match(/^([^=]+)=(.*)$/);
       if (match) {
         env[match[1]] = match[2];
       }
     });
-    
+
     return env;
   } catch (error) {
     return {};
@@ -45,56 +45,56 @@ function readEnvFile() {
 
 // Test Supabase connection
 async function testSupabaseConnection(url, anonKey, serviceKey) {
-  log('blue', '\n🔍 Testing Supabase Connection...');
-  console.log('────────────────────────────────────────────────────');
-  
+  log("blue", "\n🔍 Testing Supabase Connection...");
+  console.log("────────────────────────────────────────────────────");
+
   const urlToTest = `${url}/rest/v1/`;
-  
+
   return new Promise((resolve) => {
     const options = {
       hostname: new URL(url).hostname,
-      path: '/rest/v1/',
-      method: 'GET',
+      path: "/rest/v1/",
+      method: "GET",
       headers: {
-        'apikey': anonKey || serviceKey,
-        'Authorization': `Bearer ${anonKey || serviceKey}`,
-        'Content-Type': 'application/json'
-      }
+        apikey: anonKey || serviceKey,
+        Authorization: `Bearer ${anonKey || serviceKey}`,
+        "Content-Type": "application/json",
+      },
     };
 
     const req = https.request(options, (res) => {
-      let data = '';
-      
-      res.on('data', (chunk) => {
+      let data = "";
+
+      res.on("data", (chunk) => {
         data += chunk;
       });
-      
-      res.on('end', () => {
+
+      res.on("end", () => {
         if (res.statusCode === 200) {
-          log('green', '✅ Supabase connection successful!');
-          log('cyan', `   Status: ${res.statusCode}`);
-          log('cyan', `   URL: ${url}`);
+          log("green", "✅ Supabase connection successful!");
+          log("cyan", `   Status: ${res.statusCode}`);
+          log("cyan", `   URL: ${url}`);
           resolve(true);
         } else if (res.statusCode === 401) {
-          log('red', '❌ Authentication failed - Invalid API keys');
-          log('yellow', '   Please check your SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY');
+          log("red", "❌ Authentication failed - Invalid API keys");
+          log("yellow", "   Please check your SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY");
           resolve(false);
         } else {
-          log('yellow', `⚠️  Unexpected response: ${res.statusCode}`);
-          log('cyan', `   Response: ${data.substring(0, 200)}...`);
+          log("yellow", `⚠️  Unexpected response: ${res.statusCode}`);
+          log("cyan", `   Response: ${data.substring(0, 200)}...`);
           resolve(false);
         }
       });
     });
 
-    req.on('error', (error) => {
-      log('red', '❌ Connection failed');
-      log('red', `   Error: ${error.message}`);
+    req.on("error", (error) => {
+      log("red", "❌ Connection failed");
+      log("red", `   Error: ${error.message}`);
       resolve(false);
     });
 
     req.setTimeout(10000, () => {
-      log('red', '❌ Connection timeout');
+      log("red", "❌ Connection timeout");
       resolve(false);
     });
 
@@ -104,12 +104,12 @@ async function testSupabaseConnection(url, anonKey, serviceKey) {
 
 // Create tables if needed
 async function createTables(url, serviceKey) {
-  log('blue', '\n🏗️  Setting up FlashFusion Tables...');
-  console.log('────────────────────────────────────────────────────');
-  
+  log("blue", "\n🏗️  Setting up FlashFusion Tables...");
+  console.log("────────────────────────────────────────────────────");
+
   const queries = [
     {
-      name: 'projects',
+      name: "projects",
       sql: `
         CREATE TABLE IF NOT EXISTS projects (
           id VARCHAR(255) PRIMARY KEY,
@@ -122,10 +122,10 @@ async function createTables(url, serviceKey) {
           created_at TIMESTAMP DEFAULT NOW(),
           updated_at TIMESTAMP DEFAULT NOW()
         );
-      `
+      `,
     },
     {
-      name: 'workflows',
+      name: "workflows",
       sql: `
         CREATE TABLE IF NOT EXISTS workflows (
           id VARCHAR(255) PRIMARY KEY,
@@ -138,10 +138,10 @@ async function createTables(url, serviceKey) {
           created_at TIMESTAMP DEFAULT NOW(),
           updated_at TIMESTAMP DEFAULT NOW()
         );
-      `
+      `,
     },
     {
-      name: 'agent_activities',
+      name: "agent_activities",
       sql: `
         CREATE TABLE IF NOT EXISTS agent_activities (
           id SERIAL PRIMARY KEY,
@@ -154,20 +154,20 @@ async function createTables(url, serviceKey) {
           created_at TIMESTAMP DEFAULT NOW(),
           completed_at TIMESTAMP
         );
-      `
-    }
+      `,
+    },
   ];
 
   for (const query of queries) {
     try {
       const result = await executeQuery(url, serviceKey, query.sql);
       if (result) {
-        log('green', `✅ Table '${query.name}' ready`);
+        log("green", `✅ Table '${query.name}' ready`);
       } else {
-        log('yellow', `⚠️  Table '${query.name}' may already exist`);
+        log("yellow", `⚠️  Table '${query.name}' may already exist`);
       }
     } catch (error) {
-      log('red', `❌ Failed to create table '${query.name}': ${error.message}`);
+      log("red", `❌ Failed to create table '${query.name}': ${error.message}`);
     }
   }
 }
@@ -178,25 +178,25 @@ async function executeQuery(url, serviceKey, sql) {
     const postData = JSON.stringify({ query: sql });
     const options = {
       hostname: new URL(url).hostname,
-      path: '/rest/v1/rpc/exec_sql',
-      method: 'POST',
+      path: "/rest/v1/rpc/exec_sql",
+      method: "POST",
       headers: {
-        'apikey': serviceKey,
-        'Authorization': `Bearer ${serviceKey}`,
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(postData)
-      }
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+        "Content-Type": "application/json",
+        "Content-Length": Buffer.byteLength(postData),
+      },
     };
 
     const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', (chunk) => data += chunk);
-      res.on('end', () => {
+      let data = "";
+      res.on("data", (chunk) => (data += chunk));
+      res.on("end", () => {
         resolve(res.statusCode >= 200 && res.statusCode < 300);
       });
     });
 
-    req.on('error', () => resolve(false));
+    req.on("error", () => resolve(false));
     req.write(postData);
     req.end();
   });
@@ -206,30 +206,36 @@ async function executeQuery(url, serviceKey, sql) {
 async function interactiveSetup() {
   const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
   });
 
-  const question = (prompt) => new Promise(resolve => rl.question(prompt, resolve));
+  const question = (prompt) => new Promise((resolve) => rl.question(prompt, resolve));
 
-  log('cyan', '\n🔐 Supabase Interactive Setup');
-  console.log('════════════════════════════════════════════════════');
-  
+  log("cyan", "\n🔐 Supabase Interactive Setup");
+  console.log("════════════════════════════════════════════════════");
+
   const env = readEnvFile();
-  
-  log('blue', '\nCurrent Configuration:');
-  log('cyan', `  URL: ${env.SUPABASE_URL || 'Not set'}`);
-  log('cyan', `  Anon Key: ${env.SUPABASE_ANON_KEY ? (env.SUPABASE_ANON_KEY.includes('your_new') ? 'Placeholder' : 'Configured') : 'Not set'}`);
-  log('cyan', `  Service Key: ${env.SUPABASE_SERVICE_ROLE_KEY ? (env.SUPABASE_SERVICE_ROLE_KEY.includes('your_new') ? 'Placeholder' : 'Configured') : 'Not set'}`);
 
-  console.log('\n');
-  log('yellow', '📋 To get your Supabase keys:');
-  log('cyan', '   1. Go to https://app.supabase.com/');
-  log('cyan', '   2. Select your project: yfalwodlcfanjlsnahlx');
-  log('cyan', '   3. Go to Settings → API Keys');
-  log('cyan', '   4. Copy the anon/public key and service_role key');
+  log("blue", "\nCurrent Configuration:");
+  log("cyan", `  URL: ${env.SUPABASE_URL || "Not set"}`);
+  log(
+    "cyan",
+    `  Anon Key: ${env.SUPABASE_ANON_KEY ? (env.SUPABASE_ANON_KEY.includes("your_new") ? "Placeholder" : "Configured") : "Not set"}`
+  );
+  log(
+    "cyan",
+    `  Service Key: ${env.SUPABASE_SERVICE_ROLE_KEY ? (env.SUPABASE_SERVICE_ROLE_KEY.includes("your_new") ? "Placeholder" : "Configured") : "Not set"}`
+  );
 
-  const anonKey = await question('\n🔑 Enter your Supabase Anon Key: ');
-  const serviceKey = await question('🔑 Enter your Supabase Service Role Key: ');
+  console.log("\n");
+  log("yellow", "📋 To get your Supabase keys:");
+  log("cyan", "   1. Go to https://app.supabase.com/");
+  log("cyan", "   2. Select your project: yfalwodlcfanjlsnahlx");
+  log("cyan", "   3. Go to Settings → API Keys");
+  log("cyan", "   4. Copy the anon/public key and service_role key");
+
+  const anonKey = await question("\n🔑 Enter your Supabase Anon Key: ");
+  const serviceKey = await question("🔑 Enter your Supabase Service Role Key: ");
 
   rl.close();
 
@@ -239,85 +245,82 @@ async function interactiveSetup() {
 // Update .env file
 function updateEnvFile(anonKey, serviceKey) {
   try {
-    const envPath = path.join(process.cwd(), '.env');
-    let envContent = fs.readFileSync(envPath, 'utf8');
-    
+    const envPath = path.join(process.cwd(), ".env");
+    let envContent = fs.readFileSync(envPath, "utf8");
+
     // Replace the keys
-    envContent = envContent.replace(
-      /SUPABASE_ANON_KEY=.*/,
-      `SUPABASE_ANON_KEY=${anonKey}`
-    );
+    envContent = envContent.replace(/SUPABASE_ANON_KEY=.*/, `SUPABASE_ANON_KEY=${anonKey}`);
     envContent = envContent.replace(
       /SUPABASE_SERVICE_ROLE_KEY=.*/,
       `SUPABASE_SERVICE_ROLE_KEY=${serviceKey}`
     );
-    
+
     fs.writeFileSync(envPath, envContent);
-    log('green', '✅ .env file updated successfully');
+    log("green", "✅ .env file updated successfully");
     return true;
   } catch (error) {
-    log('red', `❌ Failed to update .env file: ${error.message}`);
+    log("red", `❌ Failed to update .env file: ${error.message}`);
     return false;
   }
 }
 
 // Main execution
 async function main() {
-  log('bold', '\n🚀 FlashFusion Supabase Setup');
-  console.log('═══════════════════════════════════════════════════════════════');
+  log("bold", "\n🚀 FlashFusion Supabase Setup");
+  console.log("═══════════════════════════════════════════════════════════════");
 
   const env = readEnvFile();
-  
+
   // Check if keys are already configured
-  const hasValidKeys = env.SUPABASE_ANON_KEY && 
-                      env.SUPABASE_SERVICE_ROLE_KEY && 
-                      !env.SUPABASE_ANON_KEY.includes('your_new') && 
-                      !env.SUPABASE_SERVICE_ROLE_KEY.includes('your_new');
+  const hasValidKeys =
+    env.SUPABASE_ANON_KEY &&
+    env.SUPABASE_SERVICE_ROLE_KEY &&
+    !env.SUPABASE_ANON_KEY.includes("your_new") &&
+    !env.SUPABASE_SERVICE_ROLE_KEY.includes("your_new");
 
   let anonKey = env.SUPABASE_ANON_KEY;
   let serviceKey = env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!hasValidKeys) {
-    log('yellow', '⚠️  Supabase keys not configured or using placeholders');
+    log("yellow", "⚠️  Supabase keys not configured or using placeholders");
     const keys = await interactiveSetup();
     anonKey = keys.anonKey;
     serviceKey = keys.serviceKey;
-    
+
     if (anonKey && serviceKey) {
       updateEnvFile(anonKey, serviceKey);
     } else {
-      log('red', '❌ Setup cancelled - no keys provided');
+      log("red", "❌ Setup cancelled - no keys provided");
       process.exit(1);
     }
   }
 
   // Test connection
   const connected = await testSupabaseConnection(env.SUPABASE_URL, anonKey, serviceKey);
-  
+
   if (connected) {
-    log('green', '\n🎉 Supabase connection established!');
-    
+    log("green", "\n🎉 Supabase connection established!");
+
     // Set up tables
     await createTables(env.SUPABASE_URL, serviceKey);
-    
-    log('cyan', '\n📊 Connection Summary:');
-    console.log('────────────────────────────────────────────────────');
-    log('green', `✅ Database: Connected`);
-    log('green', `✅ URL: ${env.SUPABASE_URL}`);
-    log('green', `✅ Authentication: Working`);
-    log('green', `✅ Tables: Ready for FlashFusion`);
-    
-    log('blue', '\n🚀 Next Steps:');
-    log('cyan', '   • Restart FlashFusion: npm start');
-    log('cyan', '   • Test health: curl http://localhost:3001/health');
-    log('cyan', '   • View dashboard: http://localhost:3001/docs');
-    
+
+    log("cyan", "\n📊 Connection Summary:");
+    console.log("────────────────────────────────────────────────────");
+    log("green", `✅ Database: Connected`);
+    log("green", `✅ URL: ${env.SUPABASE_URL}`);
+    log("green", `✅ Authentication: Working`);
+    log("green", `✅ Tables: Ready for FlashFusion`);
+
+    log("blue", "\n🚀 Next Steps:");
+    log("cyan", "   • Restart FlashFusion: npm start");
+    log("cyan", "   • Test health: curl http://localhost:3001/health");
+    log("cyan", "   • View dashboard: http://localhost:3001/docs");
   } else {
-    log('red', '\n❌ Failed to connect to Supabase');
-    log('yellow', '💡 Troubleshooting:');
-    log('cyan', '   • Verify your API keys are correct');
-    log('cyan', '   • Check your project URL: https://yfalwodlcfanjlsnahlx.supabase.co');
-    log('cyan', '   • Ensure your Supabase project is active');
+    log("red", "\n❌ Failed to connect to Supabase");
+    log("yellow", "💡 Troubleshooting:");
+    log("cyan", "   • Verify your API keys are correct");
+    log("cyan", "   • Check your project URL: https://yfalwodlcfanjlsnahlx.supabase.co");
+    log("cyan", "   • Ensure your Supabase project is active");
     process.exit(1);
   }
 }

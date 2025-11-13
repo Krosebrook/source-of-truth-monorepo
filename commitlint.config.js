@@ -2,84 +2,84 @@
 // https://commitlint.js.org/
 
 export default {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
   rules: {
     // Type
-    'type-enum': [
+    "type-enum": [
       2,
-      'always',
+      "always",
       [
-        'feat',     // New feature
-        'fix',      // Bug fix
-        'docs',     // Documentation changes
-        'style',    // Code style changes (formatting, etc.)
-        'refactor', // Code refactoring
-        'perf',     // Performance improvements
-        'test',     // Adding or updating tests
-        'chore',    // Maintenance tasks
-        'ci',       // CI/CD changes
-        'build',    // Build system changes
-        'revert',   // Revert previous commit
+        "feat", // New feature
+        "fix", // Bug fix
+        "docs", // Documentation changes
+        "style", // Code style changes (formatting, etc.)
+        "refactor", // Code refactoring
+        "perf", // Performance improvements
+        "test", // Adding or updating tests
+        "chore", // Maintenance tasks
+        "ci", // CI/CD changes
+        "build", // Build system changes
+        "revert", // Revert previous commit
       ],
     ],
     // Scope
-    'scope-enum': [
+    "scope-enum": [
       2,
-      'always',
+      "always",
       [
         // General
-        'deps',
-        'config',
-        'scripts',
-        'docs',
-        'ci',
-        
+        "deps",
+        "config",
+        "scripts",
+        "docs",
+        "ci",
+
         // Areas
-        'agents',
-        'shared',
-        'projects',
-        
+        "agents",
+        "shared",
+        "projects",
+
         // Specific packages
-        'claude-agent',
-        'codex-agent',
-        'gemini-agent',
-        'github-agent',
-        'logging',
-        'test-utils',
-        'contracts',
-        'otel',
-        'workflows',
-        
+        "claude-agent",
+        "codex-agent",
+        "gemini-agent",
+        "github-agent",
+        "logging",
+        "test-utils",
+        "contracts",
+        "otel",
+        "workflows",
+
         // Projects
-        'web',
-        'api',
-        'ai-core',
-        'harvestflow',
-        'int-smart-triage',
-        
+        "web",
+        "api",
+        "ai-core",
+        "harvestflow",
+        "int-smart-triage",
+
         // Infrastructure
-        'workspace',
-        'turbo',
-        'security',
+        "workspace",
+        "turbo",
+        "security",
       ],
     ],
-    'scope-case': [2, 'always', 'kebab-case'],
-    
+    "scope-case": [2, "always", "kebab-case"],
+
     // Subject
-    'subject-empty': [2, 'never'],
-    'subject-case': [2, 'always', 'lower-case'],
-    'subject-full-stop': [2, 'never', '.'],
-    'subject-max-length': [2, 'always', 100],
-    
+    "subject-empty": [2, "never"],
+    "subject-case": [2, "always", "lower-case"],
+    "subject-full-stop": [2, "never", "."],
+    "subject-max-length": [2, "always", 100],
+
     // Body
-    'body-leading-blank': [2, 'always'],
-    'body-max-line-length': [2, 'always', 100],
-    
+    "body-leading-blank": [2, "always"],
+    "body-max-line-length": [2, "always", 100],
+
     // Footer
-    'footer-leading-blank': [2, 'always'],
-    'footer-max-line-length': [2, 'always', 100],
-    
+    "footer-leading-blank": [2, "always"],
+    "footer-max-line-length": [2, "always", 100],
+
     // Header
-    'header-max-length': [2, 'always', 100],
+    "header-max-length": [2, "always", 100],
   },
 };

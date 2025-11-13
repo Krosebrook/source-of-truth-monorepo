@@ -6,6 +6,7 @@
 ## ⚡ Quick Installation
 
 ### Windows
+
 ```bash
 # Run the installer
 .\install-ff-cli.bat
@@ -15,6 +16,7 @@ npm install -g .
 ```
 
 ### Linux/Mac
+
 ```bash
 # Make executable and install
 chmod +x ff-cli.js
@@ -49,6 +51,7 @@ ff status
 ## 📋 Command Categories
 
 ### 📦 Core Project Setup
+
 ```bash
 ff init                    # Scaffold entire monorepo structure
 ff install                 # Install dependencies (pnpm or npm)
@@ -61,6 +64,7 @@ ff upgrade                 # Check & upgrade all package versions
 ```
 
 ### 🚀 Deployment & Hosting
+
 ```bash
 ff vercel:link             # Link Vercel project
 ff vercel:deploy           # Deploy to staging
@@ -71,6 +75,7 @@ ff deploy:all              # Full stack deploy (web + edge + DB)
 ```
 
 ### 🔐 Supabase DB + Auth
+
 ```bash
 ff supa:start              # Run Supabase locally
 ff supa:push               # Push local changes to remote
@@ -83,6 +88,7 @@ ff supa:auth:roles         # Show auth roles
 ```
 
 ### 🧠 MCP + Agent Orchestration
+
 ```bash
 ff agent:list              # Show all registered agents
 ff agent:roles             # Print roles, purpose, routing
@@ -96,6 +102,7 @@ ff agent:trace             # Trace call path with debug
 ```
 
 ### 🧪 Validator Suite
+
 ```bash
 ff validate:all            # Run SaaS + Content + Ecom
 ff validate:saas           # SaaS validator only
@@ -109,6 +116,7 @@ ff validate:export         # Export verdict to PDF
 ```
 
 ### 🖼️ Mockup + Content Generation
+
 ```bash
 ff mockup:start            # Upload image and generate merch
 ff mockup:preview          # Preview results
@@ -122,6 +130,7 @@ ff content:save            # Store generated content
 ```
 
 ### 🛍️ Storefront Integration
+
 ```bash
 ff connect:shopify         # OAuth connect Shopify store
 ff connect:etsy            # OAuth connect Etsy
@@ -134,6 +143,7 @@ ff product:retract         # Unpublish product
 ```
 
 ### 🧰 Developer Tools
+
 ```bash
 ff ui:dev                  # Run frontend UI only
 ff ui:test                 # Run component/unit tests
@@ -145,6 +155,7 @@ ff prompt:add              # Add new generator preset
 ```
 
 ### 📊 Analytics & Feedback
+
 ```bash
 ff log:validate            # Show all past validation scores
 ff log:agent               # Show past agent activities
@@ -156,6 +167,7 @@ ff trend:report            # Run trends + display UI
 ```
 
 ### 💾 Exporting & Docs
+
 ```bash
 ff export:pdf              # Export current view
 ff export:zip              # Download full mockup + copy
@@ -165,6 +177,7 @@ ff docs:serve              # Serve docs locally
 ```
 
 ### 🔄 Automation & Workflows
+
 ```bash
 ff auto:daily              # Trigger daily validator runs
 ff auto:clean              # Cleanup unused ideas/files
@@ -174,6 +187,7 @@ ff auto:report             # Email insights to owner
 ```
 
 ### 🧠 Bonus Features
+
 ```bash
 ff demo:mode               # Fake data auto-mode for pitching/demoing
 ff gpt:export              # Generate GPT spec from idea
@@ -183,6 +197,7 @@ ff seo:gen                 # AI SEO meta generator for all products
 ## 🛠️ Development Workflow
 
 ### 1. **New Project Setup**
+
 ```bash
 # Create new FlashFusion project
 ff init
@@ -193,6 +208,7 @@ ff env:check
 ```
 
 ### 2. **Development**
+
 ```bash
 # Start all services
 ff dev
@@ -204,6 +220,7 @@ ff supa:start              # Database
 ```
 
 ### 3. **Testing & Validation**
+
 ```bash
 # Test your ideas
 ff validate:all
@@ -216,6 +233,7 @@ ff content:script
 ```
 
 ### 4. **Deployment**
+
 ```bash
 # Build and deploy
 ff build
@@ -229,6 +247,7 @@ ff vercel:logs
 ## 🔧 Configuration
 
 ### Environment Variables
+
 ```bash
 # Generate template
 ff env
@@ -242,6 +261,7 @@ JWT_SECRET=your-secret
 ```
 
 ### Project Structure
+
 ```
 FlashFusion-Unified/
 ├── src/                   # Core server code
@@ -258,6 +278,7 @@ FlashFusion-Unified/
 ### Common Issues
 
 **CLI not found**
+
 ```bash
 # Reinstall globally
 npm uninstall -g flashfusion-unified
@@ -268,6 +289,7 @@ npm run ff <command>
 ```
 
 **Environment issues**
+
 ```bash
 # Check configuration
 ff env:check
@@ -279,6 +301,7 @@ ff env
 ```
 
 **Development server issues**
+
 ```bash
 # Clean and restart
 ff clean
@@ -287,6 +310,7 @@ ff dev
 ```
 
 **Agent connectivity**
+
 ```bash
 # Check agent health
 ff agent:ping
@@ -299,6 +323,7 @@ ff mcp:restart
 ## 📚 Advanced Usage
 
 ### Custom Workflows
+
 ```bash
 # Create custom workflow
 ff workflow:create --type=hybrid --name="my-workflow"
@@ -308,6 +333,7 @@ ff agent:add --name="specialist" --role="custom"
 ```
 
 ### Automation
+
 ```bash
 # Set up daily automation
 ff auto:daily
@@ -318,6 +344,7 @@ ff auto:schedule --task="validate" --cron="0 9 * * *"
 ```
 
 ### Integration
+
 ```bash
 # Connect external services
 ff connect:shopify
@@ -331,12 +358,14 @@ ff product:publish
 ## 💻 Development
 
 ### Adding New Commands
+
 1. Edit `ff-cli.js` or `ff-cli-extended.js`
 2. Add command to the `commands` object
 3. Test with `ff <your-command>`
 4. Update documentation
 
 ### Testing
+
 ```bash
 # Test CLI locally
 node ff-cli.js <command>
@@ -349,6 +378,7 @@ npm test
 ## 📈 System Status
 
 Use `ff status` to check:
+
 - ✅ Core services running
 - 🔗 Integration health
 - 🤖 Agent status

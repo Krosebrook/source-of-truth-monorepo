@@ -15,7 +15,10 @@ export function assert(condition: boolean, message: string): void {
 /**
  * Assert that a value is defined (not null or undefined)
  */
-export function assertDefined<T>(value: T | null | undefined, message?: string): asserts value is T {
+export function assertDefined<T>(
+  value: T | null | undefined,
+  message?: string
+): asserts value is T {
   if (value === null || value === undefined) {
     throw new Error(message || `Expected value to be defined, got ${value}`);
   }
@@ -36,7 +39,7 @@ export function assertEqual<T>(actual: T, expected: T, message?: string): void {
  * Assert that a function is defined and callable
  */
 export function assertFunction(fn: any, name: string): void {
-  if (typeof fn !== 'function') {
+  if (typeof fn !== "function") {
     throw new Error(`Expected ${name} to be a function, got ${typeof fn}`);
   }
 }
@@ -54,7 +57,7 @@ export function assertHasProperty(obj: any, property: string): void {
  * Sleep helper for async tests
  */
 export function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -64,19 +67,19 @@ export class MockLogger {
   public logs: Array<{ level: string; message: string; meta?: any }> = [];
 
   debug(message: string, meta?: any): void {
-    this.logs.push({ level: 'debug', message, meta });
+    this.logs.push({ level: "debug", message, meta });
   }
 
   info(message: string, meta?: any): void {
-    this.logs.push({ level: 'info', message, meta });
+    this.logs.push({ level: "info", message, meta });
   }
 
   warn(message: string, meta?: any): void {
-    this.logs.push({ level: 'warn', message, meta });
+    this.logs.push({ level: "warn", message, meta });
   }
 
   error(message: string, meta?: any): void {
-    this.logs.push({ level: 'error', message, meta });
+    this.logs.push({ level: "error", message, meta });
   }
 
   clear(): void {
@@ -84,9 +87,7 @@ export class MockLogger {
   }
 
   hasLog(level: string, messageSubstring: string): boolean {
-    return this.logs.some(
-      log => log.level === level && log.message.includes(messageSubstring)
-    );
+    return this.logs.some((log) => log.level === level && log.message.includes(messageSubstring));
   }
 }
 

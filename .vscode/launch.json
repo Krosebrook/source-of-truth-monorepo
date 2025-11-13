@@ -6,9 +6,7 @@
       "type": "node",
       "request": "launch",
       "program": "${file}",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     },
@@ -17,11 +15,7 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": [
-        "--runInBand",
-        "--no-cache",
-        "--watchAll=false"
-      ],
+      "args": ["--runInBand", "--no-cache", "--watchAll=false"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     },
@@ -30,12 +24,7 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": [
-        "${fileBasenameNoExtension}",
-        "--runInBand",
-        "--no-cache",
-        "--watchAll=false"
-      ],
+      "args": ["${fileBasenameNoExtension}", "--runInBand", "--no-cache", "--watchAll=false"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     },
@@ -44,9 +33,7 @@
       "type": "node",
       "request": "attach",
       "port": 9229,
-      "skipFiles": [
-        "<node_internals>/**"
-      ]
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }

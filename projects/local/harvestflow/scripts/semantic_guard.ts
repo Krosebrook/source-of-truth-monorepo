@@ -26,7 +26,7 @@ function embed(text: string): number[] {
     vec[Math.abs(hash) % DIM] += 1;
   }
   const norm = Math.sqrt(vec.reduce((sum, value) => sum + value * value, 0)) || 1;
-  return vec.map(value => value / norm);
+  return vec.map((value) => value / norm);
 }
 
 function cosine(a: number[], b: number[]) {
@@ -44,7 +44,7 @@ function cosine(a: number[], b: number[]) {
 const PAIRS: [string, string][] = [
   ["snapshots/golden/claude-run/context_map.md", "agents/outputs/claude-run/context_map.md"],
   ["snapshots/golden/codex-run/context_map.md", "agents/outputs/codex-run/context_map.md"],
-  ["snapshots/golden/gemini-run/context_map.md", "agents/outputs/gemini-run/context_map.md"]
+  ["snapshots/golden/gemini-run/context_map.md", "agents/outputs/gemini-run/context_map.md"],
 ];
 
 let failures = 0;

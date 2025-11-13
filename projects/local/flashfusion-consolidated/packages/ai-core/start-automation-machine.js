@@ -5,9 +5,9 @@
  * Coordinates all automation systems: GitHub, Notion, Zapier, and Vercel
  */
 
-const { spawn, exec } = require('child_process');
-const path = require('path');
-const fs = require('fs');
+const { spawn, exec } = require("child_process");
+const path = require("path");
+const fs = require("fs");
 
 class AutomationMachine {
   constructor() {
@@ -38,85 +38,81 @@ class AutomationMachine {
       checkpoint: {
         enabled: true,
         interval: 60 * 60 * 1000, // 1 hour
-      }
+      },
     };
   }
 
   async start() {
-    console.log('🚀 Starting FlashFusion Automation Machine...');
-    console.log('═'.repeat(60));
-    
+    console.log("🚀 Starting FlashFusion Automation Machine...");
+    console.log("═".repeat(60));
+
     this.isRunning = true;
-    
+
     // Start all automation components
     await this.startNotionSync();
     await this.startZapierManager();
     await this.startGitHubAutomation();
     await this.startCheckpointSystem();
     await this.startHealthMonitoring();
-    
-    console.log('═'.repeat(60));
-    console.log('✅ FlashFusion Automation Machine is fully operational!');
+
+    console.log("═".repeat(60));
+    console.log("✅ FlashFusion Automation Machine is fully operational!");
     console.log(`📊 Running ${this.processes.size} automation processes`);
-    console.log('💡 Use Ctrl+C to shutdown gracefully');
-    
+    console.log("💡 Use Ctrl+C to shutdown gracefully");
+
     // Setup graceful shutdown
     this.setupShutdownHandlers();
-    
+
     // Start status reporting
     this.startStatusReporting();
   }
 
   async startNotionSync() {
     if (!this.config.notion.enabled) {
-      console.log('⚠️ Notion sync disabled (no NOTION_TOKEN)');
+      console.log("⚠️ Notion sync disabled (no NOTION_TOKEN)");
       return;
     }
 
-    console.log('🔄 Starting Notion Auto-Sync...');
-    
-    const notionSync = spawn('node', [
-      path.join(__dirname, 'auto-notion-sync.js')
-    ], {
-      stdio: 'pipe',
+    console.log("🔄 Starting Notion Auto-Sync...");
+
+    const notionSync = spawn("node", [path.join(__dirname, "auto-notion-sync.js")], {
+      stdio: "pipe",
       cwd: process.cwd(),
-      env: { ...process.env }
+      env: { ...process.env },
     });
 
-    this.processes.set('notion-sync', notionSync);
-    
-    notionSync.stdout.on('data', (data) => {
+    this.processes.set("notion-sync", notionSync);
+
+    notionSync.stdout.on("data", (data) => {
       console.log(`[Notion] ${data.toString().trim()}`);
     });
 
-    notionSync.stderr.on('data', (data) => {
+    notionSync.stderr.on("data", (data) => {
       console.error(`[Notion Error] ${data.toString().trim()}`);
     });
 
-    console.log('✅ Notion sync started');
+    console.log("✅ Notion sync started");
   }
 
   async startZapierManager() {
-    console.log('⚡ Starting Zapier Automation Manager...');
-    
-    const zapierManager = spawn('node', [
-      path.join(__dirname, 'zapier-automation-manager.js')
-    ], {
-      stdio: 'pipe',
+    console.log("⚡ Starting Zapier Automation Manager...");
+
+    const zapierManager = spawn("node", [path.join(__dirname, "zapier-automation-manager.js")], {
+      stdio: "pipe",
       cwd: process.cwd(),
-      env: { 
+      env: {
         ...process.env,
-        PORT: this.config.zapier.port
-      }
+        PORT: this.config.zapier.port,
+      },
     });
 
-    this.processes.set('zapier-manager', zapierManager);
-    
-    zapierManager.stdout.on('data', (data) => {
+    this.processes.set("zapier-manager", zapierManager);
+
+    zapierManager.stdout.on("data", (data) => {
       console.log(`[Zapier] ${data.toString().trim()}`);
     });
 
-    zapierManager.stderr.on('data', (data) => {
+    zapierManager.stderr.on("data", (data) => {
       console.error(`[Zapier Error] ${data.toString().trim()}`);
     });
 
@@ -126,70 +122,70 @@ class AutomationMachine {
   async startGitHubAutomation() {
     if (!this.config.github.enabled) return;
 
-    console.log('📝 Setting up GitHub automation...');
-    
+    console.log("📝 Setting up GitHub automation...");
+
     // Start periodic commit checker
     const commitInterval = setInterval(async () => {
       if (!this.isRunning) return;
-      
+
       try {
         await this.checkAndCommitChanges();
       } catch (error) {
-        console.error('❌ GitHub automation error:', error.message);
+        console.error("❌ GitHub automation error:", error.message);
       }
     }, this.config.github.commitInterval);
 
-    this.processes.set('github-automation', { 
-      type: 'interval',
-      interval: commitInterval
+    this.processes.set("github-automation", {
+      type: "interval",
+      interval: commitInterval,
     });
 
-    console.log('✅ GitHub automation scheduled');
+    console.log("✅ GitHub automation scheduled");
   }
 
   async startCheckpointSystem() {
     if (!this.config.checkpoint.enabled) return;
 
-    console.log('💾 Setting up checkpoint system...');
-    
+    console.log("💾 Setting up checkpoint system...");
+
     const checkpointInterval = setInterval(async () => {
       if (!this.isRunning) return;
-      
+
       try {
         await this.createAutomatedCheckpoint();
       } catch (error) {
-        console.error('❌ Checkpoint error:', error.message);
+        console.error("❌ Checkpoint error:", error.message);
       }
     }, this.config.checkpoint.interval);
 
-    this.processes.set('checkpoint-system', {
-      type: 'interval',
-      interval: checkpointInterval
+    this.processes.set("checkpoint-system", {
+      type: "interval",
+      interval: checkpointInterval,
     });
 
-    console.log('✅ Checkpoint system scheduled');
+    console.log("✅ Checkpoint system scheduled");
   }
 
   async startHealthMonitoring() {
-    console.log('🏥 Starting health monitoring...');
-    
+    console.log("🏥 Starting health monitoring...");
+
     const healthInterval = setInterval(async () => {
       if (!this.isRunning) return;
-      
+
       await this.performHealthCheck();
     }, 60000); // Every minute
 
-    this.processes.set('health-monitor', {
-      type: 'interval',
-      interval: healthInterval
+    this.processes.set("health-monitor", {
+      type: "interval",
+      interval: healthInterval,
     });
 
-    console.log('✅ Health monitoring started');
+    console.log("✅ Health monitoring started");
   }
 
   async checkAndCommitChanges() {
     return new Promise((resolve, reject) => {
-      exec('git status --porcelain', (error, stdout) => {
+      exec("git status --porcelain", (error, stdout) => {
         if (error) {
           reject(error);
           return;
@@ -201,8 +197,8 @@ class AutomationMachine {
           return;
         }
 
-        console.log('📝 Auto-committing changes...');
-        
+        console.log("📝 Auto-committing changes...");
+
         const commitMessage = `🤖 Automated commit: ${new Date().toISOString()}
 
 - Auto-sync project updates
@@ -213,61 +209,65 @@ class AutomationMachine {
 
 Co-Authored-By: Claude <noreply@anthropic.com>`;
 
-        exec('git add . && git commit -m "' + commitMessage.replace(/"/g, '\\"') + '" && git push', 
+        exec(
+          'git add . && git commit -m "' + commitMessage.replace(/"/g, '\\"') + '" && git push',
           (commitError, commitStdout) => {
             if (commitError) {
-              console.error('❌ Auto-commit failed:', commitError.message);
+              console.error("❌ Auto-commit failed:", commitError.message);
               reject(commitError);
             } else {
-              console.log('✅ Auto-commit successful');
-              
+              console.log("✅ Auto-commit successful");
+
               // Trigger webhook for commit
-              this.triggerWebhook('github_commit', {
-                repository: 'anthropic-quickstarts',
-                branch: 'main',
-                message: 'Automated commit',
+              this.triggerWebhook("github_commit", {
+                repository: "anthropic-quickstarts",
+                branch: "main",
+                message: "Automated commit",
                 timestamp: new Date().toISOString(),
-                source: 'automation-machine'
+                source: "automation-machine",
               });
-              
+
               resolve();
             }
-          });
+          }
+        );
       });
     });
   }
 
   async createAutomatedCheckpoint() {
-    console.log('💾 Creating automated checkpoint...');
-    
+    console.log("💾 Creating automated checkpoint...");
+
     const checkpointData = {
       timestamp: new Date().toISOString(),
-      type: 'automated',
-      trigger: 'scheduled',
+      type: "automated",
+      trigger: "scheduled",
       project_status: {
         backend: 95,
         frontend: 15,
         mobile: 0,
-        overall: 90
+        overall: 90,
       },
       system_health: await this.getSystemHealth(),
-      process_status: this.getProcessStatus()
+      process_status: this.getProcessStatus(),
     };
 
     // Save checkpoint locally
-    const checkpointDir = path.join(__dirname, '..', 'checkpoints');
+    const checkpointDir = path.join(__dirname, "..", "checkpoints");
     if (!fs.existsSync(checkpointDir)) {
       fs.mkdirSync(checkpointDir, { recursive: true });
     }
 
-    const checkpointFile = path.join(checkpointDir, 
-      `checkpoint-${new Date().toISOString().replace(/[:.]/g, '-')}.json`);
-    
+    const checkpointFile = path.join(
+      checkpointDir,
+      `checkpoint-${new Date().toISOString().replace(/[:.]/g, "-")}.json`
+    );
+
     fs.writeFileSync(checkpointFile, JSON.stringify(checkpointData, null, 2));
-    
+
     // Trigger webhook for checkpoint
-    await this.triggerWebhook('checkpoint_requested', checkpointData);
-    
+    await this.triggerWebhook("checkpoint_requested", checkpointData);
+
     console.log(`✅ Checkpoint saved: ${path.basename(checkpointFile)}`);
   }
 
@@ -276,7 +276,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>`;
       timestamp: new Date().toISOString(),
       processes: this.getProcessStatus(),
       system: await this.getSystemHealth(),
-      config: this.config
+      config: this.config,
     };
 
     // Check for failed processes
@@ -285,8 +285,8 @@ Co-Authored-By: Claude <noreply@anthropic.com>`;
       .map(([name]) => name);
 
     if (failedProcesses.length > 0) {
-      console.warn(`⚠️ Failed processes detected: ${failedProcesses.join(', ')}`);
-      
+      console.warn(`⚠️ Failed processes detected: ${failedProcesses.join(", ")}`);
+
       // Attempt to restart failed processes
       for (const processName of failedProcesses) {
         await this.restartProcess(processName);
@@ -296,7 +296,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>`;
 
   async restartProcess(processName) {
     console.log(`🔄 Attempting to restart ${processName}...`);
-    
+
     // Implementation would depend on process type
     // For now, just log the attempt
     console.log(`✅ Process ${processName} restart initiated`);
@@ -305,18 +305,17 @@ Co-Authored-By: Claude <noreply@anthropic.com>`;
   async triggerWebhook(event, data) {
     try {
       const webhookUrl = `http://localhost:${this.config.zapier.port}/api/zapier/incoming-webhook`;
-      
+
       const payload = {
         event,
         timestamp: new Date().toISOString(),
         data,
-        source: 'automation-machine'
+        source: "automation-machine",
       };
 
       // Use fetch or axios to send webhook
       // For now, just log
       console.log(`📤 Webhook triggered: ${event}`);
-      
     } catch (error) {
       console.error(`❌ Webhook failed for ${event}:`, error.message);
     }
@@ -324,23 +323,23 @@ Co-Authored-By: Claude <noreply@anthropic.com>`;
 
   getProcessStatus() {
     const status = {};
-    
+
     for (const [name, process] of this.processes) {
-      if (process.type === 'interval') {
+      if (process.type === "interval") {
         status[name] = {
-          type: 'interval',
+          type: "interval",
           running: !!process.interval,
-          pid: null
+          pid: null,
         };
       } else {
         status[name] = {
-          type: 'process',
+          type: "process",
           running: !process.killed && process.exitCode === null,
-          pid: process.pid
+          pid: process.pid,
         };
       }
     }
-    
+
     return status;
   }
 
@@ -351,22 +350,25 @@ Co-Authored-By: Claude <noreply@anthropic.com>`;
       cpu: process.cpuUsage(),
       platform: process.platform,
       version: process.version,
-      processes_active: this.processes.size
+      processes_active: this.processes.size,
     };
   }
 
   startStatusReporting() {
     // Report status every 10 minutes
-    setInterval(() => {
-      if (!this.isRunning) return;
-      
-      console.log('═'.repeat(40));
-      console.log(`📊 Status Report - ${new Date().toLocaleString()}`);
-      console.log(`🔄 Processes: ${this.processes.size} active`);
-      console.log(`💾 Memory: ${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`);
-      console.log(`⏱️ Uptime: ${Math.round(process.uptime() / 60)} minutes`);
-      console.log('═'.repeat(40));
-    }, 10 * 60 * 1000);
+    setInterval(
+      () => {
+        if (!this.isRunning) return;
+
+        console.log("═".repeat(40));
+        console.log(`📊 Status Report - ${new Date().toLocaleString()}`);
+        console.log(`🔄 Processes: ${this.processes.size} active`);
+        console.log(`💾 Memory: ${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`);
+        console.log(`⏱️ Uptime: ${Math.round(process.uptime() / 60)} minutes`);
+        console.log("═".repeat(40));
+      },
+      10 * 60 * 1000
+    );
   }
 
   setupShutdownHandlers() {
@@ -375,28 +377,28 @@ Co-Authored-By: Claude <noreply@anthropic.com>`;
       this.stop();
     };
 
-    process.on('SIGINT', () => shutdown('SIGINT'));
-    process.on('SIGTERM', () => shutdown('SIGTERM'));
+    process.on("SIGINT", () => shutdown("SIGINT"));
+    process.on("SIGTERM", () => shutdown("SIGTERM"));
   }
 
   stop() {
-    console.log('⏹️ Stopping all automation processes...');
+    console.log("⏹️ Stopping all automation processes...");
     this.isRunning = false;
-    
+
     for (const [name, process] of this.processes) {
       try {
-        if (process.type === 'interval') {
+        if (process.type === "interval") {
           clearInterval(process.interval);
         } else {
-          process.kill('SIGTERM');
+          process.kill("SIGTERM");
         }
         console.log(`✅ Stopped ${name}`);
       } catch (error) {
         console.error(`❌ Error stopping ${name}:`, error.message);
       }
     }
-    
-    console.log('🏁 FlashFusion Automation Machine stopped');
+
+    console.log("🏁 FlashFusion Automation Machine stopped");
     process.exit(0);
   }
 }

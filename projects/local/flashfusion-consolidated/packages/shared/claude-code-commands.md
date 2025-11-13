@@ -3,6 +3,7 @@
 ## 🚀 POWER USER SHORTCUTS & CHEAT CODES
 
 ### ⚡ Lightning-Fast Project Setup
+
 ```bash
 # The "God Mode" project initializer - sets up everything
 claude-code turbo-init --stack=full --ai=true --testing=true --deploy=true
@@ -18,6 +19,7 @@ claude-code replicate-setup --project=<reference> --customize=<modifications>
 ```
 
 ### 🔥 One-Liner Problem Solvers
+
 ```bash
 # Fix common issues instantly
 claude-code fix-now --auto-detect --apply-all
@@ -34,6 +36,7 @@ claude-code lighthouse-100 --aggressive-optimization --measure-before-after
 ```
 
 ### 🎯 Instant Code Generation
+
 ```bash
 # Generate entire features in one command
 claude-code feature-complete --name=<feature> --ui --api --tests --docs
@@ -49,6 +52,7 @@ claude-code api-from-db --auto-generate --docs --tests --auth
 ```
 
 ### 🐛 Debugging Power Tools
+
 ```bash
 # The debugging nuclear option
 claude-code debug-everything --logs --network --performance --errors --memory
@@ -64,6 +68,7 @@ claude-code memory-leak-hunt --profile --fix --verify
 ```
 
 ### 🚢 Deployment & CI/CD Shortcuts
+
 ```bash
 # Deploy anywhere, anytime
 claude-code deploy-now --best-platform --optimize --monitor --alerts
@@ -79,6 +84,7 @@ claude-code sync-environments --bi-directional --conflict-resolution
 ```
 
 ### ✨ Code Quality Instant Wins
+
 ```bash
 # Make code production-ready instantly
 claude-code production-ready --linting --formatting --security --performance --docs
@@ -94,6 +100,7 @@ claude-code legacy-modernize --gradual --safe --tested --documented
 ```
 
 ### 🤖 AI-Powered Shortcuts
+
 ```bash
 # Let AI do the heavy lifting
 claude-code ai-implement --requirements="<describe what you want>"
@@ -110,6 +117,7 @@ claude-code code-review-ai --thorough --suggestions --security --performance
 ```
 
 ### 🗄️ Database & API Power Commands
+
 ```bash
 # Database management shortcuts
 claude-code db-snapshot --quick --compressed --restore-script
@@ -125,6 +133,7 @@ claude-code real-time-sync --bidirectional --conflict-resolution --monitoring
 ```
 
 ### 🧪 Testing & QA Accelerators
+
 ```bash
 # Test everything, everywhere, all at once
 claude-code test-blitz --unit --integration --e2e --visual --performance --security
@@ -140,6 +149,7 @@ claude-code performance-baseline --measure --optimize --validate --monitor
 ```
 
 ### 📊 Monitoring & Analytics Shortcuts
+
 ```bash
 # Observability in one command
 claude-code monitor-everything --metrics --logs --traces --alerts --dashboards
@@ -151,6 +161,7 @@ claude-code data-insights --automated-analysis --anomaly-detection --recommendat
 ```
 
 ### 🤝 Collaboration & Team Shortcuts
+
 ```bash
 # Team productivity boosters
 claude-code team-sync --standup-prep --blocker-identification --progress-summary
@@ -162,6 +173,7 @@ claude-code review-assist --ai-suggestions --best-practices --security --perform
 ```
 
 ### 🚨 Emergency & Recovery Commands
+
 ```bash
 # When everything goes wrong
 claude-code emergency-recovery --assess-damage --rollback-options --fix-plan --execute
@@ -177,6 +189,7 @@ claude-code backup-everything --automated --encrypted --tested --documented
 ```
 
 ### 💡 Developer Experience Enhancers
+
 ```bash
 # Make development fun again
 claude-code dx-optimize --fast-builds --hot-reload --intelligent-completion --error-clarity
@@ -188,6 +201,7 @@ claude-code dependency-time-machine --lock-versions --reproduce-environment --te
 ```
 
 ### 🏗️ Code Generation Shortcuts
+
 ```bash
 # Boilerplate eliminators
 claude-code no-boilerplate --smart-templates --context-aware --customizable --maintainable
@@ -199,6 +213,7 @@ claude-code architecture-template --microservices|monolith|serverless --setup --
 ```
 
 ### ⚡ Performance Optimization Shortcuts
+
 ```bash
 # Speed demons
 claude-code performance-ninja --analyze --optimize --measure --repeat-until-fast
@@ -210,6 +225,7 @@ claude-code cdn-optimize --global-distribution --edge-caching --performance-moni
 ```
 
 ### 🔒 Security Hardening Shortcuts
+
 ```bash
 # Security fortress builders
 claude-code security-fortress --authentication --authorization --encryption --monitoring --compliance
@@ -221,6 +237,7 @@ claude-code penetration-test --automated --comprehensive --fix-recommendations -
 ```
 
 ### 📚 Documentation Automation
+
 ```bash
 # Documentation that writes itself
 claude-code docs-autopilot --code-analysis --api-discovery --user-journey --maintenance
@@ -232,6 +249,7 @@ claude-code flow-charts --user-journeys --system-processes --decision-trees --vi
 ```
 
 ### 🚀 Productivity Multipliers
+
 ```bash
 # Time-saving compounds
 claude-code productivity-10x --automation --shortcuts --ai-assistance --smart-defaults
@@ -243,6 +261,7 @@ claude-code multi-project --seamless-switching --shared-configs --unified-comman
 ```
 
 ### 🤖 Advanced Automation
+
 ```bash
 # Self-maintaining systems
 claude-code auto-maintain --dependency-updates --security-patches --performance-tuning --health-checks
@@ -254,6 +273,7 @@ claude-code smart-scheduler --task-prioritization --resource-optimization --dead
 ```
 
 ### 📈 Learning & Skill Development
+
 ```bash
 # Level up your skills
 claude-code skill-builder --identify-gaps --learning-path --hands-on-practice --progress-tracking
@@ -267,6 +287,7 @@ claude-code experiment-safely --isolated-environment --rollback-capability --lea
 ## 🎮 DEVELOPER CHEAT CODES
 
 ### The Ultimate Shortcuts
+
 ```bash
 # The "I need this working in 5 minutes" commands
 claude-code mvp-5min --template=<closest-match> --ai-complete --deploy-immediately
@@ -282,6 +303,7 @@ claude-code stakeholder-ready --documentation --metrics --security-report --road
 ```
 
 ### Developer Superpowers
+
 ```bash
 # Time manipulation
 claude-code time-machine --git-bisect-smart --issue-reproduction --fix-verification --prevention
@@ -297,6 +319,7 @@ claude-code finish-my-thought --code-completion --logic-implementation --edge-ca
 ```
 
 ### Emergency Protocols
+
 ```bash
 # When the demo is in 1 hour
 claude-code demo-emergency --stabilize --polish-visible-parts --hide-broken-features --create-backup-plan
@@ -314,6 +337,7 @@ claude-code damage-control --stabilize-situation --show-progress --prevent-escal
 ## 🎯 COMMON WORKFLOW PATTERNS
 
 ### Morning Routine
+
 ```bash
 # Start your day right
 claude-code morning-start --sync-repo --check-ci --review-prs --plan-day
@@ -321,6 +345,7 @@ claude-code standup-prep --yesterday-done --today-plan --blockers --team-updates
 ```
 
 ### Feature Development Flow
+
 ```bash
 # Complete feature workflow
 claude-code feature-start --branch --tests --documentation
@@ -329,6 +354,7 @@ claude-code feature-complete --review --merge --deploy --monitor
 ```
 
 ### Bug Fixing Flow
+
 ```bash
 # Systematic bug crushing
 claude-code bug-reproduce --environment --steps --isolation
@@ -337,6 +363,7 @@ claude-code bug-deploy --hotfix --verify --prevent-recurrence
 ```
 
 ### Code Review Flow
+
 ```bash
 # Efficient code reviews
 claude-code review-prep --self-check --documentation --test-coverage
@@ -345,6 +372,7 @@ claude-code review-complete --feedback-implementation --approval --merge
 ```
 
 ### Release Flow
+
 ```bash
 # Smooth releases every time
 claude-code release-prep --feature-freeze --testing --documentation
@@ -355,7 +383,9 @@ claude-code release-complete --verification --communication --retrospective
 ## 💡 PRO TIPS
 
 ### Speed Hacks
+
 1. **Alias Everything**: Create short aliases for your most-used commands
+
    ```bash
    alias cc='claude-code'
    alias ccf='claude-code fix-now'
@@ -363,6 +393,7 @@ claude-code release-complete --verification --communication --retrospective
    ```
 
 2. **Chain Commands**: Use `&&` to chain multiple commands
+
    ```bash
    claude-code test-blitz && claude-code deploy-now && claude-code monitor-everything
    ```
@@ -374,6 +405,7 @@ claude-code release-complete --verification --communication --retrospective
    ```
 
 ### Power User Settings
+
 ```bash
 # Enable all shortcuts
 claude-code config --power-user --all-shortcuts --ai-suggestions --auto-complete
@@ -386,6 +418,7 @@ claude-code history --search=<pattern> --replay --modify
 ```
 
 ### Integration Shortcuts
+
 ```bash
 # IDE integration
 claude-code ide-setup --vscode --shortcuts --ai-complete --snippets

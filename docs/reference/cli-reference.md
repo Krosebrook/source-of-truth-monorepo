@@ -420,21 +420,21 @@ git push --follow-tags
 
 ### Root `package.json` Scripts
 
-| Script | Command | Purpose |
-|--------|---------|---------|
-| `build` | `turbo run build` | Build all projects |
-| `dev` | `turbo run dev` | Start all dev servers |
-| `lint` | `turbo run lint` | Lint all projects |
-| `test` | `turbo run test --if-present` | Run all tests |
-| `type-check` | `turbo run type-check --if-present` | Type check all |
-| `clean` | `turbo run clean --if-present` | Clean artifacts |
-| `release` | `changeset version && pnpm i -r && changeset publish` | Release flow |
-| `format` | `prettier --write "**/*.{ts,tsx,js,jsx,json,md}"` | Format code |
-| `format:check` | `prettier --check "**/*.{ts,tsx,js,jsx,json,md}"` | Check formatting |
-| `docs:status` | `cat docs/.progress.yaml \| grep -A 5 'current'` | Doc progress |
-| `docs:resume` | `tail -30 docs/SESSION_LOG.md` | Resume docs |
-| `docs:lint` | `markdownlint '**/*.md' --ignore node_modules` | Lint markdown |
-| `docs:validate` | `test -f .llms.txt && test -f docs/mcp.json` | Validate docs |
+| Script          | Command                                               | Purpose               |
+| --------------- | ----------------------------------------------------- | --------------------- |
+| `build`         | `turbo run build`                                     | Build all projects    |
+| `dev`           | `turbo run dev`                                       | Start all dev servers |
+| `lint`          | `turbo run lint`                                      | Lint all projects     |
+| `test`          | `turbo run test --if-present`                         | Run all tests         |
+| `type-check`    | `turbo run type-check --if-present`                   | Type check all        |
+| `clean`         | `turbo run clean --if-present`                        | Clean artifacts       |
+| `release`       | `changeset version && pnpm i -r && changeset publish` | Release flow          |
+| `format`        | `prettier --write "**/*.{ts,tsx,js,jsx,json,md}"`     | Format code           |
+| `format:check`  | `prettier --check "**/*.{ts,tsx,js,jsx,json,md}"`     | Check formatting      |
+| `docs:status`   | `cat docs/.progress.yaml \| grep -A 5 'current'`      | Doc progress          |
+| `docs:resume`   | `tail -30 docs/SESSION_LOG.md`                        | Resume docs           |
+| `docs:lint`     | `markdownlint '**/*.md' --ignore node_modules`        | Lint markdown         |
+| `docs:validate` | `test -f .llms.txt && test -f docs/mcp.json`          | Validate docs         |
 
 ---
 

@@ -5,19 +5,22 @@ Welcome to FlashFusion! We're excited to have you contribute to the AI business 
 ## 🌟 Ways to Contribute
 
 ### 🚀 Development Contributions
+
 - **Core Platform Features**: Enhance the universal agent framework
-- **Workflow Improvements**: Add new capabilities to development, commerce, or content workflows  
+- **Workflow Improvements**: Add new capabilities to development, commerce, or content workflows
 - **Integration Development**: Build connectors for new platforms and services
 - **Performance Optimization**: Improve speed, reliability, and scalability
 - **UI/UX Enhancements**: Make the platform more intuitive and powerful
 
 ### 📚 Documentation & Community
+
 - **Documentation**: Write guides, tutorials, and API documentation
 - **Examples & Templates**: Create workflow templates and use case examples
 - **Community Support**: Help other users in discussions and issues
 - **Blog Posts**: Share your FlashFusion success stories and insights
 
 ### 🧪 Testing & Quality Assurance
+
 - **Bug Reports**: Find and report issues with detailed reproduction steps
 - **Feature Testing**: Test new features and provide feedback
 - **Load Testing**: Help us understand performance limits and bottlenecks
@@ -26,6 +29,7 @@ Welcome to FlashFusion! We're excited to have you contribute to the AI business 
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js 18 or higher
 - Git
 - Basic understanding of JavaScript/Node.js
@@ -34,17 +38,20 @@ Welcome to FlashFusion! We're excited to have you contribute to the AI business 
 ### Development Setup
 
 1. **Fork and Clone**
+
    ```bash
    git clone https://github.com/yourusername/FlashFusion-Unified.git
    cd FlashFusion-Unified
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm run dev:install
    ```
 
 3. **Environment Setup**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
@@ -52,6 +59,7 @@ Welcome to FlashFusion! We're excited to have you contribute to the AI business 
    ```
 
 4. **Start Development Environment**
+
    ```bash
    npm run dev:full
    ```
@@ -63,6 +71,7 @@ Welcome to FlashFusion! We're excited to have you contribute to the AI business 
    ```
 
 ### Project Structure
+
 ```
 FlashFusion-Unified/
 ├── src/
@@ -81,6 +90,7 @@ FlashFusion-Unified/
 ## 📋 Development Guidelines
 
 ### Code Standards
+
 - **ES6+ JavaScript**: Use modern JavaScript features
 - **Async/Await**: Prefer async/await over promises and callbacks
 - **Error Handling**: Comprehensive error handling with proper logging
@@ -88,12 +98,14 @@ FlashFusion-Unified/
 - **Testing**: Write tests for new features and bug fixes
 
 ### Naming Conventions
+
 - **Files**: `kebab-case.js` for files, `PascalCase.js` for classes
 - **Variables**: `camelCase` for variables and functions
 - **Constants**: `UPPER_SNAKE_CASE` for constants
 - **Classes**: `PascalCase` for class names
 
 ### Commit Message Format
+
 ```
 type(scope): short description
 
@@ -106,6 +118,7 @@ Closes #issue-number
 **Scopes**: `core`, `agents`, `workflows`, `integrations`, `api`, `ui`
 
 **Examples**:
+
 ```
 feat(agents): add universal content creator agent
 fix(workflows): resolve race condition in cross-workflow data sharing
@@ -117,12 +130,14 @@ docs(api): update workflow creation endpoint documentation
 ### 1. Planning Your Contribution
 
 **For Major Features**:
+
 1. Open a GitHub Discussion to propose your idea
 2. Get feedback from maintainers and community
 3. Create a GitHub Issue with detailed requirements
 4. Wait for approval before starting development
 
 **For Bug Fixes**:
+
 1. Check if an issue already exists
 2. Create a new issue if needed with reproduction steps
 3. Reference the issue in your pull request
@@ -130,6 +145,7 @@ docs(api): update workflow creation endpoint documentation
 ### 2. Development Workflow
 
 1. **Create a Branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    # or
@@ -142,6 +158,7 @@ docs(api): update workflow creation endpoint documentation
    - Update documentation if necessary
 
 3. **Test Your Changes**
+
    ```bash
    npm test
    npm run lint
@@ -149,6 +166,7 @@ docs(api): update workflow creation endpoint documentation
    ```
 
 4. **Commit Your Changes**
+
    ```bash
    git add .
    git commit -m "feat(scope): your descriptive commit message"
@@ -164,6 +182,7 @@ docs(api): update workflow creation endpoint documentation
 
 **PR Title**: Use the same format as commit messages
 **PR Description**: Should include:
+
 - What changes were made and why
 - Screenshots for UI changes
 - Testing instructions
@@ -171,6 +190,7 @@ docs(api): update workflow creation endpoint documentation
 - Closes #issue-number
 
 **PR Checklist**:
+
 - [ ] Code follows project conventions
 - [ ] Tests added/updated and passing
 - [ ] Documentation updated if needed
@@ -180,12 +200,14 @@ docs(api): update workflow creation endpoint documentation
 ## 🧪 Testing Guidelines
 
 ### Test Types
+
 - **Unit Tests**: Test individual functions and components
 - **Integration Tests**: Test interaction between modules
 - **E2E Tests**: Test complete user workflows
 - **Performance Tests**: Test performance and scalability
 
 ### Running Tests
+
 ```bash
 # All tests
 npm test
@@ -201,18 +223,19 @@ npm test -- --testPathPattern=agents
 ```
 
 ### Writing Tests
+
 ```javascript
 // Example test structure
-describe('UniversalAgent', () => {
-  describe('executeTask', () => {
-    it('should complete task successfully', async () => {
+describe("UniversalAgent", () => {
+  describe("executeTask", () => {
+    it("should complete task successfully", async () => {
       // Arrange
-      const agent = new UniversalAgent('test-agent');
-      const task = { type: 'research', query: 'test query' };
-      
+      const agent = new UniversalAgent("test-agent");
+      const task = { type: "research", query: "test query" };
+
       // Act
       const result = await agent.executeTask(task);
-      
+
       // Assert
       expect(result.success).toBe(true);
       expect(result.data).toBeDefined();
@@ -224,6 +247,7 @@ describe('UniversalAgent', () => {
 ## 🎯 Areas We Need Help With
 
 ### High Priority
+
 - **🤖 Agent Development**: More specialized agents for different industries
 - **🔌 Integrations**: Connectors for popular business tools
 - **📊 Analytics**: Advanced business intelligence and reporting
@@ -231,6 +255,7 @@ describe('UniversalAgent', () => {
 - **📱 Mobile App**: Native mobile application
 
 ### Medium Priority
+
 - **🌐 Internationalization**: Multi-language support
 - **🔒 Enterprise Features**: Advanced security and compliance
 - **🚀 Performance**: Optimization and scaling improvements
@@ -238,6 +263,7 @@ describe('UniversalAgent', () => {
 - **🧪 Testing**: More comprehensive test coverage
 
 ### Getting Started Areas
+
 - **🐛 Bug Fixes**: Great for first-time contributors
 - **📝 Documentation**: Improve existing docs or write new ones
 - **🎨 UI Polish**: Small UI improvements and fixes
@@ -249,7 +275,9 @@ describe('UniversalAgent', () => {
 We recognize and appreciate all contributors:
 
 ### Hall of Fame
+
 Contributors who make significant impacts get:
+
 - Recognition in our README and documentation
 - Special contributor badge on GitHub
 - Invitation to our private contributor Discord
@@ -257,6 +285,7 @@ Contributors who make significant impacts get:
 - Potential job opportunities with our team
 
 ### Contribution Levels
+
 - **🌟 Contributor**: Made at least one merged PR
 - **🚀 Regular Contributor**: 5+ merged PRs or significant documentation
 - **💎 Core Contributor**: 20+ merged PRs or major feature contributions
@@ -265,12 +294,14 @@ Contributors who make significant impacts get:
 ## 💬 Community & Support
 
 ### Getting Help
+
 - **GitHub Discussions**: Ask questions and share ideas
 - **Discord Community**: Real-time chat with contributors
 - **GitHub Issues**: Report bugs and request features
 - **Email**: support@flashfusion.ai for private inquiries
 
 ### Community Guidelines
+
 - **Be Respectful**: Treat everyone with kindness and respect
 - **Be Constructive**: Provide helpful feedback and suggestions
 - **Be Patient**: Remember that everyone is learning and growing
@@ -280,14 +311,17 @@ Contributors who make significant impacts get:
 ## 📄 Legal
 
 ### License
+
 By contributing to FlashFusion, you agree that your contributions will be licensed under the MIT License.
 
 ### Copyright
+
 - You retain copyright for your contributions
 - You grant us perpetual license to use your contributions
 - You confirm you have the right to make the contribution
 
 ### Code of Conduct
+
 All contributors must follow our [Code of Conduct](CODE_OF_CONDUCT.md). We're committed to providing a welcoming and inclusive environment for everyone.
 
 ---

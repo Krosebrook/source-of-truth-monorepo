@@ -5,6 +5,10 @@
   "main": "index.ts",
   "types": "index.ts",
   "private": true,
-  "keywords": ["testing", "utilities", "shared"],
+  "keywords": [
+    "testing",
+    "utilities",
+    "shared"
+  ],
   "license": "MIT"
 }

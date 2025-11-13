@@ -33,10 +33,10 @@ async function startServer() {
   const port = parseInt(process.env.PORT || "3000", 10);
   httpServer.listen(port, "0.0.0.0", () => {
     console.log(`🚀 Server running on http://0.0.0.0:${port}`);
-    console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`💾 Database: ${process.env.DATABASE_URL ? 'Connected' : 'Not configured'}`);
-    console.log(`📧 SMS: ${process.env.TWILIO_ACCOUNT_SID ? 'Configured' : 'Not configured'}`);
-    console.log(`💳 Stripe: ${process.env.STRIPE_SECRET_KEY ? 'Configured' : 'Not configured'}`);
+    console.log(`📊 Environment: ${process.env.NODE_ENV || "development"}`);
+    console.log(`💾 Database: ${process.env.DATABASE_URL ? "Connected" : "Not configured"}`);
+    console.log(`📧 SMS: ${process.env.TWILIO_ACCOUNT_SID ? "Configured" : "Not configured"}`);
+    console.log(`💳 Stripe: ${process.env.STRIPE_SECRET_KEY ? "Configured" : "Not configured"}`);
   });
 }
 

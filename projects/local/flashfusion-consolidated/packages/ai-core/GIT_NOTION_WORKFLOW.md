@@ -7,14 +7,18 @@ FlashFusion uses Git for version control and Notion for project documentation an
 ## 🚀 Quick Commands
 
 ### Push Updates to Git & Sync to Notion
+
 ```bash
 npm run sync-updates
 ```
+
 This command:
+
 1. Pushes all commits to GitHub
 2. Syncs latest updates to Notion
 
 ### Manual Notion Sync
+
 ```bash
 npm run notion-sync
 ```
@@ -32,6 +36,7 @@ npm run notion-sync
 ### 2. Configure Environment
 
 Add to your `.env`:
+
 ```env
 NOTION_TOKEN=your_notion_integration_token
 NOTION_PROJECT_DB_ID=your_project_database_id
@@ -43,7 +48,9 @@ NOTION_UPDATES_DB_ID=your_updates_database_id
 Create two databases in Notion:
 
 #### FlashFusion Project Database
+
 Properties:
+
 - Title (text)
 - Status (select: Planning, In Progress, Completed)
 - Priority (select: High, Medium, Low)
@@ -51,7 +58,9 @@ Properties:
 - Type (select: Feature, Bug Fix, Documentation, Security)
 
 #### FlashFusion Updates Database
+
 Properties:
+
 - Title (text)
 - Date (date)
 - Status (select: Deployed, In Progress, Testing)
@@ -73,6 +82,7 @@ Properties:
 ### Daily Development Flow
 
 1. **Make Changes**
+
    ```bash
    # Make your code changes
    git add .
@@ -80,6 +90,7 @@ Properties:
    ```
 
 2. **Push and Sync**
+
    ```bash
    npm run sync-updates
    ```
@@ -93,6 +104,7 @@ Properties:
 ### Weekly Updates
 
 1. **Create Weekly Summary**
+
    ```bash
    npm run notion-sync
    # Select option 2: Create project update
@@ -106,6 +118,7 @@ Properties:
 ## 📊 What Gets Synced
 
 ### Automatic Sync Includes:
+
 - Git commit history
 - Project status updates
 - Documentation changes
@@ -113,6 +126,7 @@ Properties:
 - Feature implementations
 
 ### Manual Sync Options:
+
 - Specific documentation files
 - Custom project updates
 - Development milestones
@@ -121,7 +135,9 @@ Properties:
 ## 🎯 Best Practices
 
 ### Commit Messages
+
 Use conventional commits for better Notion organization:
+
 - `feat:` New features
 - `fix:` Bug fixes
 - `docs:` Documentation
@@ -129,12 +145,14 @@ Use conventional commits for better Notion organization:
 - `refactor:` Code refactoring
 
 ### Notion Organization
+
 - Keep updates chronological
 - Tag with appropriate status
 - Link related pages
 - Add context in descriptions
 
 ### Sync Frequency
+
 - Daily: Push code changes
 - Weekly: Create project summaries
 - Monthly: Review and archive
@@ -142,16 +160,19 @@ Use conventional commits for better Notion organization:
 ## 🛠️ Troubleshooting
 
 ### "Notion sync failed"
+
 - Check NOTION_TOKEN is valid
 - Verify database IDs are correct
 - Ensure databases are shared with integration
 
 ### "Git push failed"
+
 - Check git credentials
 - Verify remote repository access
 - Resolve any merge conflicts
 
 ### "Database not found"
+
 - Confirm database is shared with integration
 - Check database ID format
 - Ensure integration has correct permissions
@@ -167,14 +188,18 @@ Use conventional commits for better Notion organization:
 ## 🔗 Integration with Other Tools
 
 ### Zapier Integration
+
 Connect Notion updates to:
+
 - Slack notifications
 - Email summaries
 - Calendar events
 - Task management
 
 ### GitHub Actions
+
 Automatic syncs on:
+
 - Pull request merges
 - Release creation
 - Issue closure

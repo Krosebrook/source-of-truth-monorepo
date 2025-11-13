@@ -1,9 +1,9 @@
 ---
 name: Feature Request
 about: Suggest an idea for this project
-title: '[FEATURE] '
+title: "[FEATURE] "
 labels: enhancement
-assignees: ''
+assignees: ""
 ---
 
 ## Feature Description
@@ -26,6 +26,7 @@ Describe any alternative solutions or features you've considered.
 ## Benefits
 
 What are the benefits of this feature?
+
 - Benefit 1
 - Benefit 2
 - Benefit 3
@@ -37,6 +38,7 @@ If you have ideas about how to implement this feature, please describe them here
 ## Affected Packages/Projects
 
 Which packages or projects would this feature affect?
+
 - [ ] All packages
 - [ ] Specific packages: [list them]
 
@@ -47,6 +49,7 @@ Add any other context, mockups, or examples about the feature request here.
 ## Acceptance Criteria
 
 What would make this feature complete and acceptable?
+
 - [ ] Criterion 1
 - [ ] Criterion 2
 - [ ] Criterion 3

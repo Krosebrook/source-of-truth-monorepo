@@ -9,6 +9,7 @@
 ## Context
 
 For a monorepo consolidating 53 repositories, we needed to choose a package manager that could efficiently handle:
+
 - Workspace management across 53 projects
 - Dependency deduplication (avoiding massive node_modules)
 - Fast installs in CI/CD
@@ -29,6 +30,7 @@ All projects will use `"packageManager": "pnpm@9.0.0"` in root `package.json`.
 ### Considered Alternatives
 
 #### 1. **npm (Default)**
+
 - **Pros**:
   - Built into Node.js (no installation needed)
   - Most familiar to developers
@@ -40,6 +42,7 @@ All projects will use `"packageManager": "pnpm@9.0.0"` in root `package.json`.
   - ❌ **No symlink optimization**: Each workspace gets full copy
 
 #### 2. **Yarn Classic (v1)**
+
 - **Pros**:
   - Faster than npm
   - Workspaces support
@@ -50,6 +53,7 @@ All projects will use `"packageManager": "pnpm@9.0.0"` in root `package.json`.
   - ❌ **Large node_modules**: Still duplicates across workspaces
 
 #### 3. **Yarn Berry (v3+)**
+
 - **Pros**:
   - Plug'n'Play (PnP) - no node_modules
   - Very fast installs
@@ -60,6 +64,7 @@ All projects will use `"packageManager": "pnpm@9.0.0"` in root `package.json`.
   - ❌ **Limited adoption**: Less community support than pnpm
 
 #### 4. **pnpm (Chosen)**
+
 - **Pros**:
   - ✅ **Symlink-based**: Stores deps in global content-addressable store (~/.pnpm-store)
   - ✅ **Disk space savings**: 50-70% less than npm/yarn (deduplicates across all projects)
@@ -75,6 +80,7 @@ All projects will use `"packageManager": "pnpm@9.0.0"` in root `package.json`.
 ### Why pnpm
 
 For a 53-project monorepo:
+
 - **Disk space**: npm would require ~8-10GB node_modules, pnpm uses ~3-4GB (60% savings)
 - **CI speed**: pnpm installs in 30-60 seconds with cache, npm takes 2-3 minutes
 - **Correctness**: Strict dependency resolution prevents "works on my machine" issues
@@ -110,17 +116,20 @@ For a 53-project monorepo:
 ### Migration Steps
 
 1. **Install pnpm globally**:
+
    ```bash
    npm install -g pnpm@9
    ```
 
 2. **Remove old lockfiles**:
+
    ```bash
    find . -name "package-lock.json" -delete
    find . -name "yarn.lock" -delete
    ```
 
 3. **Create pnpm workspace**:
+
    ```yaml
    # pnpm-workspace.yaml
    packages:
@@ -130,6 +139,7 @@ For a 53-project monorepo:
    ```
 
 4. **Install dependencies**:
+
    ```bash
    pnpm install
    ```
@@ -183,6 +193,6 @@ Use `workspace:*` protocol for internal dependencies:
 
 ## Revision History
 
-| Date | Author | Change |
-|------|--------|--------|
+| Date       | Author      | Change          |
+| ---------- | ----------- | --------------- |
 | 2025-10-27 | @Krosebrook | Initial version |

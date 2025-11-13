@@ -15,11 +15,13 @@ This implementation provides a complete infrastructure for configuring deploy ke
 **File**: `.github/workflows/subtree-push.yml`
 
 Updated the subtree-push workflow with all 50 mirror repositories across 3 GitHub organizations:
+
 - **Krosebrook**: 34 repositories (10 core + 17 apps + 7 tools)
 - **FlashFusionv1**: 8 repositories
 - **ChaosClubCo**: 8 repositories
 
 Each entry includes:
+
 - Project path in monorepo
 - Git repository URL
 - Target branch
@@ -28,11 +30,13 @@ Each entry includes:
 ### 2. Comprehensive Documentation
 
 **Files**:
+
 - `docs/how-to/configure-deploy-keys.md` - Complete setup guide (17KB)
 - `docs/how-to/README.md` - Quick reference and overview
 - `docs/how-to/DEPLOY_KEYS_CHECKLIST.md` - Tracking checklist
 
 Documentation covers:
+
 - Step-by-step setup instructions
 - Security best practices
 - Key rotation policy (6 months)
@@ -42,10 +46,12 @@ Documentation covers:
 ### 3. Automation Scripts
 
 **Files**:
+
 - `scripts/generate-deploy-keys.sh` - Generates all 50 SSH key pairs
 - `scripts/add-secrets-to-github.sh` - Uploads private keys to GitHub Actions
 
 Scripts provide:
+
 - Batch key generation with proper naming
 - Automated secret upload via GitHub CLI
 - Progress tracking and error handling
@@ -56,6 +62,7 @@ Scripts provide:
 **File**: `.github/workflows/subtree-push.yml`
 
 Enhanced workflow with:
+
 - Complete mirror repository configuration
 - Full implementation of subtree split & push logic
 - SSH key management per repository
@@ -72,14 +79,17 @@ Enhanced workflow with:
 **Time Required**: ~2 hours (one-time setup)
 
 1. **Read the guide**:
+
    ```bash
    cat docs/how-to/configure-deploy-keys.md
    ```
 
 2. **Generate deploy keys**:
+
    ```bash
    ./scripts/generate-deploy-keys.sh
    ```
+
    Creates 50 SSH key pairs in `/tmp/sot-deploy-keys/`
 
 3. **Add public keys to GitHub repositories**:
@@ -88,9 +98,11 @@ Enhanced workflow with:
    - Each key needs "write access" enabled
 
 4. **Add private keys to GitHub Actions secrets**:
+
    ```bash
    ./scripts/add-secrets-to-github.sh
    ```
+
    Uploads all 50 private keys as repository secrets
 
 5. **Enable the workflow**:
@@ -108,6 +120,7 @@ Enhanced workflow with:
 ### For Developers
 
 No action required! Once deploy keys are configured, the workflow automatically:
+
 - Syncs changes on every push to `main` branch
 - Pushes subtree updates to all 50 mirror repositories
 - Maintains separate git history in each mirror
@@ -171,25 +184,30 @@ All mirrors updated ✓
 ## Acceptance Criteria - Status
 
 ✅ **All target repos identified**
+
 - Complete list of 50 mirror repositories documented
 - Paths, URLs, branches, and secret names mapped
 
 ✅ **Deploy keys/tokens collection process defined**
+
 - Automated key generation script created
 - GitHub CLI integration for bulk operations
 - Manual process documented as fallback
 
 ✅ **GitHub Actions secrets configuration documented**
+
 - Secret naming convention established
 - Upload automation script provided
 - Verification commands included
 
 ✅ **Key management and rotation policy documented**
+
 - 6-month rotation schedule defined
 - Rotation process documented
 - Security best practices outlined
 
 ⏳ **Workflow ready for deployment**
+
 - Implementation complete and tested (syntax valid)
 - Currently disabled pending key configuration
 - Ready to enable after keys are added
@@ -239,7 +257,7 @@ scripts/add-secrets-to-github.sh          # New: Secret upload automation
 ✅ **Bash Scripts**: Valid (verified with bash -n)  
 ✅ **Workflow Structure**: Complete and ready  
 ✅ **Documentation**: Comprehensive and detailed  
-✅ **Security**: Best practices implemented  
+✅ **Security**: Best practices implemented
 
 ---
 

@@ -1,14 +1,15 @@
-import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 import { createClient } from 'npm:@supabase/supabase-js@2';
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers':
+    'Content-Type, Authorization, X-Client-Info, Apikey',
 };
 
 Deno.serve(async (req: Request) => {
-  if (req.method === "OPTIONS") {
+  if (req.method === 'OPTIONS') {
     return new Response(null, {
       status: 200,
       headers: corsHeaders,
@@ -40,7 +41,7 @@ Deno.serve(async (req: Request) => {
 
     if (method === 'POST' && path === '/reports') {
       const body = await req.json();
-      
+
       const { data, error } = await supabase
         .from('reports')
         .insert([body])
@@ -56,7 +57,7 @@ Deno.serve(async (req: Request) => {
 
     if (method === 'GET' && path.startsWith('/reports/')) {
       const reportId = path.split('/')[2];
-      
+
       const { data, error } = await supabase
         .from('reports')
         .select('*')
@@ -73,7 +74,7 @@ Deno.serve(async (req: Request) => {
     if (method === 'PUT' && path.startsWith('/reports/')) {
       const reportId = path.split('/')[2];
       const body = await req.json();
-      
+
       const { data, error } = await supabase
         .from('reports')
         .update(body)
@@ -91,14 +92,16 @@ Deno.serve(async (req: Request) => {
       status: 404,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
-
   } catch (error) {
-    return new Response(JSON.stringify({ 
-      success: false, 
-      error: error.message 
-    }), {
-      status: 400,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: error.message,
+      }),
+      {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      }
+    );
   }
 });

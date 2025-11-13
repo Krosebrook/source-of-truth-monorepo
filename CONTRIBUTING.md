@@ -32,22 +32,26 @@ This project adheres to a code of conduct. By participating, you are expected to
 1. **Fork the repository** on GitHub
 
 2. **Clone your fork**:
+
    ```bash
    git clone git@github.com:YOUR_USERNAME/source-of-truth-monorepo.git
    cd source-of-truth-monorepo
    ```
 
 3. **Add upstream remote**:
+
    ```bash
    git remote add upstream git@github.com:Krosebrook/source-of-truth-monorepo.git
    ```
 
 4. **Install pnpm** (if not already installed):
+
    ```bash
    npm install -g pnpm@9
    ```
 
 5. **Install dependencies**:
+
    ```bash
    pnpm install
    ```
@@ -77,6 +81,7 @@ git checkout -b fix/issue-description
 ```
 
 **Branch naming conventions**:
+
 - `feature/` - New features
 - `fix/` - Bug fixes
 - `docs/` - Documentation updates
@@ -161,6 +166,7 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/) speci
 ### Scope
 
 The scope should indicate which package or area is affected:
+
 - `agents` - AI agent implementations
 - `shared` - Shared utilities
 - `docs` - Documentation
@@ -228,29 +234,36 @@ docs: update contribution guidelines
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Related Issues
+
 Closes #123
 
 ## Changes Made
+
 - Change 1
 - Change 2
 - Change 3
 
 ## Testing
+
 Describe testing performed
 
 ## Screenshots (if applicable)
+
 Add screenshots for UI changes
 
 ## Checklist
+
 - [ ] Tests pass
 - [ ] Documentation updated
 - [ ] Code follows style guidelines
@@ -305,9 +318,9 @@ pnpm format
 // Good
 const getUserById = async (userId) => {
   if (!userId) {
-    throw new Error('User ID is required');
+    throw new Error("User ID is required");
   }
-  
+
   const user = await database.users.findById(userId);
   return user;
 };
@@ -329,24 +342,24 @@ async function getUser(id) {
 ### Test Example
 
 ```javascript
-import { getUserById } from './user-service.js';
+import { getUserById } from "./user-service.js";
 
-describe('getUserById', () => {
-  it('should return user when valid ID is provided', async () => {
+describe("getUserById", () => {
+  it("should return user when valid ID is provided", async () => {
     // Arrange
-    const userId = '123';
-    
+    const userId = "123";
+
     // Act
     const user = await getUserById(userId);
-    
+
     // Assert
     expect(user).toBeDefined();
     expect(user.id).toBe(userId);
   });
-  
-  it('should throw error when ID is missing', async () => {
+
+  it("should throw error when ID is missing", async () => {
     // Arrange & Act & Assert
-    await expect(getUserById(null)).rejects.toThrow('User ID is required');
+    await expect(getUserById(null)).rejects.toThrow("User ID is required");
   });
 });
 ```
@@ -421,6 +434,7 @@ pnpm security:audit:check
 **DO NOT** open public issues for security vulnerabilities.
 
 Instead:
+
 1. Email: security@flashfusion.co
 2. Include:
    - Description of vulnerability
@@ -500,6 +514,7 @@ By contributing to this project, you agree that your contributions will be licen
 ## Recognition
 
 Contributors will be recognized in:
+
 - GitHub contributors page
 - Release notes
 - Project documentation

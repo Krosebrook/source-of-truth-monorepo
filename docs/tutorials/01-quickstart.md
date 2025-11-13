@@ -11,6 +11,7 @@
 ## What You'll Learn
 
 By the end of this tutorial, you'll:
+
 - Clone the monorepo
 - Install all dependencies
 - Build all 53 projects
@@ -55,12 +56,14 @@ pnpm install
 ```
 
 **What's happening**:
+
 - pnpm reads `pnpm-workspace.yaml`
 - Discovers all 53 projects
 - Installs dependencies for each
 - Creates symlinks for shared packages
 
 **Expected output**:
+
 ```
 Progress: resolved 1234, reused 1100, downloaded 134, added 1234
 Done in 45s
@@ -76,12 +79,14 @@ pnpm build
 ```
 
 **What's happening**:
+
 - Turbo reads `turbo.json`
 - Determines dependency order
 - Builds projects in parallel
 - Caches outputs in `.turbo/`
 
 **Expected output**:
+
 ```
 >>> flashfusion-consolidated:build: cached
 >>> harvestflow:build: cached
@@ -106,6 +111,7 @@ ls -la projects/
 ```
 
 **Structure**:
+
 ```
 projects/
 ├── local/              # 3 local-only repos
@@ -168,15 +174,18 @@ pnpm lint
 ## Next Steps
 
 **Continue Learning**:
+
 - [Importing Repositories](/docs/tutorials/02-importing-repos.md) - Add new repos
 - [Building Your First Agent](/docs/tutorials/03-building-your-first-agent.md) - Create an AI agent
 - [Publishing Packages](/docs/tutorials/04-publishing-packages.md) - Release with Changesets
 
 **Reference Documentation**:
+
 - [Workspace Structure](/docs/reference/workspace-structure.md) - Detailed layout
 - [CLI Reference](/docs/reference/cli-reference.md) - All commands
 
 **Conceptual Understanding**:
+
 - [SoT Canonical Model](/docs/explanation/sot-canonical-model.md) - Why this architecture
 - [Turbo Caching](/docs/explanation/turbo-caching-internals.md) - How builds are fast
 

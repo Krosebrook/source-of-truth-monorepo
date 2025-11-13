@@ -4,46 +4,46 @@
  * Scans the import script and projects directory to create a comprehensive repository map
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Paths
-const REPO_ROOT = path.join(__dirname, '..');
-const IMPORT_SCRIPT = path.join(REPO_ROOT, 'scripts', 'import-github-repos.sh');
-const PROJECTS_DIR = path.join(REPO_ROOT, 'projects');
-const OUTPUT_FILE = path.join(REPO_ROOT, 'REPO_MAP.md');
+const REPO_ROOT = path.join(__dirname, "..");
+const IMPORT_SCRIPT = path.join(REPO_ROOT, "scripts", "import-github-repos.sh");
+const PROJECTS_DIR = path.join(REPO_ROOT, "projects");
+const OUTPUT_FILE = path.join(REPO_ROOT, "REPO_MAP.md");
 
 /**
  * Parse the import script to extract repository definitions
  */
 function parseImportScript() {
-  const content = fs.readFileSync(IMPORT_SCRIPT, 'utf-8');
+  const content = fs.readFileSync(IMPORT_SCRIPT, "utf-8");
   const repos = [];
-  
+
   // Extract the repos from the import list in the script
   // Look for the REPO_LIST_START marker for more robust parsing
-  const lines = content.split('\n');
+  const lines = content.split("\n");
   let inList = false;
-  
+
   for (const line of lines) {
     // Start of the import list (look for marker or heredoc start)
-    if (line.includes('REPO_LIST_START') || line.includes("cat > /tmp/sot-import-list.txt")) {
+    if (line.includes("REPO_LIST_START") || line.includes("cat > /tmp/sot-import-list.txt")) {
       inList = true;
       continue;
     }
-    
+
     // End of the import list
-    if (inList && line.includes('EOF')) {
+    if (inList && line.includes("EOF")) {
       break;
     }
-    
+
     // Skip comments and empty lines
-    if (!inList || line.trim().startsWith('#') || !line.trim() || line.trim() === 'EOF') {
+    if (!inList || line.trim().startsWith("#") || !line.trim() || line.trim() === "EOF") {
       continue;
     }
-    
+
     // Parse repo line: org|name|url|target_dir
-    const parts = line.split('|');
+    const parts = line.split("|");
     if (parts.length === 4) {
       repos.push({
         org: parts[0].trim(),
@@ -53,7 +53,7 @@ function parseImportScript() {
       });
     }
   }
-  
+
   return repos;
 }
 
@@ -73,21 +73,21 @@ function getRepoMetadata(targetDir) {
   const metadata = {
     imported: false,
     lastModified: null, // Directory modification time, not actual sync time
-    maintainer: '@Krosebrook', // Default maintainer based on CODEOWNERS
+    maintainer: "@Krosebrook", // Default maintainer based on CODEOWNERS
   };
-  
+
   if (fs.existsSync(fullPath)) {
     metadata.imported = true;
-    
+
     // Get last modification time as a proxy for import/update time
     try {
       const stats = fs.statSync(fullPath);
-      metadata.lastModified = stats.mtime.toISOString().split('T')[0];
+      metadata.lastModified = stats.mtime.toISOString().split("T")[0];
     } catch (e) {
       // Ignore errors
     }
   }
-  
+
   return metadata;
 }
 
@@ -96,14 +96,14 @@ function getRepoMetadata(targetDir) {
  */
 function groupReposByOrg(repos) {
   const grouped = {};
-  
+
   for (const repo of repos) {
     if (!grouped[repo.org]) {
       grouped[repo.org] = [];
     }
     grouped[repo.org].push(repo);
   }
-  
+
   return grouped;
 }
 
@@ -116,17 +116,17 @@ function categorizeKrosebrookRepos(repos) {
     apps: [],
     tools: [],
   };
-  
+
   for (const repo of repos) {
-    if (repo.targetDir.includes('/core/')) {
+    if (repo.targetDir.includes("/core/")) {
       categories.core.push(repo);
-    } else if (repo.targetDir.includes('/apps/')) {
+    } else if (repo.targetDir.includes("/apps/")) {
       categories.apps.push(repo);
-    } else if (repo.targetDir.includes('/tools/')) {
+    } else if (repo.targetDir.includes("/tools/")) {
       categories.tools.push(repo);
     }
   }
-  
+
   return categories;
 }
 
@@ -134,9 +134,9 @@ function categorizeKrosebrookRepos(repos) {
  * Get local repositories (not from import script)
  */
 function getLocalRepos() {
-  const localDir = path.join(PROJECTS_DIR, 'local');
+  const localDir = path.join(PROJECTS_DIR, "local");
   const repos = [];
-  
+
   if (fs.existsSync(localDir)) {
     const entries = fs.readdirSync(localDir);
     for (const entry of entries) {
@@ -150,7 +150,7 @@ function getLocalRepos() {
       }
     }
   }
-  
+
   return repos;
 }
 
@@ -161,12 +161,12 @@ function generateRepoMap() {
   const repos = parseImportScript();
   const groupedRepos = groupReposByOrg(repos);
   const localRepos = getLocalRepos();
-  
+
   // Count statistics
   let totalRepos = localRepos.length;
   let importedCount = localRepos.length;
   let pendingCount = 0;
-  
+
   for (const repo of repos) {
     totalRepos++;
     const metadata = getRepoMetadata(repo.targetDir);
@@ -176,13 +176,13 @@ function generateRepoMap() {
       pendingCount++;
     }
   }
-  
+
   // Build markdown content
   let content = `# Repository Map
 
 Complete index of all repositories in the FlashFusion SoT monorepo.
 
-**Last Updated**: ${new Date().toISOString().split('T')[0]}
+**Last Updated**: ${new Date().toISOString().split("T")[0]}
 
 ## Summary
 
@@ -219,14 +219,14 @@ Complete index of all repositories in the FlashFusion SoT monorepo.
 - **Status**: ✅ Imported
 - **Type**: Local-only repository
 - **Maintainer**: @Krosebrook
-${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ""}
 `;
   }
 
   // Add Krosebrook repos
   if (groupedRepos.krosebrook) {
     const krosebrookCategories = categorizeKrosebrookRepos(groupedRepos.krosebrook);
-    
+
     content += `### Krosebrook Organization (${groupedRepos.krosebrook.length})
 
 #### Core Projects (${krosebrookCategories.core.length})
@@ -234,13 +234,13 @@ ${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''
 `;
     for (const repo of krosebrookCategories.core) {
       const metadata = getRepoMetadata(repo.targetDir);
-      const status = metadata.imported ? '✅ Imported' : '⏳ Pending';
+      const status = metadata.imported ? "✅ Imported" : "⏳ Pending";
       content += `##### ${repo.name}
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ""}
 `;
     }
 
@@ -249,13 +249,13 @@ ${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''
 `;
     for (const repo of krosebrookCategories.apps) {
       const metadata = getRepoMetadata(repo.targetDir);
-      const status = metadata.imported ? '✅ Imported' : '⏳ Pending';
+      const status = metadata.imported ? "✅ Imported" : "⏳ Pending";
       content += `##### ${repo.name}
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ""}
 `;
     }
 
@@ -264,13 +264,13 @@ ${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''
 `;
     for (const repo of krosebrookCategories.tools) {
       const metadata = getRepoMetadata(repo.targetDir);
-      const status = metadata.imported ? '✅ Imported' : '⏳ Pending';
+      const status = metadata.imported ? "✅ Imported" : "⏳ Pending";
       content += `##### ${repo.name}
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ""}
 `;
     }
   }
@@ -282,13 +282,13 @@ ${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''
 `;
     for (const repo of groupedRepos.flashfusionv1) {
       const metadata = getRepoMetadata(repo.targetDir);
-      const status = metadata.imported ? '✅ Imported' : '⏳ Pending';
+      const status = metadata.imported ? "✅ Imported" : "⏳ Pending";
       content += `#### ${repo.name}
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ""}
 `;
     }
   }
@@ -300,13 +300,13 @@ ${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''
 `;
     for (const repo of groupedRepos.chaosclubco) {
       const metadata = getRepoMetadata(repo.targetDir);
-      const status = metadata.imported ? '✅ Imported' : '⏳ Pending';
+      const status = metadata.imported ? "✅ Imported" : "⏳ Pending";
       content += `#### ${repo.name}
 - **Path**: \`${repo.targetDir}\`
 - **Status**: ${status}
 - **GitHub**: [${repo.url}](${repo.url})
 - **Maintainer**: ${metadata.maintainer}
-${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ''}
+${metadata.lastModified ? `- **Last Modified**: ${metadata.lastModified}\n` : ""}
 `;
     }
   }
@@ -348,11 +348,11 @@ For detailed import progress and task tracking, see:
  * Main execution
  */
 function main() {
-  console.log('🗺️  Generating REPO_MAP.md...\n');
-  
+  console.log("🗺️  Generating REPO_MAP.md...\n");
+
   const content = generateRepoMap();
-  fs.writeFileSync(OUTPUT_FILE, content, 'utf-8');
-  
+  fs.writeFileSync(OUTPUT_FILE, content, "utf-8");
+
   console.log(`✅ REPO_MAP.md generated successfully!`);
   console.log(`📍 Location: ${OUTPUT_FILE}`);
   console.log(`\nRun 'cat REPO_MAP.md | head -50' to preview\n`);

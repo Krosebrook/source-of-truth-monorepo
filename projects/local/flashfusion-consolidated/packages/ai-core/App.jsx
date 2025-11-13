@@ -1,7 +1,7 @@
-import FlashFusionUnited from './FlashFusionUnited'
+import FlashFusionUnited from "./FlashFusionUnited";
 
 function App() {
-  return <FlashFusionUnited />
+  return <FlashFusionUnited />;
 }
 
-export default App
+export default App;

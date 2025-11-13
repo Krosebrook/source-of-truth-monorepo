@@ -103,10 +103,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write"
-    ]
+    "*.js": ["eslint --fix", "prettier --write"]
   },
   "jest": {
     "testEnvironment": "node",
@@ -118,9 +115,6 @@
       "!index.js",
       "!scripts/**/*.js"
     ],
-    "testMatch": [
-      "**/tests/**/*.test.js",
-      "**/tests/**/*.spec.js"
-    ]
+    "testMatch": ["**/tests/**/*.test.js", "**/tests/**/*.spec.js"]
   }
 }

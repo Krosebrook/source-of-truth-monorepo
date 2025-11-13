@@ -34,6 +34,7 @@ Please describe the tests that you ran to verify your changes:
 - [ ] Test B
 
 **Test Configuration**:
+
 - Node version:
 - pnpm version:
 - OS:
@@ -66,6 +67,7 @@ Add any additional notes or context about the PR here.
 ## Breaking Changes
 
 If this PR introduces breaking changes, please describe:
+
 - What breaks
 - Migration path for users
 - Version bump required (major/minor/patch)
@@ -73,5 +75,6 @@ If this PR introduces breaking changes, please describe:
 ## Related PRs
 
 List any related PRs here:
+
 - #123
 - #456

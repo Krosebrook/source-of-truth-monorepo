@@ -13,6 +13,7 @@
 This guide walks through configuring deploy keys and GitHub Actions secrets to enable the automated subtree-push workflow. This workflow syncs changes from the Source-of-Truth monorepo to individual mirror repositories.
 
 **What you'll do**:
+
 - Generate SSH deploy keys for each mirror repository
 - Add deploy keys to GitHub repositories
 - Configure GitHub Actions secrets
@@ -53,6 +54,7 @@ ssh-keygen -t ed25519 -C "sot-deploy-creative" -f flashfusion_creative_hub_deplo
 ```
 
 **Output**: For each repo, you'll have:
+
 - `{repo}_deploy_key` (private key) - Keep secret!
 - `{repo}_deploy_key.pub` (public key) - Add to GitHub repo
 
@@ -197,6 +199,7 @@ Now add the **private keys** as GitHub Actions secrets in the SoT monorepo.
 Format: `MIRROR_SSH_KEY_{REPO_NAME_UPPER}`
 
 Examples:
+
 - `MIRROR_SSH_KEY_FLASHFUSION`
 - `MIRROR_SSH_KEY_WEBSITE`
 - `MIRROR_SSH_KEY_UNIFIED`
@@ -225,7 +228,7 @@ add_secret() {
   local key_file=$1
   local secret_name=$2
   local repo="Krosebrook/source-of-truth-monorepo"
-  
+
   # Use stdin redirection for safer file handling
   gh secret set "$secret_name" \
     --repo "$repo" \
@@ -420,6 +423,7 @@ projects/chaosclubco/turborepo-flashfusion|git@github.com:ChaosClubCo/turborepo-
 **Cause**: Deploy key not added to GitHub repo, or wrong key used.
 
 **Fix**:
+
 1. Verify deploy key is added: `gh repo deploy-key list --repo {org}/{repo}`
 2. Verify "Allow write access" is checked
 3. Test SSH connection: `ssh -i {key_file} -T git@github.com`
@@ -429,6 +433,7 @@ projects/chaosclubco/turborepo-flashfusion|git@github.com:ChaosClubCo/turborepo-
 **Cause**: GitHub's host key not in known_hosts.
 
 **Fix**: Add to workflow:
+
 ```yaml
 - name: Setup SSH
   run: |
@@ -447,6 +452,7 @@ projects/chaosclubco/turborepo-flashfusion|git@github.com:ChaosClubCo/turborepo-
 **Cause**: Secret name mismatch or key not configured.
 
 **Fix**:
+
 1. Verify secret exists: `gh secret list --repo {org}/source-of-truth-monorepo`
 2. Check secret name matches workflow file exactly
 3. Verify secret contains full private key (including headers)
@@ -458,31 +464,37 @@ projects/chaosclubco/turborepo-flashfusion|git@github.com:ChaosClubCo/turborepo-
 Use this checklist to track progress:
 
 **Setup Phase**:
+
 - [ ] Review mirror repository list (50 repos)
 - [ ] Generate 50 SSH key pairs
 - [ ] Store private keys securely (temporarily)
 
 **GitHub Configuration**:
+
 - [ ] Add public keys to all 50 GitHub repos (with write access)
 - [ ] Verify deploy keys are added and write-enabled
 
 **GitHub Actions Secrets**:
+
 - [ ] Add 50 private keys as GitHub Actions secrets
 - [ ] Verify secret naming follows convention
 - [ ] Test secret access in workflow
 
 **Workflow Configuration**:
+
 - [ ] Update subtree-push.yml with complete mirror list
 - [ ] Verify all paths, URLs, branches, and secret names
 - [ ] Uncomment push logic
 
 **Testing**:
+
 - [ ] Test SSH connectivity
 - [ ] Run manual workflow trigger (one repo)
 - [ ] Verify successful push to mirror
 - [ ] Enable automatic push on main branch
 
 **Security**:
+
 - [ ] Delete local copies of private keys
 - [ ] Document rotation schedule
 - [ ] Set calendar reminder for rotation

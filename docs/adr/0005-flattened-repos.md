@@ -30,6 +30,7 @@ Git history is **not preserved** in the SoT monorepo, but remains accessible in 
 ### Considered Alternatives
 
 #### 1. **Git Submodules (Keep Full History)**
+
 - **Pros**:
   - Full git history preserved
   - Can still track individual repo commits
@@ -40,6 +41,7 @@ Git history is **not preserved** in the SoT monorepo, but remains accessible in 
   - ❌ **No unified history**: Can't see cross-repo changes in one commit
 
 #### 2. **Git Subtree (Preserve History)**
+
 - **Pros**:
   - Git history preserved in SoT
   - `git log` shows all commits from original repos
@@ -51,6 +53,7 @@ Git history is **not preserved** in the SoT monorepo, but remains accessible in 
   - ❌ **Merge conflicts**: Pulling updates from 53 repos creates conflicts
 
 #### 3. **Flattened Import (Chosen)**
+
 - **Pros**:
   - ✅ **Clean structure**: No nested .git folders
   - ✅ **Fast clones**: .git folder stays small (~100MB vs 10GB)
@@ -64,15 +67,17 @@ Git history is **not preserved** in the SoT monorepo, but remains accessible in 
 ### Why Flattened
 
 For 53 repositories:
+
 - **Size**: .git with full history = 10-20GB, flattened = ~100MB (200x smaller)
 - **Speed**: Clone time 15 min → 2 min (7.5x faster)
 - **Simplicity**: No git subtree merge conflicts
 - **Trade-off acceptable**: Original history still accessible in source repos
 
 **History preservation strategy**:
+
 - Original repos remain on GitHub with full history
 - Developers can reference original commits if needed
-- SoT focuses on *future* development, not archeology
+- SoT focuses on _future_ development, not archeology
 
 ---
 
@@ -161,6 +166,6 @@ For each imported project, add `README.md`:
 
 ## Revision History
 
-| Date | Author | Change |
-|------|--------|--------|
+| Date       | Author      | Change          |
+| ---------- | ----------- | --------------- |
 | 2025-10-27 | @Krosebrook | Initial version |

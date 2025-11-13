@@ -11,7 +11,9 @@ function hydrate() {
   if (fs.existsSync(STORE_PATH)) {
     try {
       const parsed = JSON.parse(fs.readFileSync(STORE_PATH, "utf8"));
-      cache = new Map(parsed.map((entry: any) => [entry.id, { vector: entry.vector, meta: entry.meta }]));
+      cache = new Map(
+        parsed.map((entry: any) => [entry.id, { vector: entry.vector, meta: entry.meta }])
+      );
     } catch (err) {
       console.warn("⚠️  Unable to hydrate vector-store.json, starting with empty cache.");
       cache.clear();
@@ -49,5 +51,5 @@ export const FileStore: VectorStore = {
       return { id, score, meta };
     });
     return results.sort((a, b) => b.score - a.score).slice(0, k);
-  }
+  },
 };

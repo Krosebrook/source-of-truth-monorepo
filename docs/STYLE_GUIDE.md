@@ -22,12 +22,12 @@
 
 Every document must fit into one of four categories:
 
-| Type | Purpose | User Need | Focus | Example |
-|------|---------|-----------|-------|---------|
-| **Tutorial** | Learning | "Teach me" | Step-by-step lesson | Building Your First Agent |
-| **How-To** | Goals | "Help me solve X" | Practical solution | How to Add a New Repo |
-| **Reference** | Information | "Tell me facts" | Technical specs | CLI Flag Reference |
-| **Explanation** | Understanding | "Explain why" | Concepts/context | Why SoT Canonical |
+| Type            | Purpose       | User Need         | Focus               | Example                   |
+| --------------- | ------------- | ----------------- | ------------------- | ------------------------- |
+| **Tutorial**    | Learning      | "Teach me"        | Step-by-step lesson | Building Your First Agent |
+| **How-To**      | Goals         | "Help me solve X" | Practical solution  | How to Add a New Repo     |
+| **Reference**   | Information   | "Tell me facts"   | Technical specs     | CLI Flag Reference        |
+| **Explanation** | Understanding | "Explain why"     | Concepts/context    | Why SoT Canonical         |
 
 ### Where to Place Documents
 
@@ -44,18 +44,21 @@ docs/
 ## Writing Style
 
 ### Voice & Tone
+
 - **Active voice**: "Run `pnpm install`" (not "pnpm install should be run")
 - **Present tense**: "The agent validates" (not "will validate" or "validated")
 - **Second person**: "You can configure" (not "one can configure")
 - **Conversational**: Write like you're explaining to a colleague
 
 ### Clarity
+
 - **Short sentences**: Max 25 words (complex ideas = multiple sentences)
 - **Short paragraphs**: 3-5 lines max (one idea per paragraph)
 - **Active verbs**: "Create", "Build", "Deploy" (not "there is", "it can be")
 - **Simple words**: "Use" not "utilize", "Start" not "commence"
 
 ### Technical Accuracy
+
 - **Precision**: "pnpm 9.x" not "latest pnpm"
 - **Verification**: Test all code examples before committing
 - **Currency**: Date-stamp docs with version/date if time-sensitive
@@ -66,16 +69,16 @@ docs/
 
 ### Standard Terms
 
-| **Use This** | **Not This** | **Context** |
-|--------------|--------------|-------------|
-| SoT | source of truth, source-of-truth | Source-of-Truth monorepo |
-| mirror | downstream repo, fork | Repositories synced from SoT |
-| workspace | monorepo packages, projects | pnpm workspace |
-| project | package, module | Individual repository in workspace |
-| Turbo | TurboRepo, turborepo | Build system (proper noun) |
-| pnpm | PNPM, Pnpm | Package manager |
-| Diátaxis | Diataxis, diataxis | Documentation framework (proper noun with accent) |
-| Changesets | changesets | Versioning tool (proper noun) |
+| **Use This** | **Not This**                     | **Context**                                       |
+| ------------ | -------------------------------- | ------------------------------------------------- |
+| SoT          | source of truth, source-of-truth | Source-of-Truth monorepo                          |
+| mirror       | downstream repo, fork            | Repositories synced from SoT                      |
+| workspace    | monorepo packages, projects      | pnpm workspace                                    |
+| project      | package, module                  | Individual repository in workspace                |
+| Turbo        | TurboRepo, turborepo             | Build system (proper noun)                        |
+| pnpm         | PNPM, Pnpm                       | Package manager                                   |
+| Diátaxis     | Diataxis, diataxis               | Documentation framework (proper noun with accent) |
+| Changesets   | changesets                       | Versioning tool (proper noun)                     |
 
 ### FlashFusion-Specific Terms
 
@@ -101,6 +104,7 @@ docs/
 ```
 
 **Rules**:
+
 - **One H1** per page (page title)
 - **Descriptive**: "How to Add a New Repository" (not "Adding Repositories")
 - **No vague titles**: "Authentication Flow" not "Overview"
@@ -129,6 +133,7 @@ const config: Config = { ... }
 ### Inline Code
 
 Use backticks for:
+
 - Commands: `pnpm install`
 - File paths: `/docs/index.md`
 - Variable names: `packageManager`
@@ -137,6 +142,7 @@ Use backticks for:
 ### Lists
 
 **Ordered** (steps, sequence):
+
 ```markdown
 1. Install dependencies
 2. Run build
@@ -144,6 +150,7 @@ Use backticks for:
 ```
 
 **Unordered** (items, no order):
+
 ```markdown
 - TypeScript
 - JavaScript
@@ -153,16 +160,19 @@ Use backticks for:
 ### Links
 
 **Internal** (same repo):
+
 ```markdown
 See [Getting Started](/GETTING_STARTED.md)
 ```
 
 **External**:
+
 ```markdown
 Read [Diátaxis](https://diataxis.fr/)
 ```
 
 **Reference style** (long URLs):
+
 ```markdown
 See the [Google Style Guide][1]
 
@@ -173,11 +183,12 @@ See the [Google Style Guide][1]
 
 ```markdown
 | Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
+| -------- | -------- | -------- |
 | Data     | Data     | Data     |
 ```
 
 **Rules**:
+
 - **Headers**: Always include
 - **Alignment**: Left-align text, right-align numbers
 - **Width**: Keep narrow (max 120 chars per row)
@@ -250,7 +261,7 @@ docs/adr/0001-sot-canonical.md      # ADRs numbered
 
 ### Tutorial Template
 
-```markdown
+````markdown
 # [Tutorial Name]
 
 > Brief description of what you'll learn
@@ -272,6 +283,7 @@ docs/adr/0001-sot-canonical.md      # ADRs numbered
 ```bash
 [commands]
 ```
+````
 
 ### Step 2: [Action]
 
@@ -286,7 +298,8 @@ docs/adr/0001-sot-canonical.md      # ADRs numbered
 
 - [Link to related tutorial]
 - [Link to reference docs]
-```
+
+````
 
 ### How-To Template
 
@@ -321,11 +334,11 @@ docs/adr/0001-sot-canonical.md      # ADRs numbered
 
 - [Link to explanation]
 - [Link to reference]
-```
+````
 
 ### Reference Template
 
-```markdown
+````markdown
 # [Component/API Name]
 
 > Technical specification for [X]
@@ -339,12 +352,13 @@ docs/adr/0001-sot-canonical.md      # ADRs numbered
 ```typescript
 [Code signature]
 ```
+````
 
 ## Parameters
 
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| param1 | string | Yes | Description |
+| Name   | Type   | Required | Description |
+| ------ | ------ | -------- | ----------- |
+| param1 | string | Yes      | Description |
 
 ## Examples
 
@@ -355,7 +369,8 @@ docs/adr/0001-sot-canonical.md      # ADRs numbered
 ## See Also
 
 - [Related reference]
-```
+
+````
 
 ### Explanation Template
 
@@ -394,7 +409,7 @@ docs/adr/0001-sot-canonical.md      # ADRs numbered
 
 - [Link to ADR]
 - [Link to tutorial]
-```
+````
 
 ---
 
@@ -428,6 +443,7 @@ Every doc should have an owner (via CODEOWNERS or frontmatter `maintainer` field
 ### Deprecation
 
 When removing docs:
+
 1. Add deprecation notice for 1 month
 2. Redirect to replacement doc
 3. Archive (don't delete) after 1 month

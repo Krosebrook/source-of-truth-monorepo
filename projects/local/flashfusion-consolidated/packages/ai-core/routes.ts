@@ -5,10 +5,15 @@ import Stripe from "stripe";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import { smsService } from "./smsService";
-import { insertMessageSchema, insertChatSchema, insertSmsMessageSchema, insertChatParticipantSchema } from "../shared/schema";
+import {
+  insertMessageSchema,
+  insertChatSchema,
+  insertSmsMessageSchema,
+  insertChatParticipantSchema,
+} from "../shared/schema";
 
 if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
+  throw new Error("Missing required Stripe secret: STRIPE_SECRET_KEY");
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -23,7 +28,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   await setupAuth(app);
 
   // Auth routes
-  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+  app.get("/api/auth/user", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -48,7 +53,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  app.post('/api/get-or-create-subscription', isAuthenticated, async (req: any, res) => {
+  app.post("/api/get-or-create-subscription", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       let user = await storage.getUser(userId);
@@ -60,7 +65,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
       if (user.stripeSubscriptionId) {
         const subscription = await stripe.subscriptions.retrieve(user.stripeSubscriptionId);
         const invoice = await stripe.invoices.retrieve(subscription.latest_invoice as string, {
-          expand: ['payment_intent']
+          expand: ["payment_intent"],
         });
 
         res.json({
@@ -71,7 +76,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
       }
 
       if (!user.email) {
-        return res.status(400).json({ message: 'No user email on file' });
+        return res.status(400).json({ message: "No user email on file" });
       }
 
       let customer;
@@ -80,17 +85,19 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
       } else {
         customer = await stripe.customers.create({
           email: user.email,
-          name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+          name: `${user.firstName || ""} ${user.lastName || ""}`.trim(),
         });
       }
 
       const subscription = await stripe.subscriptions.create({
         customer: customer.id,
-        items: [{
-          price: process.env.STRIPE_PRICE_ID || 'price_1234567890', // Set your price ID
-        }],
-        payment_behavior: 'default_incomplete',
-        expand: ['latest_invoice.payment_intent'],
+        items: [
+          {
+            price: process.env.STRIPE_PRICE_ID || "price_1234567890", // Set your price ID
+          },
+        ],
+        payment_behavior: "default_incomplete",
+        expand: ["latest_invoice.payment_intent"],
       });
 
       await storage.updateUserStripeInfo(userId, customer.id, subscription.id);
@@ -106,23 +113,23 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   });
 
   // Chat routes
-  app.post('/api/chats', isAuthenticated, async (req: any, res) => {
+  app.post("/api/chats", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const chatData = insertChatSchema.parse({
         ...req.body,
         createdBy: userId,
       });
-      
+
       const chat = await storage.createChat(chatData);
-      
+
       // Add creator as participant
       await storage.addChatParticipant({
         chatId: chat.id,
         userId: userId,
         isAdmin: true,
       });
-      
+
       res.json(chat);
     } catch (error: any) {
       console.error("Error creating chat:", error);
@@ -130,7 +137,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  app.get('/api/chats', isAuthenticated, async (req: any, res) => {
+  app.get("/api/chats", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const chats = await storage.getUserChats(userId);
@@ -141,15 +148,15 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  app.get('/api/chats/:chatId', isAuthenticated, async (req: any, res) => {
+  app.get("/api/chats/:chatId", isAuthenticated, async (req: any, res) => {
     try {
       const { chatId } = req.params;
       const chat = await storage.getChat(chatId);
-      
+
       if (!chat) {
         return res.status(404).json({ message: "Chat not found" });
       }
-      
+
       res.json(chat);
     } catch (error) {
       console.error("Error fetching chat:", error);
@@ -157,14 +164,14 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  app.post('/api/chats/:chatId/participants', isAuthenticated, async (req: any, res) => {
+  app.post("/api/chats/:chatId/participants", isAuthenticated, async (req: any, res) => {
     try {
       const { chatId } = req.params;
       const participantData = insertChatParticipantSchema.parse({
         chatId,
         ...req.body,
       });
-      
+
       const participant = await storage.addChatParticipant(participantData);
       res.json(participant);
     } catch (error: any) {
@@ -173,7 +180,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  app.get('/api/chats/:chatId/participants', isAuthenticated, async (req: any, res) => {
+  app.get("/api/chats/:chatId/participants", isAuthenticated, async (req: any, res) => {
     try {
       const { chatId } = req.params;
       const participants = await storage.getChatParticipants(chatId);
@@ -185,35 +192,37 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   });
 
   // Message routes
-  app.post('/api/chats/:chatId/messages', isAuthenticated, async (req: any, res) => {
+  app.post("/api/chats/:chatId/messages", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const { chatId } = req.params;
-      
+
       const messageData = insertMessageSchema.parse({
         chatId,
         senderId: userId,
         ...req.body,
       });
-      
+
       const message = await storage.createMessage(messageData);
-      
+
       // Broadcast to WebSocket connections
       const user = await storage.getUser(userId);
       const messageWithSender = { ...message, sender: user };
-      
+
       // Notify all participants via WebSocket
       const participants = await storage.getChatParticipants(chatId);
-      participants.forEach(participant => {
-        const ws = wsConnections.get(participant.userId || '');
+      participants.forEach((participant) => {
+        const ws = wsConnections.get(participant.userId || "");
         if (ws && ws.readyState === WebSocket.OPEN) {
-          ws.send(JSON.stringify({
-            type: 'new_message',
-            data: messageWithSender
-          }));
+          ws.send(
+            JSON.stringify({
+              type: "new_message",
+              data: messageWithSender,
+            })
+          );
         }
       });
-      
+
       res.json(messageWithSender);
     } catch (error: any) {
       console.error("Error creating message:", error);
@@ -221,11 +230,11 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  app.get('/api/chats/:chatId/messages', isAuthenticated, async (req: any, res) => {
+  app.get("/api/chats/:chatId/messages", isAuthenticated, async (req: any, res) => {
     try {
       const { chatId } = req.params;
       const limit = parseInt(req.query.limit as string) || 50;
-      
+
       const messages = await storage.getChatMessages(chatId, limit);
       res.json(messages);
     } catch (error) {
@@ -235,20 +244,20 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   });
 
   // SMS routes
-  app.post('/api/sms/send', isAuthenticated, async (req: any, res) => {
+  app.post("/api/sms/send", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const smsData = insertSmsMessageSchema.parse({
         fromUserId: userId,
         ...req.body,
       });
-      
+
       const result = await smsService.sendSms(
-        smsData.fromUserId || '',
+        smsData.fromUserId || "",
         smsData.toPhoneNumber,
         smsData.content
       );
-      
+
       if (result.success) {
         res.json({ success: true, messageId: result.messageId });
       } else {
@@ -260,7 +269,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
     }
   });
 
-  app.get('/api/sms/history', isAuthenticated, async (req: any, res) => {
+  app.get("/api/sms/history", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const history = await smsService.getUserSmsHistory(userId);
@@ -272,7 +281,7 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   });
 
   // Twilio webhook for SMS status updates
-  app.post('/api/sms/webhook', async (req, res) => {
+  app.post("/api/sms/webhook", async (req, res) => {
     try {
       const result = await smsService.handleTwilioWebhook(req.body);
       res.json(result);
@@ -283,53 +292,53 @@ export async function registerRoutes(app: express.Application): Promise<Server> 
   });
 
   const httpServer = createServer(app);
-  
+
   // WebSocket server for real-time chat
-  const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
-  
-  wss.on('connection', (ws: WebSocket, req) => {
-    console.log('New WebSocket connection');
-    
+  const wss = new WebSocketServer({ server: httpServer, path: "/ws" });
+
+  wss.on("connection", (ws: WebSocket, req) => {
+    console.log("New WebSocket connection");
+
     // Extract user ID from query params or headers
     const url = new URL(req.url!, `http://${req.headers.host}`);
-    const userId = url.searchParams.get('userId');
-    
+    const userId = url.searchParams.get("userId");
+
     if (userId) {
       wsConnections.set(userId, ws);
       console.log(`User ${userId} connected via WebSocket`);
     }
-    
-    ws.on('message', (data) => {
+
+    ws.on("message", (data) => {
       try {
         const message = JSON.parse(data.toString());
-        console.log('Received WebSocket message:', message);
-        
+        console.log("Received WebSocket message:", message);
+
         // Handle different message types
         switch (message.type) {
-          case 'ping':
-            ws.send(JSON.stringify({ type: 'pong' }));
+          case "ping":
+            ws.send(JSON.stringify({ type: "pong" }));
             break;
-          case 'join_chat':
+          case "join_chat":
             // Handle joining a chat room
             break;
-          case 'leave_chat':
+          case "leave_chat":
             // Handle leaving a chat room
             break;
         }
       } catch (error) {
-        console.error('Error processing WebSocket message:', error);
+        console.error("Error processing WebSocket message:", error);
       }
     });
-    
-    ws.on('close', () => {
+
+    ws.on("close", () => {
       if (userId) {
         wsConnections.delete(userId);
         console.log(`User ${userId} disconnected from WebSocket`);
       }
     });
-    
-    ws.on('error', (error) => {
-      console.error('WebSocket error:', error);
+
+    ws.on("error", (error) => {
+      console.error("WebSocket error:", error);
     });
   });
 

@@ -29,7 +29,7 @@ See: [`renovate.json`](../../renovate.json)
 ### Minor Updates (e.g., 1.0.0 → 1.1.0)
 
 - **Auto-merge:** ✅ Yes
-- **Labels:** `dependencies`, `automerge`  
+- **Labels:** `dependencies`, `automerge`
 - **Review:** Optional (auto-merged after CI passes)
 
 **Rationale:** Minor updates add features but maintain backward compatibility.
@@ -151,34 +151,40 @@ See: [`renovate.json`](../../renovate.json)
 ### Scenario 1: Security Vulnerability Detected
 
 **What happens:**
+
 1. Renovate detects vulnerable package
 2. Creates PR with fix
 3. Labels with `dependencies`
 4. Triggers security audit in CI
 
 **Your action:**
+
 - Review and merge ASAP (even if major update)
 - Security takes priority over breaking changes
 
 ### Scenario 2: Multiple Updates Available
 
 **What happens:**
+
 - Renovate respects concurrent PR limit (5 max)
 - Creates PRs by priority (security first)
 - Queues remaining updates for next run
 
 **Your action:**
+
 - Review/merge PRs to free up slots
 - Critical updates created first
 
 ### Scenario 3: Update Breaks Tests
 
 **What happens:**
+
 - CI fails on Renovate PR
 - Auto-merge disabled
 - Assigned to maintainer
 
 **Your action:**
+
 1. Check CI logs for failure
 2. Determine if code needs updating
 3. Either:
@@ -235,6 +241,7 @@ To modify Renovate behavior, edit `renovate.json`:
 ### View Renovate PRs
 
 Filter PRs by label:
+
 - Label: `dependencies` - All Renovate PRs
 - Label: `automerge` - Auto-mergeable updates
 - Label: `major-update` - Requires review
@@ -242,6 +249,7 @@ Filter PRs by label:
 ### Renovate Dashboard
 
 Renovate creates a dependency dashboard issue:
+
 - Lists all pending updates
 - Shows why updates might be blocked
 - Provides configuration errors
@@ -251,6 +259,7 @@ Renovate creates a dependency dashboard issue:
 ### Renovate Not Creating PRs
 
 **Check:**
+
 1. Is it Monday before 6 AM UTC?
 2. Are there < 5 concurrent Renovate PRs?
 3. Check Renovate logs in app dashboard
@@ -259,6 +268,7 @@ Renovate creates a dependency dashboard issue:
 ### Auto-merge Not Working
 
 **Check:**
+
 1. Are CI checks passing?
 2. Is PR labeled with `automerge`?
 3. Branch protection rules may prevent auto-merge
@@ -267,6 +277,7 @@ Renovate creates a dependency dashboard issue:
 ### Too Many PRs
 
 **Solution:**
+
 - Lower `prConcurrentLimit` in `renovate.json`
 - Lower `prHourlyLimit`
 - Group related packages

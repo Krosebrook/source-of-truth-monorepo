@@ -1,9 +1,9 @@
 ---
 name: Bug Report
 about: Create a report to help us improve
-title: '[BUG] '
+title: "[BUG] "
 labels: bug
-assignees: ''
+assignees: ""
 ---
 
 ## Bug Description
@@ -13,6 +13,7 @@ A clear and concise description of what the bug is.
 ## To Reproduce
 
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
@@ -33,6 +34,7 @@ If applicable, add screenshots to help explain your problem.
 ## Environment
 
 **Desktop (please complete the following information):**
+
 - OS: [e.g. macOS, Windows, Linux]
 - Node version: [e.g. 20.11.0]
 - pnpm version: [e.g. 9.0.0]
@@ -40,6 +42,7 @@ If applicable, add screenshots to help explain your problem.
 - Version: [e.g. 22]
 
 **Package/Project:**
+
 - Which package/project is affected: [e.g. @flashfusion/web, agents/claude-agent]
 
 ## Additional Context

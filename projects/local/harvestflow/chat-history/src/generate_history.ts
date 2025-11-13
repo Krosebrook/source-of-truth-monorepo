@@ -6,22 +6,24 @@ import levenshtein from "fast-levenshtein";
 const Message = z.object({
   role: z.enum(["user", "assistant", "system"]).optional(),
   text: z.string().optional(),
-  content: z.string().optional()
+  content: z.string().optional(),
 });
 const ChatExport = z.object({
   conversation_id: z.string().optional(),
   title: z.string().optional(),
-  messages: z.array(Message)
+  messages: z.array(Message),
 });
 
 // --- util --------------------------------------------------------
 function safe(s: string) {
-  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 function chunkText(text: string, size = 1200) {
   const chunks = [];
-  for (let i = 0; i < text.length; i += size)
-    chunks.push(text.slice(i, i + size));
+  for (let i = 0; i < text.length; i += size) chunks.push(text.slice(i, i + size));
   return chunks;
 }
 function auditPair(a: string, b: string) {
@@ -36,7 +38,7 @@ const chatsDir = path.join(root, "chats");
 const outDir = path.join(root, "out");
 fs.mkdirSync(outDir, { recursive: true });
 
-const files = fs.readdirSync(chatsDir).filter(f => f.endsWith(".json"));
+const files = fs.readdirSync(chatsDir).filter((f) => f.endsWith(".json"));
 if (!files.length) {
   console.error("No chat JSON files found in ./chats/");
   process.exit(1);
@@ -54,8 +56,7 @@ for (const file of files) {
   // Build transcript markdown
   const md = json.messages
     .map(
-      (m, i) =>
-        `### ${i + 1}. ${m.role?.toUpperCase() || "UNK"}\n\n${m.text || m.content || ""}\n`
+      (m, i) => `### ${i + 1}. ${m.role?.toUpperCase() || "UNK"}\n\n${m.text || m.content || ""}\n`
     )
     .join("\n---\n");
 
@@ -67,16 +68,15 @@ for (const file of files) {
   });
 
   // Simple audit summary
-  const userMsgs = json.messages.filter(m => m.role === "user").map(m => m.text || "");
-  const aiMsgs = json.messages.filter(m => m.role === "assistant").map(m => m.text || "");
+  const userMsgs = json.messages.filter((m) => m.role === "user").map((m) => m.text || "");
+  const aiMsgs = json.messages.filter((m) => m.role === "assistant").map((m) => m.text || "");
   const audits = [];
   for (let i = 0; i < Math.min(userMsgs.length, aiMsgs.length); i++) {
     const { pct } = auditPair(userMsgs[i], aiMsgs[i]);
     audits.push({ pair: i + 1, driftPct: pct });
   }
   const avgDrift =
-    audits.reduce((a, b) => a + parseFloat(b.driftPct), 0) /
-    Math.max(audits.length, 1);
+    audits.reduce((a, b) => a + parseFloat(b.driftPct), 0) / Math.max(audits.length, 1);
 
   const summary = `# ${title}\n- Messages: ${json.messages.length}\n- Avg user/assistant drift: ${avgDrift.toFixed(
     2

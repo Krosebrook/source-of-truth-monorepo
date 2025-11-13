@@ -3,6 +3,7 @@
 > Complete guide for new team members joining FlashFusion SoT
 
 **Current Migration Status** (as of 2025-11-01):
+
 - ✅ 3 local repositories imported
 - ⏳ 50 GitHub repositories ready to import (see [Importing Repositories](/docs/tutorials/02-importing-repos.md))
 - ✅ Full documentation infrastructure in place
@@ -17,33 +18,39 @@
 ### Environment Setup
 
 - [ ] **Install Node.js 20+**
+
   ```bash
   node --version  # Should be 20.x or higher
   ```
 
 - [ ] **Install Git**
+
   ```bash
   git --version
   ```
 
 - [ ] **Install pnpm globally**
+
   ```bash
   npm install -g pnpm@9
   pnpm --version  # Should show 9.x
   ```
 
 - [ ] **Clone the repository**
+
   ```bash
   git clone git@github.com:Krosebrook/source-of-truth-monorepo.git
   cd source-of-truth-monorepo
   ```
 
 - [ ] **Install dependencies** (takes 5-10 min)
+
   ```bash
   pnpm install
   ```
 
 - [ ] **Build everything** (first build: 10-20 min)
+
   ```bash
   pnpm build
   ```
@@ -87,11 +94,13 @@
 ### Hands-On Practice
 
 - [ ] **Run a specific project**
+
   ```bash
   pnpm --filter harvestflow build
   ```
 
 - [ ] **Explore the CLI**
+
   ```bash
   pnpm -r list  # List all workspace projects
   ```
@@ -108,6 +117,7 @@
 
 - [ ] **Read [CONTRIBUTING.md](/CONTRIBUTING.md)**
 - [ ] **Understand git workflow**
+
   ```bash
   git checkout -b feature/my-first-change
   # ... make changes ...
@@ -128,12 +138,14 @@
 **Note**: Currently only 3 local repositories are imported. To import the remaining 50 GitHub repositories, see the [Importing Repositories Tutorial](/docs/tutorials/02-importing-repos.md).
 
 - [ ] **Identify your primary project(s)**
+
   ```bash
   ls projects/local/           # Currently imported (3 repos)
   ls projects/krosebrook/      # Available after import
   ```
 
 - [ ] **Build and run your project**
+
   ```bash
   pnpm --filter <your-project> build
   pnpm --filter <your-project> dev
@@ -259,6 +271,7 @@ pnpm test
 **New to the team?** Help us improve onboarding!
 
 After completing this checklist, please:
+
 1. [Open a discussion](https://github.com/Krosebrook/source-of-truth-monorepo/discussions) with feedback
 2. Suggest improvements to this checklist
 3. Share what helped you most

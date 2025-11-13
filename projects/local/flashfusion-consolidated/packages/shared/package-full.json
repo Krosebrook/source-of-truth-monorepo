@@ -153,13 +153,8 @@
     "npm": ">=8.0.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,css,md}": [
-      "prettier --write"
-    ]
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,css,md}": ["prettier --write"]
   },
   "husky": {
     "hooks": {
@@ -169,19 +164,12 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "<rootDir>/tests/setup.js"
-    ],
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
     "coverageDirectory": "coverage",
     "transformIgnorePatterns": [
       "node_modules/(?!(node-fetch|fetch-blob|formdata-polyfill|data-uri-to-buffer)/)"
     ],
-    "collectCoverageFrom": [
-      "api/**/*.js",
-      "src/**/*.js",
-      "!src/server.js",
-      "!src/config/*.js"
-    ],
+    "collectCoverageFrom": ["api/**/*.js", "src/**/*.js", "!src/server.js", "!src/config/*.js"],
     "testMatch": [
       "<rootDir>/tests/**/*.test.js",
       "<rootDir>/src/**/*.test.js",

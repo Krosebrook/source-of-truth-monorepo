@@ -3,17 +3,20 @@
 ## Installed Tools
 
 ### 1. Code Analysis & Quality
+
 - **Biome** - Fast formatter and linter (configured in `biome.json`)
 - **Madge** - Circular dependency detection
 - **Depcheck** - Find unused dependencies
 - **npm-check-updates** - Keep dependencies up to date
 
 ### 2. VS Code/Cursor Configuration
+
 - **Enhanced settings.json** - Optimized for AI assistance
 - **extensions.json** - Recommended extensions list
 - **Cursor-specific AI settings** - Claude 3.5 Sonnet as default
 
 ### 3. GitHub Integration
+
 - **Dependabot** - Automated dependency updates
 - **Code Quality Workflow** - Automated linting and testing on push
 
@@ -57,25 +60,30 @@ aicommits
 ## Additional AI Tools to Consider
 
 ### Terminal Enhancements
+
 - **Warp** - AI-powered terminal (https://warp.dev)
 - **Fig** - Terminal autocomplete (https://fig.io)
 
 ### Code Intelligence
+
 - **Sourcegraph Cody** - AI coding assistant
 - **Tabnine** - AI code completions
 - **Kite** - ML-powered completions
 
 ### Documentation
+
 - **Mintlify Doc Writer** - AI documentation generator
 - **AI Doc Writer** - Generate JSDoc comments
 
 ### Testing
+
 - **Codium AI** - AI test generation
 - **TestPilot** - AI-powered test writing
 
 ## Performance Monitoring
 
 The project now includes automated:
+
 - Dependency checking
 - Circular dependency detection
 - Code quality analysis

@@ -1,25 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronRight, Menu, X, Home, Users, Settings, BarChart3, Zap, ArrowRight, Star, Globe, Shield, Rocket, Plus, Mail, Phone, MessageCircle, HelpCircle } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import {
+  ChevronRight,
+  Menu,
+  X,
+  Home,
+  Users,
+  Settings,
+  BarChart3,
+  Zap,
+  ArrowRight,
+  Star,
+  Globe,
+  Shield,
+  Rocket,
+  Plus,
+  Mail,
+  Phone,
+  MessageCircle,
+  HelpCircle,
+} from "lucide-react";
 
 const FlashFusionUnited = () => {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [animationClass, setAnimationClass] = useState('');
+  const [animationClass, setAnimationClass] = useState("");
   const [fabOpen, setFabOpen] = useState(false);
 
   // Subtle animation effects
-  const animations = ['fadeIn', 'slideUp', 'scaleIn'];
-  
+  const animations = ["fadeIn", "slideUp", "scaleIn"];
+
   const triggerRandomAnimation = () => {
     const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
     setAnimationClass(randomAnimation);
-    setTimeout(() => setAnimationClass(''), 600);
+    setTimeout(() => setAnimationClass(""), 600);
   };
 
   // Occasional animations
   useEffect(() => {
     const interval = setInterval(() => {
-      if (Math.random() > 0.85) { // 15% chance
+      if (Math.random() > 0.85) {
+        // 15% chance
         triggerRandomAnimation();
       }
     }, 5000);
@@ -27,17 +47,17 @@ const FlashFusionUnited = () => {
   }, []);
 
   const navigationItems = [
-    { id: 'home', label: 'Home', icon: Home },
-    { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
-    { id: 'team', label: 'Team', icon: Users },
-    { id: 'settings', label: 'Settings', icon: Settings }
+    { id: "home", label: "Home", icon: Home },
+    { id: "dashboard", label: "Dashboard", icon: BarChart3 },
+    { id: "team", label: "Team", icon: Users },
+    { id: "settings", label: "Settings", icon: Settings },
   ];
 
   const fabActions = [
-    { icon: Mail, label: 'Contact', color: '#667eea' },
-    { icon: Phone, label: 'Call', color: '#4ecdc4' },
-    { icon: MessageCircle, label: 'Chat', color: '#a55eea' },
-    { icon: HelpCircle, label: 'Help', color: '#feca57' }
+    { icon: Mail, label: "Contact", color: "#667eea" },
+    { icon: Phone, label: "Call", color: "#4ecdc4" },
+    { icon: MessageCircle, label: "Chat", color: "#a55eea" },
+    { icon: HelpCircle, label: "Help", color: "#feca57" },
   ];
 
   // Simple page navigation
@@ -60,20 +80,15 @@ const FlashFusionUnited = () => {
             Welcome to <span className="gradient-text">FlashFusion-United</span>
           </h1>
           <p className="hero-subtitle">
-            The next-generation platform that combines cutting-edge technology with seamless user experience. 
-            Join thousands of professionals who trust FlashFusion-United for their digital transformation.
+            The next-generation platform that combines cutting-edge technology with seamless user
+            experience. Join thousands of professionals who trust FlashFusion-United for their
+            digital transformation.
           </p>
           <div className="hero-buttons">
-            <button 
-              className="btn btn-primary"
-              onClick={() => navigateTo('dashboard')}
-            >
+            <button className="btn btn-primary" onClick={() => navigateTo("dashboard")}>
               Get Started <ArrowRight className="w-4 h-4 ml-2" />
             </button>
-            <button 
-              className="btn btn-secondary"
-              onClick={() => navigateTo('team')}
-            >
+            <button className="btn btn-secondary" onClick={() => navigateTo("team")}>
               Learn More
             </button>
           </div>
@@ -109,17 +124,19 @@ const FlashFusionUnited = () => {
           <p>Discover the features that set us apart from the competition</p>
         </div>
         <div className="features-grid">
-          <div className="feature-card performance-card" onClick={() => navigateTo('dashboard')}>
+          <div className="feature-card performance-card" onClick={() => navigateTo("dashboard")}>
             <div className="feature-icon">
               <Rocket className="w-6 h-6" />
             </div>
             <h3>Lightning Performance</h3>
-            <p>Experience blazing-fast performance with our optimized infrastructure and global CDN</p>
+            <p>
+              Experience blazing-fast performance with our optimized infrastructure and global CDN
+            </p>
             <div className="feature-arrow">
               <ChevronRight className="w-4 h-4" />
             </div>
           </div>
-          <div className="feature-card security-card" onClick={() => navigateTo('team')}>
+          <div className="feature-card security-card" onClick={() => navigateTo("team")}>
             <div className="feature-icon">
               <Shield className="w-6 h-6" />
             </div>
@@ -129,7 +146,7 @@ const FlashFusionUnited = () => {
               <ChevronRight className="w-4 h-4" />
             </div>
           </div>
-          <div className="feature-card global-card" onClick={() => navigateTo('settings')}>
+          <div className="feature-card global-card" onClick={() => navigateTo("settings")}>
             <div className="feature-icon">
               <Globe className="w-6 h-6" />
             </div>
@@ -172,7 +189,7 @@ const FlashFusionUnited = () => {
         <h1>Performance Dashboard</h1>
         <p>Monitor your metrics and analytics in real-time</p>
       </div>
-      
+
       <div className="dashboard-grid">
         <div className="dashboard-card analytics-card">
           <div className="card-header">
@@ -184,7 +201,7 @@ const FlashFusionUnited = () => {
             <div className="metric-subtitle">Currently online</div>
           </div>
         </div>
-        
+
         <div className="dashboard-card revenue-card">
           <div className="card-header">
             <h3>Monthly Revenue</h3>
@@ -195,7 +212,7 @@ const FlashFusionUnited = () => {
             <div className="metric-subtitle">This month</div>
           </div>
         </div>
-        
+
         <div className="dashboard-card conversion-card">
           <div className="card-header">
             <h3>Conversion Rate</h3>
@@ -206,7 +223,7 @@ const FlashFusionUnited = () => {
             <div className="metric-subtitle">Last 30 days</div>
           </div>
         </div>
-        
+
         <div className="dashboard-card growth-card">
           <div className="card-header">
             <h3>User Growth</h3>
@@ -218,12 +235,12 @@ const FlashFusionUnited = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="action-buttons">
-        <button className="btn btn-team" onClick={() => navigateTo('team')}>
+        <button className="btn btn-team" onClick={() => navigateTo("team")}>
           View Team <ArrowRight className="w-4 h-4 ml-2" />
         </button>
-        <button className="btn btn-settings" onClick={() => navigateTo('settings')}>
+        <button className="btn btn-settings" onClick={() => navigateTo("settings")}>
           Manage Settings
         </button>
       </div>
@@ -236,15 +253,45 @@ const FlashFusionUnited = () => {
         <h1>Meet Our Team</h1>
         <p>The talented professionals behind FlashFusion-United</p>
       </div>
-      
+
       <div className="team-grid">
         {[
-          { name: 'Alex Johnson', role: 'CEO & Founder', avatar: '👨‍💼', expertise: 'Strategy & Vision' },
-          { name: 'Sarah Chen', role: 'Chief Technology Officer', avatar: '👩‍💻', expertise: 'Engineering & Architecture' },
-          { name: 'Mike Rodriguez', role: 'Head of Design', avatar: '👨‍🎨', expertise: 'UX & Product Design' },
-          { name: 'Emily Davis', role: 'Product Manager', avatar: '👩‍💼', expertise: 'Product Strategy' },
-          { name: 'David Kim', role: 'Lead Developer', avatar: '👨‍💻', expertise: 'Full-Stack Development' },
-          { name: 'Lisa Wang', role: 'Marketing Director', avatar: '👩‍📊', expertise: 'Growth & Analytics' }
+          {
+            name: "Alex Johnson",
+            role: "CEO & Founder",
+            avatar: "👨‍💼",
+            expertise: "Strategy & Vision",
+          },
+          {
+            name: "Sarah Chen",
+            role: "Chief Technology Officer",
+            avatar: "👩‍💻",
+            expertise: "Engineering & Architecture",
+          },
+          {
+            name: "Mike Rodriguez",
+            role: "Head of Design",
+            avatar: "👨‍🎨",
+            expertise: "UX & Product Design",
+          },
+          {
+            name: "Emily Davis",
+            role: "Product Manager",
+            avatar: "👩‍💼",
+            expertise: "Product Strategy",
+          },
+          {
+            name: "David Kim",
+            role: "Lead Developer",
+            avatar: "👨‍💻",
+            expertise: "Full-Stack Development",
+          },
+          {
+            name: "Lisa Wang",
+            role: "Marketing Director",
+            avatar: "👩‍📊",
+            expertise: "Growth & Analytics",
+          },
         ].map((member, index) => (
           <div key={index} className="team-card" onClick={triggerRandomAnimation}>
             <div className="team-avatar">{member.avatar}</div>
@@ -259,12 +306,12 @@ const FlashFusionUnited = () => {
           </div>
         ))}
       </div>
-      
+
       <div className="team-actions">
-        <button className="btn btn-dashboard" onClick={() => navigateTo('dashboard')}>
+        <button className="btn btn-dashboard" onClick={() => navigateTo("dashboard")}>
           View Dashboard <BarChart3 className="w-4 h-4 ml-2" />
         </button>
-        <button className="btn btn-home" onClick={() => navigateTo('home')}>
+        <button className="btn btn-home" onClick={() => navigateTo("home")}>
           Back to Home
         </button>
       </div>
@@ -277,7 +324,7 @@ const FlashFusionUnited = () => {
         <h1>Account Settings</h1>
         <p>Customize your FlashFusion-United experience</p>
       </div>
-      
+
       <div className="settings-sections">
         <div className="settings-card account-settings">
           <h3>Account Preferences</h3>
@@ -286,24 +333,30 @@ const FlashFusionUnited = () => {
               <label>Email Notifications</label>
               <span className="setting-desc">Receive updates about your account</span>
             </div>
-            <button className="toggle-btn active" onClick={triggerRandomAnimation}>Enabled</button>
+            <button className="toggle-btn active" onClick={triggerRandomAnimation}>
+              Enabled
+            </button>
           </div>
           <div className="setting-item">
             <div className="setting-info">
               <label>Two-Factor Authentication</label>
               <span className="setting-desc">Enhanced security for your account</span>
             </div>
-            <button className="toggle-btn" onClick={triggerRandomAnimation}>Disabled</button>
+            <button className="toggle-btn" onClick={triggerRandomAnimation}>
+              Disabled
+            </button>
           </div>
           <div className="setting-item">
             <div className="setting-info">
               <label>Auto-save</label>
               <span className="setting-desc">Automatically save your work</span>
             </div>
-            <button className="toggle-btn active" onClick={triggerRandomAnimation}>Enabled</button>
+            <button className="toggle-btn active" onClick={triggerRandomAnimation}>
+              Enabled
+            </button>
           </div>
         </div>
-        
+
         <div className="settings-card appearance-settings">
           <h3>Appearance</h3>
           <div className="setting-item">
@@ -311,24 +364,30 @@ const FlashFusionUnited = () => {
               <label>Theme</label>
               <span className="setting-desc">Choose your preferred theme</span>
             </div>
-            <button className="toggle-btn" onClick={triggerRandomAnimation}>Light</button>
+            <button className="toggle-btn" onClick={triggerRandomAnimation}>
+              Light
+            </button>
           </div>
           <div className="setting-item">
             <div className="setting-info">
               <label>Animations</label>
               <span className="setting-desc">Enable smooth transitions</span>
             </div>
-            <button className="toggle-btn active" onClick={triggerRandomAnimation}>Enabled</button>
+            <button className="toggle-btn active" onClick={triggerRandomAnimation}>
+              Enabled
+            </button>
           </div>
           <div className="setting-item">
             <div className="setting-info">
               <label>Sound Effects</label>
               <span className="setting-desc">Audio feedback for interactions</span>
             </div>
-            <button className="toggle-btn active" onClick={triggerRandomAnimation}>Enabled</button>
+            <button className="toggle-btn active" onClick={triggerRandomAnimation}>
+              Enabled
+            </button>
           </div>
         </div>
-        
+
         <div className="settings-card privacy-settings">
           <h3>Privacy & Security</h3>
           <div className="setting-item">
@@ -336,27 +395,33 @@ const FlashFusionUnited = () => {
               <label>Analytics</label>
               <span className="setting-desc">Help improve our service</span>
             </div>
-            <button className="toggle-btn active" onClick={triggerRandomAnimation}>Enabled</button>
+            <button className="toggle-btn active" onClick={triggerRandomAnimation}>
+              Enabled
+            </button>
           </div>
           <div className="setting-item">
             <div className="setting-info">
               <label>Marketing Communications</label>
               <span className="setting-desc">Product updates and news</span>
             </div>
-            <button className="toggle-btn" onClick={triggerRandomAnimation}>Disabled</button>
+            <button className="toggle-btn" onClick={triggerRandomAnimation}>
+              Disabled
+            </button>
           </div>
           <div className="setting-item">
             <div className="setting-info">
               <label>Profile Visibility</label>
               <span className="setting-desc">Who can see your profile</span>
             </div>
-            <button className="toggle-btn active" onClick={triggerRandomAnimation}>Public</button>
+            <button className="toggle-btn active" onClick={triggerRandomAnimation}>
+              Public
+            </button>
           </div>
         </div>
       </div>
-      
+
       <div className="settings-actions">
-        <button className="btn btn-save" onClick={() => navigateTo('home')}>
+        <button className="btn btn-save" onClick={() => navigateTo("home")}>
           Save Changes <ArrowRight className="w-4 h-4 ml-2" />
         </button>
         <button className="btn btn-reset" onClick={triggerRandomAnimation}>
@@ -367,12 +432,17 @@ const FlashFusionUnited = () => {
   );
 
   const renderCurrentPage = () => {
-    switch(currentPage) {
-      case 'home': return <HomePage />;
-      case 'dashboard': return <DashboardPage />;
-      case 'team': return <TeamPage />;
-      case 'settings': return <SettingsPage />;
-      default: return <HomePage />;
+    switch (currentPage) {
+      case "home":
+        return <HomePage />;
+      case "dashboard":
+        return <DashboardPage />;
+      case "team":
+        return <TeamPage />;
+      case "settings":
+        return <SettingsPage />;
+      default:
+        return <HomePage />;
     }
   };
 
@@ -1289,8 +1359,8 @@ body {
 
   // Inject styles
   useEffect(() => {
-    if (typeof document !== 'undefined') {
-      const styleSheet = document.createElement('style');
+    if (typeof document !== "undefined") {
+      const styleSheet = document.createElement("style");
       styleSheet.textContent = styles;
       document.head.appendChild(styleSheet);
     }
@@ -1301,11 +1371,11 @@ body {
       {/* Navigation */}
       <header className="navbar">
         <div className="nav-container">
-          <div className="nav-brand" onClick={() => navigateTo('home')}>
+          <div className="nav-brand" onClick={() => navigateTo("home")}>
             <Zap className="w-8 h-8" />
             <span>FlashFusion-United</span>
           </div>
-          
+
           {/* Desktop Navigation */}
           <nav className="nav-menu desktop-nav">
             {navigationItems.map((item) => {
@@ -1313,7 +1383,7 @@ body {
               return (
                 <button
                   key={item.id}
-                  className={`nav-item ${currentPage === item.id ? 'active' : ''}`}
+                  className={`nav-item ${currentPage === item.id ? "active" : ""}`}
                   onClick={() => navigateTo(item.id)}
                 >
                   <Icon className="w-4 h-4" />
@@ -1322,16 +1392,16 @@ body {
               );
             })}
           </nav>
-          
+
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="mobile-menu-btn"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-        
+
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <nav className="mobile-nav">
@@ -1340,7 +1410,7 @@ body {
               return (
                 <button
                   key={item.id}
-                  className={`mobile-nav-item ${currentPage === item.id ? 'active' : ''}`}
+                  className={`mobile-nav-item ${currentPage === item.id ? "active" : ""}`}
                   onClick={() => navigateTo(item.id)}
                 >
                   <Icon className="w-4 h-4" />
@@ -1353,12 +1423,10 @@ body {
       </header>
 
       {/* Main Content */}
-      <main className="main-content">
-        {renderCurrentPage()}
-      </main>
+      <main className="main-content">{renderCurrentPage()}</main>
 
       {/* Floating Action Button */}
-      <div className={`fab-container ${fabOpen ? 'fab-open' : ''}`}>
+      <div className={`fab-container ${fabOpen ? "fab-open" : ""}`}>
         <div className="fab-actions">
           {fabActions.map((action, index) => {
             const Icon = action.icon;
@@ -1377,11 +1445,8 @@ body {
             );
           })}
         </div>
-        <button 
-          className="fab-main"
-          onClick={() => setFabOpen(!fabOpen)}
-        >
-          <Plus className={`w-6 h-6 ${fabOpen ? 'rotate-45' : ''}`} />
+        <button className="fab-main" onClick={() => setFabOpen(!fabOpen)}>
+          <Plus className={`w-6 h-6 ${fabOpen ? "rotate-45" : ""}`} />
         </button>
       </div>
 
@@ -1393,10 +1458,10 @@ body {
             <span>FlashFusion-United</span>
           </div>
           <div className="footer-links">
-            <button onClick={() => navigateTo('home')}>Home</button>
-            <button onClick={() => navigateTo('dashboard')}>Dashboard</button>
-            <button onClick={() => navigateTo('team')}>Team</button>
-            <button onClick={() => navigateTo('settings')}>Settings</button>
+            <button onClick={() => navigateTo("home")}>Home</button>
+            <button onClick={() => navigateTo("dashboard")}>Dashboard</button>
+            <button onClick={() => navigateTo("team")}>Team</button>
+            <button onClick={() => navigateTo("settings")}>Settings</button>
           </div>
         </div>
         <div className="footer-bottom">

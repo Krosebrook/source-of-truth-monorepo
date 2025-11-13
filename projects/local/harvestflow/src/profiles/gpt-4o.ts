@@ -6,8 +6,8 @@ export const profile = {
       model: "gpt-4o",
       input: {
         instructions: input.system,
-        messages: [{ role: "user", content: input.user }]
-      }
+        messages: [{ role: "user", content: input.user }],
+      },
     };
-  }
+  },
 };

@@ -9,6 +9,7 @@
 ## Context
 
 With 53 projects in a monorepo, we needed a build orchestration system that could:
+
 - Build projects in the correct order (respecting dependencies)
 - Cache build outputs (avoid rebuilding unchanged projects)
 - Run tasks in parallel when possible
@@ -30,6 +31,7 @@ Configuration in `turbo.json` at repository root.
 ### Considered Alternatives
 
 #### 1. **Lerna**
+
 - **Pros**:
   - Mature (2016+)
   - Large community
@@ -41,6 +43,7 @@ Configuration in `turbo.json` at repository root.
   - ❌ **Verbose config**: Requires lots of boilerplate
 
 #### 2. **Nx**
+
 - **Pros**:
   - Very powerful (computation caching, distributed execution)
   - Rich plugin ecosystem
@@ -52,6 +55,7 @@ Configuration in `turbo.json` at repository root.
   - ❌ **Plugin-dependent**: Many features require plugins
 
 #### 3. **Custom Scripts (npm/pnpm)**
+
 - **Pros**:
   - No additional dependencies
   - Full control
@@ -62,6 +66,7 @@ Configuration in `turbo.json` at repository root.
   - ❌ **Maintenance burden**: Reinventing the wheel
 
 #### 4. **Turborepo (Chosen)**
+
 - **Pros**:
   - ✅ **Fast**: Incremental builds with caching (30s → 0.2s on cached builds)
   - ✅ **Simple**: Minimal config (just `turbo.json`)
@@ -77,12 +82,14 @@ Configuration in `turbo.json` at repository root.
 ### Why Turborepo
 
 For 53 projects:
+
 - **CI performance**: First build ~20 min, cached builds <1 min (20x faster)
 - **DX**: Developers see instant feedback when nothing changed
 - **Simple config**: Single `turbo.json` vs complex Nx workspace configs
 - **Industry momentum**: Turborepo + pnpm is the 2025 standard for monorepos
 
 **Real-world example from testing**:
+
 ```
 Initial build:   30 seconds
 Cached build:    0.2 seconds  (150x faster!)
@@ -104,7 +111,7 @@ Cached build:    0.2 seconds  (150x faster!)
 
 - ⚠️ **Learning curve**: Team must understand caching behavior
 - ⚠️ **Cache misses**: Incorrect cache keys can cause cache thrashing
-- ⚠️ **Debugging**: Harder to debug why something *didn't* rebuild
+- ⚠️ **Debugging**: Harder to debug why something _didn't_ rebuild
 
 ### Neutral
 
@@ -196,6 +203,6 @@ rm -rf .turbo
 
 ## Revision History
 
-| Date | Author | Change |
-|------|--------|--------|
+| Date       | Author      | Change          |
+| ---------- | ----------- | --------------- |
 | 2025-10-27 | @Krosebrook | Initial version |

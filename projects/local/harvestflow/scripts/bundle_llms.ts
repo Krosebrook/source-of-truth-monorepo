@@ -20,7 +20,11 @@ const addDirectory = (dir: string, base = "") => {
     if (fs.statSync(full).isDirectory()) {
       addDirectory(full, rel);
     } else {
-      zip.addLocalFile(full, path.dirname(rel) === "." ? "" : path.dirname(rel), path.basename(rel));
+      zip.addLocalFile(
+        full,
+        path.dirname(rel) === "." ? "" : path.dirname(rel),
+        path.basename(rel)
+      );
     }
   }
 };

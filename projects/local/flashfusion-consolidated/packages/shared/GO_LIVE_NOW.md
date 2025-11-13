@@ -1,8 +1,9 @@
 # 🚀 GO LIVE RIGHT NOW - Copy & Paste Guide
 
 ## 📋 Your Vercel Info:
+
 - **Username:** krosebrook
-- **Team:** chaos-collective  
+- **Team:** chaos-collective
 - **Project:** flashfusion
 - **Working URL:** https://flashfusion-3ei15stam-chaos-collective.vercel.app (✅ Ready)
 
@@ -21,7 +22,7 @@ Value: cname.vercel-dns.com
 TTL: 1 Hour
 
 Type: CNAME
-Name: www  
+Name: www
 Value: cname.vercel-dns.com
 TTL: 1 Hour
 ```
@@ -35,6 +36,7 @@ TTL: 1 Hour
 **Go to:** https://vercel.com/chaos-collective/flashfusion/settings/domains
 
 **Add these domains:**
+
 1. Type: `flashfusion.co` → Click "Add"
 2. Type: `www.flashfusion.co` → Click "Add"
 
@@ -48,10 +50,10 @@ TTL: 1 Hour
 
 **Click "New repository secret" for each:**
 
-| Name | Value |
-|------|-------|
-| `VERCEL_TOKEN` | (Copy from your .env file) |
-| `VERCEL_ORG_ID` | `chaos-collective` |
+| Name                | Value                                            |
+| ------------------- | ------------------------------------------------ |
+| `VERCEL_TOKEN`      | (Copy from your .env file)                       |
+| `VERCEL_ORG_ID`     | `chaos-collective`                               |
 | `VERCEL_PROJECT_ID` | (Get from Vercel dashboard → Settings → General) |
 
 **Save all secrets** ✅
@@ -61,6 +63,7 @@ TTL: 1 Hour
 ## 🧪 STEP 4: Test & Go Live (1 minute)
 
 **Run these commands:**
+
 ```bash
 cd C:\Users\kyler\FlashFusion-Unified
 
@@ -81,7 +84,7 @@ git push origin master
 ✅ **FlashFusion.co loads** with beautiful interface  
 ✅ **SSL certificate** (🔒 padlock in browser)  
 ✅ **Auto-deployment** works on every Git push  
-✅ **GitHub Actions** show successful builds  
+✅ **GitHub Actions** show successful builds
 
 ---
 
@@ -91,7 +94,7 @@ git push origin master
 # Check what's failing
 npm run verify-pipeline
 
-# See deployment status  
+# See deployment status
 vercel ls
 
 # Check GitHub Actions

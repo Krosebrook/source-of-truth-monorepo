@@ -59,6 +59,7 @@ Before starting, ensure you have:
 ```
 
 This checks:
+
 - GitHub CLI authentication
 - Required tools installed
 - File structure complete
@@ -76,6 +77,7 @@ This checks:
 ```
 
 **What this does**:
+
 - Creates 50 ED25519 SSH key pairs
 - Stores keys in `/tmp/sot-deploy-keys/`
 - Each key is unique to one repository
@@ -84,6 +86,7 @@ This checks:
 **Output**: 50 key pairs (100 files total: private + public)
 
 **Verify**:
+
 ```bash
 ls -l /tmp/sot-deploy-keys/ | wc -l
 # Expected: 101 (50 private + 50 public + 1 directory entry)
@@ -107,6 +110,7 @@ For each repository in the mirror list:
 6. **Click** "Add key"
 
 **Helper command to view public key**:
+
 ```bash
 cat /tmp/sot-deploy-keys/mirror_ssh_key_flashfusion.pub
 ```
@@ -124,6 +128,7 @@ gh repo deploy-key add mirror_ssh_key_flashfusion.pub \
 ```
 
 **Pro Tip**: Create a script to automate this for all 50 repos:
+
 ```bash
 # See docs/how-to/configure-deploy-keys.md for complete mapping
 ```
@@ -133,6 +138,7 @@ gh repo deploy-key add mirror_ssh_key_flashfusion.pub \
 Use the checklist in `docs/how-to/DEPLOY_KEYS_CHECKLIST.md` to track which repositories are complete.
 
 **Verify one repository**:
+
 ```bash
 gh repo deploy-key list --repo Krosebrook/FlashFusion
 ```
@@ -147,12 +153,14 @@ gh repo deploy-key list --repo Krosebrook/FlashFusion
 ```
 
 **What this does**:
+
 - Reads private keys from `/tmp/sot-deploy-keys/`
 - Uploads to GitHub Actions secrets in `Krosebrook/source-of-truth-monorepo`
 - Creates 50 secrets named `MIRROR_SSH_KEY_*`
 - Uses GitHub CLI for secure upload
 
 **Verify**:
+
 ```bash
 gh secret list --repo Krosebrook/source-of-truth-monorepo | grep MIRROR_SSH_KEY_ | wc -l
 # Expected: 50
@@ -165,6 +173,7 @@ gh secret list --repo Krosebrook/source-of-truth-monorepo | grep MIRROR_SSH_KEY_
 1. **Edit** `.github/workflows/subtree-push.yml`
 
 2. **Find** the commented section (around line 111):
+
    ```yaml
    # Uncomment when deploy keys are configured:
    # - name: Setup SSH for deploy keys
@@ -198,12 +207,14 @@ gh run watch
 ```
 
 **What to check**:
+
 - ✅ Workflow completes successfully
 - ✅ No SSH authentication errors
 - ✅ Subtree split succeeds
 - ✅ Push to mirror succeeds
 
 **If it fails**: Check GitHub Actions logs for error messages. Common issues:
+
 - Deploy key not added to repository
 - "Allow write access" not enabled
 - Secret name mismatch
@@ -224,6 +235,7 @@ gh run watch
 ```
 
 **What to check**:
+
 - ✅ Workflow triggers automatically on push to main
 - ✅ All 50 repositories process (some may skip if no changes)
 - ✅ No failures in the logs
@@ -257,6 +269,7 @@ ls /tmp/sot-deploy-keys/
 **Expected output**: All checks passed ✅
 
 **Document completion**:
+
 - Fill out `docs/how-to/DEPLOY_KEYS_CHECKLIST.md`
 - Add completion date to checklist
 - Set calendar reminder for key rotation (6 months from now)
@@ -268,23 +281,27 @@ ls /tmp/sot-deploy-keys/
 After activation, verify:
 
 - [ ] All 50 secrets exist in GitHub Actions
+
   ```bash
   gh secret list --repo Krosebrook/source-of-truth-monorepo | grep MIRROR_SSH_KEY_ | wc -l
   # Should output: 50
   ```
 
 - [ ] All 50 repositories have deploy keys with write access
+
   ```bash
   # Check one example
   gh repo deploy-key list --repo Krosebrook/FlashFusion
   ```
 
 - [ ] Workflow is enabled (uncommitted in subtree-push.yml)
+
   ```bash
   grep -q "^      - name: Split & push mirrors" .github/workflows/subtree-push.yml && echo "Enabled ✓"
   ```
 
 - [ ] Manual workflow trigger succeeds
+
   ```bash
   # Recent workflow runs
   gh run list --workflow=subtree-push.yml --limit 5
@@ -304,11 +321,13 @@ After activation, verify:
 ### First Week
 
 Monitor workflow runs daily:
+
 ```bash
 gh run list --workflow=subtree-push.yml --limit 10
 ```
 
 Address any failures immediately. Common issues:
+
 - Repository doesn't exist in monorepo → Skip is normal
 - Permission denied → Check deploy key configuration
 - Branch mismatch → Verify target branch in workflow
@@ -335,7 +354,7 @@ Set a calendar reminder for 6 months from activation date.
 5. Remove old deploy keys from GitHub repos
 6. Clean up local keys: `rm -rf /tmp/sot-deploy-keys/`
 
-**Next rotation date**: _____________ (format: YYYY-MM-DD, e.g., 2026-05-01)
+**Next rotation date**: ******\_****** (format: YYYY-MM-DD, e.g., 2026-05-01)
 
 ---
 
@@ -346,6 +365,7 @@ Set a calendar reminder for 6 months from activation date.
 **Cause**: Deploy key not added or missing write access
 
 **Fix**:
+
 1. Verify deploy key exists: `gh repo deploy-key list --repo {org}/{repo}`
 2. Check "Allow write access" is enabled in GitHub UI
 3. Verify secret name in workflow matches actual secret
@@ -365,6 +385,7 @@ Set a calendar reminder for 6 months from activation date.
 **Cause**: Secret not found or misconfigured
 
 **Fix**:
+
 1. Check secret exists: `gh secret list --repo Krosebrook/source-of-truth-monorepo`
 2. Verify secret name matches workflow exactly
 3. Re-upload secret: `./scripts/add-secrets-to-github.sh`
@@ -376,6 +397,7 @@ Set a calendar reminder for 6 months from activation date.
 **Cause**: Inconsistent deploy key configuration
 
 **Fix**:
+
 1. Identify failing repos from workflow logs
 2. Verify each has deploy key with write access
 3. Check secret names match workflow configuration
@@ -399,12 +421,12 @@ Once all steps are complete:
 ✅ Infrastructure activated  
 ✅ All 50 mirrors configured  
 ✅ Automatic synchronization enabled  
-✅ Security best practices implemented  
+✅ Security best practices implemented
 
 **Your monorepo is now live!** Changes pushed to `main` will automatically sync to all mirror repositories.
 
 ---
 
-**Activation Date**: _____________  
-**Activated By**: _____________  
-**Next Key Rotation**: _____________ (6 months from activation)
+**Activation Date**: ******\_******  
+**Activated By**: ******\_******  
+**Next Key Rotation**: ******\_****** (6 months from activation)

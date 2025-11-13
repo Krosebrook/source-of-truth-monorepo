@@ -3,6 +3,7 @@
 ## 🔴 Issue: Bundle Size Exceeds 8GB Limit
 
 The main issue preventing Replit deployment is that the project bundle size exceeds Replit's 8GB limit due to:
+
 - Multiple `node_modules` directories (Angular projects, client, dashboard)
 - Development dependencies and test files
 - Duplicate nested project directories
@@ -21,6 +22,7 @@ chmod +x replit-deploy-fix.sh
 ```
 
 This script will:
+
 - Remove all unnecessary `node_modules` directories
 - Clean up development files and test suites
 - Create a minimal `package.json` with only essential dependencies
@@ -81,6 +83,7 @@ requiredFiles = [".replit", "package.json", "src/"]
 ### Step 4: Deploy to Replit
 
 1. **Commit optimized changes:**
+
    ```bash
    git add .
    git commit -m "Optimize bundle for Replit deployment"
@@ -106,18 +109,19 @@ requiredFiles = [".replit", "package.json", "src/"]
 
 ## 📊 Size Comparison
 
-| Component | Before | After |
-|-----------|---------|--------|
-| node_modules (total) | ~2GB | ~200MB |
-| Angular projects | ~1.5GB | 0 (removed) |
-| MCP servers | ~500MB | 0 (removed) |
-| Git history | ~300MB | 0 (removed) |
-| Test files | ~100MB | 0 (removed) |
-| **Total Bundle** | **~8.5GB** | **<1GB** |
+| Component            | Before     | After       |
+| -------------------- | ---------- | ----------- |
+| node_modules (total) | ~2GB       | ~200MB      |
+| Angular projects     | ~1.5GB     | 0 (removed) |
+| MCP servers          | ~500MB     | 0 (removed) |
+| Git history          | ~300MB     | 0 (removed) |
+| Test files           | ~100MB     | 0 (removed) |
+| **Total Bundle**     | **~8.5GB** | **<1GB**    |
 
 ## 🔧 What Gets Deployed
 
 The optimized deployment includes only:
+
 - Core API server (`src/`)
 - API routes (`api/`)
 - Essential dependencies (10 packages vs 50+)
@@ -133,10 +137,11 @@ The optimized deployment includes only:
    - MCP servers
 
 2. **To Restore Full Version:**
+
    ```bash
    # Restore original package.json
    cp package-full.json package.json
-   
+
    # Reinstall all dependencies
    npm install
    ```
@@ -164,10 +169,11 @@ The optimized deployment includes only:
    - Keep only code in the main bundle
 
 2. **Monitor Performance:**
+
    ```bash
    # Check bundle size
    du -sh .
-   
+
    # Monitor memory usage
    npm run health
    ```
@@ -182,15 +188,17 @@ The optimized deployment includes only:
 If deployment still fails:
 
 1. **Check specific large files:**
+
    ```bash
    find . -type f -size +10M
    ```
 
 2. **Remove more aggressive:**
+
    ```bash
    # Remove all markdown except critical
    find . -name "*.md" ! -name "README.md" ! -name "CLAUDE.md" -delete
-   
+
    # Remove all JSON configs except package.json
    find . -name "*.json" ! -name "package.json" -delete
    ```
@@ -200,6 +208,7 @@ If deployment still fails:
 ## 🎉 Success!
 
 Once deployed, your FlashFusion API will be running on Replit with:
+
 - Minimal resource usage
 - Fast deployment times
 - Easy scaling options

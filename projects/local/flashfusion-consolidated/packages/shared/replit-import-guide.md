@@ -3,14 +3,17 @@
 ## 🚀 Step 1: Import Repository to Replit
 
 ### Option A: Direct GitHub Import (Recommended)
+
 1. **Go to Replit.com** and sign in
 2. **Click "Create Repl"**
 3. **Select "Import from GitHub"**
 4. **Enter Repository URL:**
+
    ```
    https://github.com/your-username/FlashFusion-Unified
    ```
-   *Replace `your-username` with your actual GitHub username*
+
+   _Replace `your-username` with your actual GitHub username_
 
 5. **Configure Import Settings:**
    - **Repl Name:** `flashfusion-unified`
@@ -21,7 +24,9 @@
 6. **Click "Import from GitHub"**
 
 ### Option B: Manual Clone (Advanced)
+
 If direct import doesn't work:
+
 1. **Create a new Node.js Repl**
 2. **Open the Shell tab**
 3. **Clone the repository:**
@@ -32,6 +37,7 @@ If direct import doesn't work:
 ## 🔧 Step 2: Post-Import Setup
 
 ### Install Dependencies
+
 ```bash
 # In Replit Shell
 npm install
@@ -43,7 +49,9 @@ cd ../../..
 ```
 
 ### Verify File Structure
+
 Check that these key files are present:
+
 - ✅ `package.json`
 - ✅ `.replit` (configuration)
 - ✅ `replit.nix` (dependencies)
@@ -55,6 +63,7 @@ Check that these key files are present:
 ### Required Environment Variables
 
 #### Core Application
+
 ```bash
 # Node.js Configuration
 NODE_ENV=development
@@ -79,6 +88,7 @@ ZAPIER_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/your-webhook
 ```
 
 #### Optional Services
+
 ```bash
 # Web Scraping
 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
@@ -95,6 +105,7 @@ MIXPANEL_TOKEN=your_mixpanel_token
 ### How to Add Environment Variables in Replit
 
 #### Method 1: Replit Secrets (Recommended)
+
 1. **In your Repl, click the "🔒 Secrets" tab** (left sidebar)
 2. **Add each environment variable:**
    - Click "New Secret"
@@ -104,6 +115,7 @@ MIXPANEL_TOKEN=your_mixpanel_token
 3. **Repeat for all required variables**
 
 #### Method 2: .env File (Local Development)
+
 1. **Create `.env` file in project root:**
    ```bash
    # In Replit Shell
@@ -121,6 +133,7 @@ MIXPANEL_TOKEN=your_mixpanel_token
 ## 🚦 Step 4: Test the Setup
 
 ### Start the Application
+
 ```bash
 # Method 1: Use the Run button in Replit
 # This will execute: npm run dev
@@ -130,11 +143,13 @@ npm run dev
 ```
 
 ### Verify Services
+
 1. **Main API:** Should be accessible on port 3333
 2. **Dashboard:** Check if client loads properly
 3. **Lyra Agent:** Verify agent dashboard works
 
 ### Health Check
+
 ```bash
 # Test the health endpoint
 curl http://localhost:3333/api/health
@@ -146,6 +161,7 @@ curl http://localhost:3333/api/health
 ## 🔧 Step 5: Development Workflow in Replit
 
 ### Daily Development
+
 1. **Open your Repl**
 2. **Pull latest changes:**
    ```bash
@@ -161,6 +177,7 @@ curl http://localhost:3333/api/health
    ```
 
 ### Making Changes
+
 1. **Edit files in Replit editor**
 2. **Test changes automatically** (hot reload enabled)
 3. **Commit and push:**
@@ -171,6 +188,7 @@ curl http://localhost:3333/api/health
    ```
 
 ### Multiple Services
+
 ```bash
 # Start different services in separate shell tabs:
 
@@ -187,11 +205,13 @@ npm run dev:client
 ## 🌐 Step 6: Public URLs
 
 ### Access Your Application
+
 - **Main App:** `https://your-repl-name.your-username.repl.co`
 - **API Endpoints:** `https://your-repl-name.your-username.repl.co/api/`
 - **Health Check:** `https://your-repl-name.your-username.repl.co/api/health`
 
 ### Share with Team
+
 1. **Make Repl Public** (if needed)
 2. **Share the URL** for collaboration
 3. **Invite collaborators** through Replit
@@ -201,6 +221,7 @@ npm run dev:client
 ### Common Issues
 
 #### Port Conflicts
+
 ```bash
 # If port 3333 is busy, kill processes:
 pkill -f "node.*3333"
@@ -208,6 +229,7 @@ npm run dev
 ```
 
 #### Missing Dependencies
+
 ```bash
 # Clear and reinstall:
 rm -rf node_modules package-lock.json
@@ -215,6 +237,7 @@ npm install
 ```
 
 #### Environment Variables Not Loading
+
 1. **Check Secrets tab** - ensure all variables are added
 2. **Restart the Repl** - click Stop, then Run
 3. **Verify in Shell:**
@@ -224,6 +247,7 @@ npm install
    ```
 
 #### Git Issues
+
 ```bash
 # Configure Git in Replit:
 git config --global user.name "Your Name"
@@ -234,6 +258,7 @@ git remote set-url origin git@github.com:your-username/FlashFusion-Unified.git
 ```
 
 ### Performance Optimization
+
 ```bash
 # Add to .replitignore for better performance:
 node_modules/

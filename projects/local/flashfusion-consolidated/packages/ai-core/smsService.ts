@@ -1,15 +1,16 @@
-import Twilio from 'twilio';
-import { storage } from './storage';
-import type { InsertSmsMessage } from '../shared/schema';
+import Twilio from "twilio";
+import { storage } from "./storage";
+import type { InsertSmsMessage } from "../shared/schema";
 
 // Check for Twilio credentials
-const hasTwilioCredentials = process.env.TWILIO_ACCOUNT_SID && 
-  process.env.TWILIO_AUTH_TOKEN && 
+const hasTwilioCredentials =
+  process.env.TWILIO_ACCOUNT_SID &&
+  process.env.TWILIO_AUTH_TOKEN &&
   process.env.TWILIO_PHONE_NUMBER &&
-  process.env.TWILIO_ACCOUNT_SID.startsWith('AC');
+  process.env.TWILIO_ACCOUNT_SID.startsWith("AC");
 
 if (!hasTwilioCredentials) {
-  console.warn('Twilio credentials not properly configured. SMS functionality will not work.');
+  console.warn("Twilio credentials not properly configured. SMS functionality will not work.");
 }
 
 const twilioClient = hasTwilioCredentials
@@ -17,9 +18,13 @@ const twilioClient = hasTwilioCredentials
   : null;
 
 export class SmsService {
-  async sendSms(fromUserId: string, toPhoneNumber: string, content: string): Promise<{ success: boolean; messageId?: string; error?: string }> {
+  async sendSms(
+    fromUserId: string,
+    toPhoneNumber: string,
+    content: string
+  ): Promise<{ success: boolean; messageId?: string; error?: string }> {
     if (!twilioClient) {
-      return { success: false, error: 'SMS service not configured' };
+      return { success: false, error: "SMS service not configured" };
     }
 
     try {
@@ -28,7 +33,7 @@ export class SmsService {
         fromUserId,
         toPhoneNumber,
         content,
-        status: 'pending'
+        status: "pending",
       });
 
       // Send via Twilio
@@ -39,12 +44,12 @@ export class SmsService {
       });
 
       // Update with Twilio SID and status
-      await storage.updateSmsMessageStatus(smsMessage.id, 'sent', message.sid);
+      await storage.updateSmsMessageStatus(smsMessage.id, "sent", message.sid);
 
       return { success: true, messageId: smsMessage.id };
     } catch (error) {
-      console.error('SMS sending failed:', error);
-      return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+      console.error("SMS sending failed:", error);
+      return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
 
@@ -55,9 +60,9 @@ export class SmsService {
   // Webhook handler for Twilio status updates
   async handleTwilioWebhook(body: any) {
     const { MessageSid, MessageStatus } = body;
-    
+
     if (!MessageSid || !MessageStatus) {
-      return { success: false, error: 'Invalid webhook data' };
+      return { success: false, error: "Invalid webhook data" };
     }
 
     try {
@@ -66,8 +71,8 @@ export class SmsService {
       console.log(`SMS ${MessageSid} status updated to: ${MessageStatus}`);
       return { success: true };
     } catch (error) {
-      console.error('Webhook processing failed:', error);
-      return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+      console.error("Webhook processing failed:", error);
+      return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
 }

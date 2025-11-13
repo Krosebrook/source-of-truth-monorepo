@@ -23,7 +23,7 @@ individual mirror repositories using Git's subtree split functionality and GitHu
 
 ### High-Level Flow
 
-```text
+````text
 ┌─────────────────────────────────────────────────────────────┐
 │                    SoT Monorepo (main)                      │
 │  projects/                                                  │
@@ -408,11 +408,11 @@ rm -f "$KEY_FILE"
 
 ```text
 ⊙ Skipped: Directory does not exist
-```
+````
 
 **Cause**: Project path in mirror map doesn't exist in repository.
 
-**Resolution**: 
+**Resolution**:
 
 - Remove entry from mirror map if project was deleted
 - Fix path if typo in configuration
@@ -612,30 +612,30 @@ git branch -D test-split
 
 ### Commands
 
-| Action | Command |
-|--------|---------|
-| Trigger workflow (all) | `gh workflow run subtree-push.yml` |
+| Action                      | Command                                                             |
+| --------------------------- | ------------------------------------------------------------------- |
+| Trigger workflow (all)      | `gh workflow run subtree-push.yml`                                  |
 | Trigger workflow (one repo) | `gh workflow run subtree-push.yml --field path="projects/org/repo"` |
-| View workflow runs | `gh run list --workflow=subtree-push.yml` |
-| View run details | `gh run view <run-id>` |
-| Test split locally | `git subtree split --prefix=<path> -b test` |
+| View workflow runs          | `gh run list --workflow=subtree-push.yml`                           |
+| View run details            | `gh run view <run-id>`                                              |
+| Test split locally          | `git subtree split --prefix=<path> -b test`                         |
 
 ### Files
 
-| Path | Purpose |
-|------|---------|
-| `.github/workflows/subtree-push.yml` | Main workflow definition |
-| `docs/how-to/configure-deploy-keys.md` | Deploy keys setup guide |
-| `scripts/generate-deploy-keys.sh` | Batch key generation |
-| `scripts/add-secrets-to-github.sh` | Batch secret upload |
+| Path                                   | Purpose                  |
+| -------------------------------------- | ------------------------ |
+| `.github/workflows/subtree-push.yml`   | Main workflow definition |
+| `docs/how-to/configure-deploy-keys.md` | Deploy keys setup guide  |
+| `scripts/generate-deploy-keys.sh`      | Batch key generation     |
+| `scripts/add-secrets-to-github.sh`     | Batch secret upload      |
 
 ### Secrets
 
-| Organization | Count | Naming Pattern |
-|-------------|-------|----------------|
-| Krosebrook | 34 | `MIRROR_SSH_KEY_<PROJECT>` |
-| FlashFusionv1 | 8 | `MIRROR_SSH_KEY_<PROJECT>` |
-| ChaosClubCo | 8 | `MIRROR_SSH_KEY_<PROJECT>` |
+| Organization  | Count | Naming Pattern             |
+| ------------- | ----- | -------------------------- |
+| Krosebrook    | 34    | `MIRROR_SSH_KEY_<PROJECT>` |
+| FlashFusionv1 | 8     | `MIRROR_SSH_KEY_<PROJECT>` |
+| ChaosClubCo   | 8     | `MIRROR_SSH_KEY_<PROJECT>` |
 
 ---
 

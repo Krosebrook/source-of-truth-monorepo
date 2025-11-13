@@ -48,19 +48,21 @@ source-of-truth-monorepo/
 ### 1. Smoke Tests
 
 Minimal tests that verify basic functionality:
+
 - Package configuration is valid
 - Required dependencies are present
 - Main entry points can be imported
 - Build scripts are configured
 
 **Example:**
-```javascript
-import { describe, it } from 'node:test';
-import assert from 'node:assert';
 
-describe('Package Smoke Tests', () => {
-  it('should have valid package.json', () => {
-    const pkg = require('../package.json');
+```javascript
+import { describe, it } from "node:test";
+import assert from "node:assert";
+
+describe("Package Smoke Tests", () => {
+  it("should have valid package.json", () => {
+    const pkg = require("../package.json");
     assert.ok(pkg.name);
     assert.ok(pkg.version);
   });
@@ -72,15 +74,16 @@ describe('Package Smoke Tests', () => {
 Test individual functions and modules in isolation.
 
 **Example using shared test utils:**
+
 ```typescript
-import { assert, assertEqual } from '@flashfusion/test-utils';
+import { assert, assertEqual } from "@flashfusion/test-utils";
 
 function add(a: number, b: number): number {
   return a + b;
 }
 
 // Test
-assertEqual(add(1, 2), 3, 'Addition should work');
+assertEqual(add(1, 2), 3, "Addition should work");
 ```
 
 ### 3. Integration Tests
@@ -121,6 +124,7 @@ Tests are automatically run in CI on every push and pull request. See `.github/w
 ```
 
 The CI pipeline runs:
+
 1. Lint
 2. Type check
 3. Build
@@ -131,6 +135,7 @@ The CI pipeline runs:
 The `@flashfusion/test-utils` package provides common utilities:
 
 ### Assertions
+
 - `assert(condition, message)` - Basic assertion
 - `assertEqual(actual, expected, message)` - Equality check
 - `assertDefined(value, message)` - Not null/undefined check
@@ -138,16 +143,18 @@ The `@flashfusion/test-utils` package provides common utilities:
 - `assertHasProperty(obj, property)` - Property existence check
 
 ### Utilities
+
 - `sleep(ms)` - Async sleep helper
 - `MockLogger` - Mock logger for testing
 
 **Usage:**
+
 ```typescript
-import { assert, MockLogger } from '@flashfusion/test-utils';
+import { assert, MockLogger } from "@flashfusion/test-utils";
 
 const logger = new MockLogger();
-logger.info('Test');
-assert(logger.hasLog('info', 'Test'), 'Should log message');
+logger.info("Test");
+assert(logger.hasLog("info", "Test"), "Should log message");
 ```
 
 ## Test Configuration
@@ -217,7 +224,7 @@ Packages using Jest have configuration in their `package.json`:
 - For ES modules, ensure `"type": "module"` is set in `package.json`
 - Use proper import syntax for JSON files:
   ```javascript
-  import pkg from '../package.json' assert { type: 'json' };
+  import pkg from "../package.json" assert { type: "json" };
   ```
 
 ### Jest Configuration Issues

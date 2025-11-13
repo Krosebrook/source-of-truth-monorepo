@@ -43,4 +43,3 @@ describe('Shared Package', () => {
     assert.strictEqual(pkg.type, 'module');
   });
 });
-

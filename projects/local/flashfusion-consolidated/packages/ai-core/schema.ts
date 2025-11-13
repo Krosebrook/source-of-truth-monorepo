@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm';
+import { sql } from "drizzle-orm";
 import {
   index,
   jsonb,
@@ -22,12 +22,14 @@ export const sessions = pgTable(
     sess: jsonb("sess").notNull(),
     expire: timestamp("expire").notNull(),
   },
-  (table) => [index("IDX_session_expire").on(table.expire)],
+  (table) => [index("IDX_session_expire").on(table.expire)]
 );
 
 // User storage table
 export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: varchar("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   email: varchar("email").unique(),
   firstName: varchar("first_name"),
   lastName: varchar("last_name"),
@@ -43,7 +45,9 @@ export const users = pgTable("users", {
 
 // Chat rooms/conversations
 export const chats = pgTable("chats", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: varchar("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   name: varchar("name"),
   isGroup: boolean("is_group").default(false),
   createdBy: varchar("created_by").references(() => users.id),
@@ -53,7 +57,9 @@ export const chats = pgTable("chats", {
 
 // Chat participants (many-to-many relationship between users and chats)
 export const chatParticipants = pgTable("chat_participants", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: varchar("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   chatId: varchar("chat_id").references(() => chats.id, { onDelete: "cascade" }),
   userId: varchar("user_id").references(() => users.id, { onDelete: "cascade" }),
   joinedAt: timestamp("joined_at").defaultNow(),
@@ -62,7 +68,9 @@ export const chatParticipants = pgTable("chat_participants", {
 
 // Messages within chats
 export const messages = pgTable("messages", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: varchar("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   chatId: varchar("chat_id").references(() => chats.id, { onDelete: "cascade" }),
   senderId: varchar("sender_id").references(() => users.id),
   content: text("content").notNull(),
@@ -74,7 +82,9 @@ export const messages = pgTable("messages", {
 
 // SMS messages (separate from chat messages)
 export const smsMessages = pgTable("sms_messages", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: varchar("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   fromUserId: varchar("from_user_id").references(() => users.id),
   toPhoneNumber: varchar("to_phone_number").notNull(),
   content: text("content").notNull(),

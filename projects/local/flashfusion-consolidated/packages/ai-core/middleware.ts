@@ -1,23 +1,23 @@
-import { type NextRequest } from 'next/server'
-import { createClient } from '@/utils/supabase/middleware'
+import { type NextRequest } from "next/server";
+import { createClient } from "@/utils/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
-  const { supabase, response } = createClient(request)
+  const { supabase, response } = createClient(request);
 
   // Refresh session if expired - required for Server Components
-  const { data: { session } } = await supabase.auth.getSession()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   // Protected routes
-  const protectedPaths = ['/agent-chat', '/dashboard', '/admin']
-  const isProtectedPath = protectedPaths.some(path => 
-    request.nextUrl.pathname.startsWith(path)
-  )
+  const protectedPaths = ["/agent-chat", "/dashboard", "/admin"];
+  const isProtectedPath = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path));
 
   if (isProtectedPath && !session) {
-    return Response.redirect(new URL('/login', request.url))
+    return Response.redirect(new URL("/login", request.url));
   }
 
-  return response
+  return response;
 }
 
 export const config = {
@@ -29,6 +29,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public folder
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
-}
+};

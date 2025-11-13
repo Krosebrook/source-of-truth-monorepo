@@ -14,12 +14,14 @@ if (fs.existsSync(settingsPath)) {
       snapshotEditBudgetPct = settings.snapshotEditBudgetPct;
     }
   } catch (err) {
-    console.warn("⚠️  Unable to read drift/settings.json; falling back to default snapshot budget.");
+    console.warn(
+      "⚠️  Unable to read drift/settings.json; falling back to default snapshot budget."
+    );
   }
 }
 
 function listFiles(dir: string): string[] {
-  return fs.readdirSync(dir).flatMap(entry => {
+  return fs.readdirSync(dir).flatMap((entry) => {
     const full = path.join(dir, entry);
     return fs.statSync(full).isDirectory() ? listFiles(full) : [full];
   });
@@ -30,7 +32,7 @@ if (!fs.existsSync(goldenRoot)) {
   process.exit(0);
 }
 
-const goldenFiles = listFiles(goldenRoot).filter(file => /\.(md|json)$/i.test(file));
+const goldenFiles = listFiles(goldenRoot).filter((file) => /\.(md|json)$/i.test(file));
 let failures = 0;
 
 for (const goldenFile of goldenFiles) {

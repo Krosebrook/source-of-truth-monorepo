@@ -7,13 +7,15 @@ The FlashFusion Automation Machine is a comprehensive system that creates a **co
 ## 🚀 What It Does
 
 ### Automated Systems Integration
+
 - **GitHub**: Auto-commits changes every 30 minutes, pushes to remote
-- **Notion**: Syncs project updates, metrics, and documentation every 5 minutes  
+- **Notion**: Syncs project updates, metrics, and documentation every 5 minutes
 - **Zapier**: Manages webhooks and automation workflows
 - **Vercel**: Triggers deployments on changes
 - **Checkpoints**: Creates automated project snapshots every hour
 
 ### Core Features
+
 - ✅ **Continuous Integration**: Auto-commits and pushes changes
 - ✅ **Real-time Sync**: Notion workspace always up-to-date
 - ✅ **Webhook Management**: Routes events to appropriate Zapier automations
@@ -52,7 +54,7 @@ Update your `.env` file with required tokens:
 # Required for Notion sync
 NOTION_TOKEN=secret_your_notion_integration_token
 
-# Required for Zapier webhooks  
+# Required for Zapier webhooks
 ZAPIER_WEBHOOK_SECRET=your_webhook_secret
 ZAPIER_GITHUB_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/xxxxx/xxxxx
 ZAPIER_CHECKPOINT_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/xxxxx/xxxxx
@@ -78,11 +80,13 @@ npm install
 ### 3. Start the Automation Machine
 
 #### Option A: Development Mode
+
 ```bash
 npm run automation:start
 ```
 
 #### Option B: Production with PM2
+
 ```bash
 npm install -g pm2
 npm run zapier:start
@@ -91,6 +95,7 @@ pm2 start scripts/auto-notion-sync.js --name notion-sync
 ```
 
 #### Option C: Development with Live Reload
+
 ```bash
 npm run automation:dev
 ```
@@ -98,6 +103,7 @@ npm run automation:dev
 ## 📋 Available Commands
 
 ### Core Operations
+
 ```bash
 npm run automation:start    # Start the full automation machine
 npm run automation:dev      # Development mode with live reload
@@ -107,6 +113,7 @@ npm run automation:logs     # View all process logs
 ```
 
 ### Individual Services
+
 ```bash
 npm run zapier:dev          # Start Zapier manager only
 npm run notion:sync         # Start Notion sync only
@@ -115,6 +122,7 @@ npm run health:automation   # Check automation health
 ```
 
 ### Deployment
+
 ```bash
 npm run deploy:vercel       # Deploy to Vercel
 npm run deploy:all          # Deploy to both Firebase and Vercel
@@ -123,6 +131,7 @@ npm run deploy:all          # Deploy to both Firebase and Vercel
 ## 🔧 Process Management
 
 ### Monitor Processes
+
 ```bash
 pm2 list                    # List all processes
 pm2 logs automation-machine # View automation machine logs
@@ -131,6 +140,7 @@ pm2 logs notion-sync        # View Notion sync logs
 ```
 
 ### Process Control
+
 ```bash
 pm2 restart automation-machine  # Restart main process
 pm2 stop zapier-manager         # Stop Zapier manager
@@ -140,15 +150,17 @@ pm2 delete notion-sync          # Remove Notion sync process
 ## 🎯 Automation Workflows
 
 ### 1. GitHub Integration
+
 - **Frequency**: Every 30 minutes
-- **Actions**: 
+- **Actions**:
   - Check for uncommitted changes
   - Auto-commit with descriptive messages
   - Push to GitHub repository
   - Trigger Zapier webhook for GitHub events
 
 ### 2. Notion Synchronization
-- **Frequency**: Every 5 minutes  
+
+- **Frequency**: Every 5 minutes
 - **Actions**:
   - Update project status in Notion databases
   - Sync Git commit history
@@ -156,6 +168,7 @@ pm2 delete notion-sync          # Remove Notion sync process
   - Refresh metrics and KPIs
 
 ### 3. Zapier Webhook Management
+
 - **Port**: 3001 (configurable)
 - **Endpoints**:
   - `POST /api/zapier/incoming-webhook` - Main webhook receiver
@@ -164,6 +177,7 @@ pm2 delete notion-sync          # Remove Notion sync process
   - `GET /api/zapier/health` - Health check
 
 ### 4. Checkpoint System
+
 - **Frequency**: Every hour
 - **Actions**:
   - Capture complete project state
@@ -174,11 +188,13 @@ pm2 delete notion-sync          # Remove Notion sync process
 ## 📊 Monitoring & Health Checks
 
 ### Health Check Endpoint
+
 ```bash
 curl http://localhost:3001/api/zapier/health
 ```
 
 Response:
+
 ```json
 {
   "status": "healthy",
@@ -195,6 +211,7 @@ Response:
 ```
 
 ### Status Reports
+
 - **Frequency**: Every 10 minutes
 - **Console Output**: Process status, memory usage, uptime
 - **Automatic Restart**: Failed processes are automatically restarted
@@ -206,13 +223,13 @@ Response:
 For each automation, create a webhook in Zapier:
 
 1. **GitHub Commit Sync**
-   - Trigger: Webhook (Catch Hook)  
+   - Trigger: Webhook (Catch Hook)
    - URL: Copy to `ZAPIER_GITHUB_WEBHOOK_URL`
    - Actions: Create Notion page, Send Slack notification
 
 2. **Project Checkpoint**
    - Trigger: Webhook (Catch Hook)
-   - URL: Copy to `ZAPIER_CHECKPOINT_WEBHOOK_URL`  
+   - URL: Copy to `ZAPIER_CHECKPOINT_WEBHOOK_URL`
    - Actions: Update Notion, Send email report
 
 3. **Agent Status Updates**
@@ -223,6 +240,7 @@ For each automation, create a webhook in Zapier:
 ### 2. Webhook Payload Examples
 
 #### GitHub Commit Event
+
 ```json
 {
   "event": "github_commit_processed",
@@ -238,9 +256,10 @@ For each automation, create a webhook in Zapier:
 ```
 
 #### Checkpoint Event
+
 ```json
 {
-  "event": "checkpoint_created", 
+  "event": "checkpoint_created",
   "timestamp": "2025-01-28T...",
   "data": {
     "type": "automated",
@@ -257,12 +276,14 @@ For each automation, create a webhook in Zapier:
 ## 🔐 Security Configuration
 
 ### Webhook Security
+
 - **Signature Verification**: All webhooks verify HMAC signatures
-- **Rate Limiting**: Built-in rate limiting on webhook endpoints  
+- **Rate Limiting**: Built-in rate limiting on webhook endpoints
 - **HTTPS Only**: Production webhooks require HTTPS
 - **Secret Management**: Use environment variables for all secrets
 
 ### Process Security
+
 - **Isolated Processes**: Each automation runs in separate process
 - **Graceful Shutdown**: Proper cleanup on termination signals
 - **Error Isolation**: Process failures don't affect other automations
@@ -272,37 +293,46 @@ For each automation, create a webhook in Zapier:
 ### Common Issues
 
 #### 1. Notion Token Error
+
 ```
 ❌ Failed to initialize Notion service. Check NOTION_TOKEN in .env
 ```
+
 **Solution**: Create Notion integration at https://www.notion.so/my-integrations
 
 #### 2. Zapier Webhook Failures
+
 ```
 ❌ Zapier send failed: timeout
 ```
+
 **Solution**: Check webhook URLs and network connectivity
 
 #### 3. GitHub Push Failures
+
 ```
 ❌ Auto-commit failed: Authentication failed
 ```
+
 **Solution**: Ensure GitHub credentials are configured correctly
 
 #### 4. Process Crashes
+
 ```
 ⚠️ Failed processes detected: notion-sync
 ```
+
 **Solution**: Processes automatically restart, check logs for root cause
 
 ### Debug Commands
+
 ```bash
 # Check process status
 npm run automation:logs
 
 # Test individual components
 npm run notion:sync
-npm run zapier:dev  
+npm run zapier:dev
 npm run checkpoint
 
 # Health check
@@ -312,12 +342,14 @@ npm run health:automation
 ## 📈 Performance Metrics
 
 ### Resource Usage
+
 - **Memory**: ~200MB total across all processes
 - **CPU**: Minimal (event-driven architecture)
 - **Network**: Periodic API calls to external services
 - **Storage**: Checkpoint files (~1MB per day)
 
 ### Automation Statistics
+
 - **GitHub Commits**: Every 30 minutes (if changes detected)
 - **Notion Updates**: Every 5 minutes
 - **Checkpoints**: Every hour
@@ -327,12 +359,14 @@ npm run health:automation
 ## 🔄 Maintenance
 
 ### Regular Tasks
+
 - **Weekly**: Review automation logs for any issues
 - **Monthly**: Clean up old checkpoint files
 - **Quarterly**: Update webhook URLs if needed
 - **As Needed**: Restart processes if memory usage increases
 
 ### Updates
+
 ```bash
 # Update automation machine
 git pull origin main

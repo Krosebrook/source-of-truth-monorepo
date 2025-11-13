@@ -24,8 +24,12 @@ export interface IStorage {
   // User operations (required for auth)
   getUser(id: string): Promise<User | undefined>;
   upsertUser(user: UpsertUser): Promise<User>;
-  updateUserStripeInfo(userId: string, stripeCustomerId: string, stripeSubscriptionId: string): Promise<User>;
-  
+  updateUserStripeInfo(
+    userId: string,
+    stripeCustomerId: string,
+    stripeSubscriptionId: string
+  ): Promise<User>;
+
   // Chat operations
   createChat(chat: InsertChat): Promise<Chat>;
   getChat(chatId: string): Promise<Chat | undefined>;
@@ -33,16 +37,20 @@ export interface IStorage {
   addChatParticipant(participant: InsertChatParticipant): Promise<ChatParticipant>;
   removeChatParticipant(chatId: string, userId: string): Promise<void>;
   getChatParticipants(chatId: string): Promise<(ChatParticipant & { user: User })[]>;
-  
+
   // Message operations
   createMessage(message: InsertMessage): Promise<Message>;
   getChatMessages(chatId: string, limit?: number): Promise<(Message & { sender: User })[]>;
   updateMessage(messageId: string, content: string): Promise<Message>;
   deleteMessage(messageId: string): Promise<void>;
-  
+
   // SMS operations
   createSmsMessage(smsMessage: InsertSmsMessage): Promise<SmsMessage>;
-  updateSmsMessageStatus(messageId: string, status: string, twilioSid?: string): Promise<SmsMessage>;
+  updateSmsMessageStatus(
+    messageId: string,
+    status: string,
+    twilioSid?: string
+  ): Promise<SmsMessage>;
   getUserSmsMessages(userId: string): Promise<SmsMessage[]>;
 }
 
@@ -68,7 +76,11 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
-  async updateUserStripeInfo(userId: string, stripeCustomerId: string, stripeSubscriptionId: string): Promise<User> {
+  async updateUserStripeInfo(
+    userId: string,
+    stripeCustomerId: string,
+    stripeSubscriptionId: string
+  ): Promise<User> {
     const [user] = await db
       .update(users)
       .set({
@@ -107,27 +119,19 @@ export class DatabaseStorage implements IStorage {
       .innerJoin(chatParticipants, eq(chats.id, chatParticipants.chatId))
       .where(eq(chatParticipants.userId, userId))
       .orderBy(desc(chats.updatedAt));
-    
+
     return userChats;
   }
 
   async addChatParticipant(participant: InsertChatParticipant): Promise<ChatParticipant> {
-    const [chatParticipant] = await db
-      .insert(chatParticipants)
-      .values(participant)
-      .returning();
+    const [chatParticipant] = await db.insert(chatParticipants).values(participant).returning();
     return chatParticipant;
   }
 
   async removeChatParticipant(chatId: string, userId: string): Promise<void> {
     await db
       .delete(chatParticipants)
-      .where(
-        and(
-          eq(chatParticipants.chatId, chatId),
-          eq(chatParticipants.userId, userId)
-        )
-      );
+      .where(and(eq(chatParticipants.chatId, chatId), eq(chatParticipants.userId, userId)));
   }
 
   async getChatParticipants(chatId: string): Promise<(ChatParticipant & { user: User })[]> {
@@ -220,7 +224,11 @@ export class DatabaseStorage implements IStorage {
     return smsMessage;
   }
 
-  async updateSmsMessageStatus(messageId: string, status: string, twilioSid?: string): Promise<SmsMessage> {
+  async updateSmsMessageStatus(
+    messageId: string,
+    status: string,
+    twilioSid?: string
+  ): Promise<SmsMessage> {
     const updateData: any = { status, updatedAt: new Date() };
     if (twilioSid) {
       updateData.twilioMessageSid = twilioSid;
@@ -240,7 +248,7 @@ export class DatabaseStorage implements IStorage {
       .from(smsMessages)
       .where(eq(smsMessages.fromUserId, userId))
       .orderBy(desc(smsMessages.createdAt));
-    
+
     return userSmsMessages;
   }
 }

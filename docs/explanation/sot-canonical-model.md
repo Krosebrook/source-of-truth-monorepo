@@ -11,6 +11,7 @@
 ## The Problem: Repository Drift
 
 Before the SoT monorepo, we had **53 repositories** across 4 GitHub organizations:
+
 - Krosebrook (100+ repos)
 - flashfusionv1 (15 repos)
 - ChaosClubCo (34 repos)
@@ -25,6 +26,7 @@ Before the SoT monorepo, we had **53 repositories** across 4 GitHub organization
 5. **Slow fixes**: Bug fix in shared code = 53 PRs
 
 **Example scenario**:
+
 ```
 Day 1: Fix logging bug in flashfusion repo
 Day 2: Discover same bug in dashboard repo
@@ -120,9 +122,11 @@ jobs:
 ### Advantages
 
 #### 1. **No Drift**
+
 Impossible for repos to diverge. Mirrors always match SoT.
 
 #### 2. **Atomic Cross-Repo Changes**
+
 Refactor shared utility → affects all 53 projects in one commit:
 
 ```bash
@@ -136,6 +140,7 @@ PR #1: Update logging in shared/logging/ (affects all 53 projects)
 ```
 
 #### 3. **Unified Review**
+
 All code reviews in one repo with CODEOWNERS:
 
 ```
@@ -145,24 +150,29 @@ All code reviews in one repo with CODEOWNERS:
 ```
 
 #### 4. **Turbo Caching**
+
 Build cache shared across all 53 projects. First build: 20 min. Cached: <1 min.
 
 #### 5. **Easier Refactors**
+
 Move code between projects without losing git history (all in one repo).
 
 ### Trade-offs
 
 #### 1. **Larger Clone**
+
 ~2GB initial download vs individual repos (50-200MB each).
 
 **Mitigation**: pnpm sparse checkout (future enhancement).
 
 #### 2. **Force-Push Risk**
+
 Direct commits to mirrors are overwritten.
 
 **Mitigation**: Branch protection + CI warnings.
 
 #### 3. **Learning Curve**
+
 Team must adopt "never commit to mirrors" discipline.
 
 **Mitigation**: Clear documentation (this guide!).
@@ -281,6 +291,7 @@ git branch -D temp-branch
 ```
 
 **What this does**:
+
 - Creates a branch containing only files from `projects/org/repo/`
 - As if the project was always a standalone repo
 - Pushes to mirror, replacing its entire history

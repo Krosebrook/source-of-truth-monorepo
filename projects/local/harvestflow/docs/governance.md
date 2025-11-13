@@ -1,6 +1,7 @@
 # HarvestFlow Governance & Sign-off
 
 ## Baseline Lifecycle
+
 1. Run the full pipeline (`./start.sh`) with approved inputs.
 2. Review generated artefacts in `agents/outputs/` and `out/flows/`.
 3. Execute `npm run drift:fingerprint` and review the changes reported by `npm run drift:check`.
@@ -11,11 +12,13 @@
 5. Commit baseline updates with a descriptive message (e.g., `chore: refresh drift baselines`).
 
 ## Drift Threshold Calibration
+
 - Snapshot edit budget is configured via `drift/settings.json` (`snapshotEditBudgetPct`).
 - Semantic similarity threshold (`semanticMinSim`) defaults to 0.93; tune as needed.
 - Record deviations and outcomes in the change log below.
 
 ## Sign-off Checklist
+
 - [ ] Historical generator run with latest chat exports (`chat-history/`).
 - [ ] Flow-Harvester build succeeds (`npm run zip:all`).
 - [ ] Drift checks pass (`npm run drift:check`, `npm run drift:validate`, `npm run drift:snapshot`, `npm run drift:semantic`).
@@ -24,4 +27,5 @@
 - [ ] Documentation (`README.md`, governance notes) updated post-change.
 
 ## Change Log
+
 - _2025-10-27:_ Established baseline lifecycle, snapshot saver, and drift threshold governance.
