@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 Questions & Discussions
+    url: https://github.com/Krosebrook/source-of-truth-monorepo/discussions
+    about: Ask questions and discuss with the community
+  - name: 📚 Documentation
+    url: https://github.com/Krosebrook/source-of-truth-monorepo/blob/main/docs/index.md
+    about: Read the documentation
+  - name: 🔒 Security Issues
+    url: https://github.com/Krosebrook/source-of-truth-monorepo/blob/main/SECURITY.md
+    about: Report security vulnerabilities privately

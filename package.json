@@ -2,6 +2,7 @@
   "name": "@flashfusion/stack-sot",
   "version": "1.0.0",
   "description": "FlashFusion Source-of-Truth monorepo - Unified consolidation of 53 repositories",
+  "type": "module",
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "workspaces": [
