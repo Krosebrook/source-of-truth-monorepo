@@ -104,9 +104,10 @@ pnpm --filter @flashfusion/project-name lint
 - **CI** (`ci.yml`): Runs lint, build, test on every push/PR
 - **Security** (`security.yml`): gitleaks scan + dependency audit
 - **Subtree Push** (`subtree-push.yml`): Pushes changes to 50 mirrors (requires deploy keys)
-  - **Status**: ⏳ Ready for deployment (pending key configuration)
+  - **Status**: ✅ Infrastructure Complete - Ready for Activation
+  - **Activation Guide**: [Quick Start](docs/how-to/ACTIVATION_GUIDE.md)
   - **Setup Guide**: [Configure Deploy Keys](docs/how-to/configure-deploy-keys.md)
-  - **Quick Start**: [How-To README](docs/how-to/README.md)
+  - **Validation**: Run `./scripts/validate-setup.sh`
 
 ### Turbo Caching
 
