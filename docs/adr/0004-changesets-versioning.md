@@ -9,6 +9,7 @@
 ## Context
 
 With 53 projects in a monorepo, we needed a versioning strategy that could:
+
 - Version packages independently (not all projects ship together)
 - Generate changelogs automatically
 - Handle inter-package dependencies
@@ -30,6 +31,7 @@ Each project can have its own version and release cadence.
 ### Considered Alternatives
 
 #### 1. **Lockstep Versioning (All Same Version)**
+
 - **Pros**:
   - Simple: all packages always at same version
   - Easy to communicate: "v2.0" means all packages
@@ -39,6 +41,7 @@ Each project can have its own version and release cadence.
   - ❌ **Overhead**: Publish 53 packages even if 1 changed
 
 #### 2. **Manual Versioning**
+
 - **Pros**:
   - Full control over versions
   - No automation needed
@@ -48,6 +51,7 @@ Each project can have its own version and release cadence.
   - ❌ **Doesn't scale**: 53 packages = 53 manual updates
 
 #### 3. **Lerna + Fixed Mode**
+
 - **Pros**:
   - Automatic version bumping
   - Changelog generation
@@ -56,6 +60,7 @@ Each project can have its own version and release cadence.
   - ❌ **Maintenance mode**: Lerna less actively maintained
 
 #### 4. **Changesets (Chosen)**
+
 - **Pros**:
   - ✅ **Independent versioning**: Each package has its own version
   - ✅ **Developer-friendly**: Contributors add `.changeset` files in PRs
@@ -70,6 +75,7 @@ Each project can have its own version and release cadence.
 ### Why Changesets
 
 For 53 projects with varying update frequencies:
+
 - **Flexibility**: Core FlashFusion projects might ship weekly, tools ship monthly
 - **Clarity**: Changelog shows exactly what changed per package
 - **Automation**: `changeset version` updates all affected packages
@@ -115,6 +121,7 @@ pnpm changeset init
 ### Workflow
 
 1. **Developer makes changes**:
+
    ```bash
    # Make code changes
    git add .
@@ -130,6 +137,7 @@ pnpm changeset init
    ```
 
 2. **Maintainer releases**:
+
    ```bash
    # Update versions + changelogs
    pnpm changeset version
@@ -199,6 +207,6 @@ jobs:
 
 ## Revision History
 
-| Date | Author | Change |
-|------|--------|--------|
+| Date       | Author      | Change          |
+| ---------- | ----------- | --------------- |
 | 2025-10-27 | @Krosebrook | Initial version |

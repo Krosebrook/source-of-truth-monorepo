@@ -1,9 +1,11 @@
 # Next.js + Supabase Agent Integration
 
 ## Overview
+
 This frontend integrates with the FlashFusion agent routing system using Next.js App Router and Supabase for authentication and data persistence.
 
 ## File Structure
+
 ```
 frontend/
 ├── app/
@@ -18,7 +20,9 @@ frontend/
 ```
 
 ## Environment Variables
+
 Add to your `.env.local`:
+
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -30,21 +34,25 @@ Note: Some Supabase setups use `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` in
 ## Features
 
 ### 1. **Server Components** (`app/agents/page.tsx`)
+
 - Fetches agent logs directly from Supabase
 - Shows available agents and recent activity
 - Server-side rendered for SEO and performance
 
 ### 2. **Interactive Chat** (`app/agent-chat/page.tsx`)
+
 - Authenticated user chat interface
 - Real-time agent selection
 - Secure API communication
 
 ### 3. **Client Components** (`components/AgentChat.tsx`)
+
 - Interactive form handling
 - Loading states and error handling
 - Responsive design with Tailwind CSS
 
 ### 4. **API Routes** (`app/api/agents/chat/route.ts`)
+
 - Proxies requests to FlashFusion backend
 - Handles authentication via Supabase
 - Type-safe with TypeScript
@@ -52,23 +60,29 @@ Note: Some Supabase setups use `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` in
 ## Usage
 
 ### 1. View Agent Activity
+
 Navigate to `/agents` to see:
+
 - List of available agents
 - Recent agent interactions from database
 - Agent configurations
 
 ### 2. Chat with Agents
+
 Navigate to `/agent-chat` to:
+
 - Select an agent based on your task
 - Send requests and receive AI responses
 - View formatted responses
 
 ### 3. Authentication Flow
+
 - Users must be logged in via Supabase Auth
 - Unauthenticated users see login prompt
 - Session tokens passed to backend
 
 ## Security Features
+
 - ✅ Server-side authentication checks
 - ✅ API key protection (backend only)
 - ✅ CSRF protection via Supabase
@@ -76,7 +90,9 @@ Navigate to `/agent-chat` to:
 - ✅ Input validation
 
 ## Database Schema
+
 The integration expects this Supabase table:
+
 ```sql
 CREATE TABLE agent_logs (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -95,6 +111,7 @@ CREATE INDEX idx_agent_logs_user_id ON agent_logs(user_id);
 ```
 
 ## Development
+
 ```bash
 cd frontend
 npm install
@@ -102,10 +119,12 @@ npm run dev
 ```
 
 Visit:
+
 - http://localhost:3001/agents - View agent activity
 - http://localhost:3001/agent-chat - Interactive chat
 
 ## Production Considerations
+
 1. Set proper CORS headers in FlashFusion backend
 2. Use environment-specific URLs
 3. Enable RLS (Row Level Security) in Supabase
@@ -113,6 +132,7 @@ Visit:
 5. Implement proper error tracking
 
 ## Next Steps
+
 - Add real-time updates with Supabase subscriptions
 - Implement agent response streaming
 - Add conversation history view

@@ -15,6 +15,6 @@ export const Metrics = {
     return METRICS.slice(-1000);
   },
   byFlow(flowId: string) {
-    return METRICS.filter(metric => metric.flowId === flowId);
-  }
+    return METRICS.filter((metric) => metric.flowId === flowId);
+  },
 };

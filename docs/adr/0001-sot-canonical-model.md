@@ -36,6 +36,7 @@ We will adopt the **SoT (Source-of-Truth) Canonical Model** where:
 ### Considered Alternatives
 
 #### 1. **Polyrepo (Keep Separate Repos)**
+
 - **Pros**:
   - Simple to understand
   - No migration needed
@@ -47,6 +48,7 @@ We will adopt the **SoT (Source-of-Truth) Canonical Model** where:
   - **Hard to refactor**: Cross-repo changes require multiple PRs
 
 #### 2. **Git Submodules**
+
 - **Pros**:
   - Each repo maintains full git history
   - Well-known pattern
@@ -57,6 +59,7 @@ We will adopt the **SoT (Source-of-Truth) Canonical Model** where:
   - **No unified builds**: Still separate CI per submodule
 
 #### 3. **Leaf-Authoritative (Repos Pull to SoT)**
+
 - **Pros**:
   - Preserves individual repo autonomy
   - Teams can work independently
@@ -67,6 +70,7 @@ We will adopt the **SoT (Source-of-Truth) Canonical Model** where:
   - **Slow synchronization**: Batch pulls are infrequent
 
 #### 4. **SoT Canonical (Chosen)**
+
 - **Pros**:
   - ✅ **Single source of truth**: All changes in one place
   - ✅ **Unified review**: All PRs reviewed in SoT
@@ -158,6 +162,6 @@ git branch -D temp-branch
 
 ## Revision History
 
-| Date | Author | Change |
-|------|--------|--------|
+| Date       | Author      | Change          |
+| ---------- | ----------- | --------------- |
 | 2025-10-27 | @Krosebrook | Initial version |

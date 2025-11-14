@@ -3,6 +3,7 @@
 ## Quick Deploy to Replit
 
 ### Method 1: Import from GitHub (Recommended)
+
 1. Push your project to GitHub first
 2. Go to [replit.com](https://replit.com)
 3. Click "Create Repl"
@@ -11,6 +12,7 @@
 6. Replit will auto-detect the configuration
 
 ### Method 2: Upload Directly
+
 1. Go to [replit.com](https://replit.com)
 2. Click "Create Repl"
 3. Select "Upload files"
@@ -30,16 +32,19 @@ VITE_APP_ENV=production
 ## Post-Deployment Steps
 
 1. **Install Dependencies**:
+
    ```bash
    npm install
    ```
 
 2. **Build the Project**:
+
    ```bash
    npm run build
    ```
 
 3. **Start Development Server**:
+
    ```bash
    npm run dev
    ```
@@ -75,21 +80,25 @@ VITE_APP_ENV=production
 ## Troubleshooting
 
 ### Port Issues
+
 - Replit uses port 3000 by default
 - FlashFusion is configured for 5173 (dev) and 4173 (prod)
 - The `.replit` file handles this automatically
 
 ### Build Issues
+
 - Make sure all dependencies are in `package.json`
 - Run `npm ci` instead of `npm install` for production
 
 ### Environment Variables
+
 - Use Replit Secrets tab, not `.env` files
 - Variables must start with `VITE_` to be accessible in frontend
 
 ## Performance Tips
 
 1. **Optimize Bundle Size**:
+
    ```bash
    npm run build -- --report
    ```

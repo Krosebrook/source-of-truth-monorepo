@@ -13,7 +13,7 @@ This directory contains tools and documentation for managing the subtree-push wo
 - 📚 **[Complete Setup Guide](./configure-deploy-keys.md)** - Full walkthrough
 - ✅ **[Progress Checklist](./DEPLOY_KEYS_CHECKLIST.md)** - Track your progress
 - 📊 **[Completion Report](../COMPLETION_REPORT.md)** - Implementation details
-- 🔑 **Scripts**: 
+- 🔑 **Scripts**:
   - `scripts/validate-setup.sh` - Validate configuration (NEW)
   - `scripts/generate-deploy-keys.sh` - Generate SSH keys
   - `scripts/add-secrets-to-github.sh` - Upload keys to GitHub
@@ -24,6 +24,7 @@ This directory contains tools and documentation for managing the subtree-push wo
 **Current State**: ✅ Infrastructure Complete - Ready for Activation
 
 **Implementation Complete**:
+
 - ✅ All 50 mirror repositories identified and configured
 - ✅ Automated key generation script created
 - ✅ Automated secret upload script created
@@ -32,6 +33,7 @@ This directory contains tools and documentation for managing the subtree-push wo
 - ✅ Workflow fully implemented and tested
 
 **Required Actions** (Administrator with repo access):
+
 1. Generate 50 SSH deploy keys
 2. Add public keys to GitHub repositories
 3. Add private keys to GitHub Actions secrets
@@ -67,12 +69,14 @@ This creates 50 SSH key pairs in `/tmp/sot-deploy-keys/`.
 For each repository, add the `.pub` file as a deploy key:
 
 **Via Web UI**:
+
 1. Go to `https://github.com/{org}/{repo}/settings/keys`
 2. Click "Add deploy key"
 3. Paste public key content
 4. ✅ Enable "Allow write access"
 
 **Via GitHub CLI** (faster):
+
 ```bash
 cd /tmp/sot-deploy-keys
 gh repo deploy-key add {key}.pub \
@@ -90,12 +94,14 @@ gh repo deploy-key add {key}.pub \
 This uploads all private keys as GitHub Actions secrets.
 
 **Manual alternative**:
+
 1. Go to `https://github.com/Krosebrook/source-of-truth-monorepo/settings/secrets/actions`
 2. Add each private key as a secret (e.g., `MIRROR_SSH_KEY_FLASHFUSION`)
 
 ### 4. Enable the Workflow
 
 Edit `.github/workflows/subtree-push.yml`:
+
 1. Uncomment the "Setup SSH for deploy keys" step
 2. Uncomment the "Split & push mirrors" step
 3. Commit and push
@@ -117,6 +123,7 @@ Check the Actions tab for results.
 ### Workflow Trigger
 
 The subtree-push workflow runs:
+
 - Automatically on every push to `main` branch
 - Manually via workflow dispatch (for testing)
 
@@ -144,6 +151,7 @@ For each mirror repository:
 **Problem**: "Permission denied (publickey)"
 
 **Solutions**:
+
 - Verify deploy key is added to target repository
 - Ensure "Allow write access" is enabled
 - Check secret name matches workflow exactly
@@ -153,6 +161,7 @@ For each mirror repository:
 **Problem**: Workflow runs but doesn't push
 
 **Solutions**:
+
 - Verify all 50 secrets are configured
 - Check secret values contain full private key
 - Review GitHub Actions logs for errors
@@ -162,6 +171,7 @@ For each mirror repository:
 **Problem**: "shallow update not allowed"
 
 **Solutions**:
+
 - Ensure `fetch-depth: 0` in checkout step
 - Don't use shallow clones in workflow
 
@@ -206,6 +216,7 @@ Deploy keys should be rotated every 6 months:
 ## Support
 
 For issues or questions:
+
 - Open an issue: https://github.com/Krosebrook/source-of-truth-monorepo/issues
 - Review workflow logs: https://github.com/Krosebrook/source-of-truth-monorepo/actions
 - Contact maintainers: See [CODEOWNERS](/.github/CODEOWNERS)

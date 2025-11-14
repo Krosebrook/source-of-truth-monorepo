@@ -15,16 +15,16 @@ This package provides common test helpers, assertions, and utilities used across
 ## Usage
 
 ```typescript
-import { assert, assertEqual, MockLogger } from '@flashfusion/test-utils';
+import { assert, assertEqual, MockLogger } from "@flashfusion/test-utils";
 
 // Basic assertions
-assert(true, 'Should be true');
-assertEqual(1 + 1, 2, 'Math should work');
+assert(true, "Should be true");
+assertEqual(1 + 1, 2, "Math should work");
 
 // Mock logger for testing
 const logger = new MockLogger();
-logger.info('Test message');
-assert(logger.hasLog('info', 'Test message'), 'Should have logged message');
+logger.info("Test message");
+assert(logger.hasLog("info", "Test message"), "Should have logged message");
 ```
 
 ## API

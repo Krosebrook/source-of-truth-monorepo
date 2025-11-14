@@ -2,11 +2,12 @@
 
 ## Quick Setup
 
-1. **Import Repository**: 
+1. **Import Repository**:
    - Go to https://replit.com/new/github
    - Import: `https://github.com/Krosebrook/FlashFusion-Unified`
 
 2. **Install Dependencies**:
+
    ```bash
    npm install
    ```
@@ -23,12 +24,14 @@
 ## Environment Variables Required
 
 ### Core Services
+
 - `OPENAI_API_KEY`: Your OpenAI API key
 - `ANTHROPIC_API_KEY`: Your Anthropic API key
 - `SUPABASE_URL`: Your Supabase project URL
 - `SUPABASE_ANON_KEY`: Your Supabase anonymous key
 
 ### Optional Services
+
 - `GEMINI_API_KEY`: Google Gemini API key
 - `GITHUB_TOKEN`: GitHub personal access token
 - `STRIPE_SECRET_KEY`: Stripe API key for payments
@@ -44,17 +47,20 @@
 ## Replit Features
 
 ### Deployment
+
 - Auto-deploys to Google Cloud Run
 - Custom domain support available
 - SSL certificates automatically managed
 
 ### Development
+
 - Real-time collaboration
 - Integrated terminal and editor
 - Version control with Git integration
 - Package manager integration
 
 ### Monitoring
+
 - Built-in uptime monitoring
 - Resource usage analytics
 - Error tracking and logging

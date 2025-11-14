@@ -3,6 +3,7 @@
 ## 📋 Quick Start Checklist
 
 ### Prerequisites ✅
+
 - [ ] GitHub account with FlashFusion-Unified repository
 - [ ] Replit account (free or paid)
 - [ ] SSH key added to GitHub (completed in previous step)
@@ -16,10 +17,12 @@
 2. **Click "Create Repl"** (big + button)
 3. **Select "Import from GitHub"** tab
 4. **Enter your repository URL:**
+
    ```
    https://github.com/your-username/FlashFusion-Unified
    ```
-   *Replace `your-username` with your actual GitHub username*
+
+   _Replace `your-username` with your actual GitHub username_
 
 5. **Configure the import:**
    - **Repl name:** `flashfusion-unified`
@@ -38,6 +41,7 @@
    - Name it `flashfusion-unified`
 
 2. **Delete default files:**
+
    ```bash
    rm index.js package.json
    ```
@@ -50,6 +54,7 @@
 ## 🔧 Step 2: Environment Setup Automation
 
 ### Run the Setup Script
+
 Once your repository is imported, run our automated setup:
 
 ```bash
@@ -58,6 +63,7 @@ npm run replit:setup
 ```
 
 This interactive script will:
+
 - ✅ Detect Replit environment
 - ✅ Collect all required environment variables
 - ✅ Generate configuration files
@@ -68,19 +74,21 @@ This interactive script will:
 If the script doesn't work, follow these steps:
 
 #### Required Secrets in Replit
+
 Go to **🔒 Secrets** tab and add these:
 
-| Key | Value | Description |
-|-----|-------|-------------|
-| `SUPABASE_URL` | `https://your-project.supabase.co` | Your Supabase project URL |
-| `SUPABASE_ANON_KEY` | `eyJ...` | Supabase anonymous key |
-| `ANTHROPIC_API_KEY` | `sk-ant-...` | Claude API key |
-| `JWT_SECRET` | `your-secret-key` | JWT authentication secret |
-| `OPENAI_API_KEY` | `sk-...` | OpenAI API key (optional) |
-| `NOTION_API_KEY` | `secret_...` | Notion integration key (optional) |
-| `ZAPIER_WEBHOOK_URL` | `https://hooks.zapier.com/...` | Zapier webhook (optional) |
+| Key                  | Value                              | Description                       |
+| -------------------- | ---------------------------------- | --------------------------------- |
+| `SUPABASE_URL`       | `https://your-project.supabase.co` | Your Supabase project URL         |
+| `SUPABASE_ANON_KEY`  | `eyJ...`                           | Supabase anonymous key            |
+| `ANTHROPIC_API_KEY`  | `sk-ant-...`                       | Claude API key                    |
+| `JWT_SECRET`         | `your-secret-key`                  | JWT authentication secret         |
+| `OPENAI_API_KEY`     | `sk-...`                           | OpenAI API key (optional)         |
+| `NOTION_API_KEY`     | `secret_...`                       | Notion integration key (optional) |
+| `ZAPIER_WEBHOOK_URL` | `https://hooks.zapier.com/...`     | Zapier webhook (optional)         |
 
 #### Non-Secret Environment Variables
+
 These can be set in your `.replit` file or Secrets:
 
 ```bash
@@ -92,16 +100,19 @@ PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 ## 📦 Step 3: Install Dependencies
 
 ### Install All Dependencies
+
 ```bash
 npm run replit:install
 ```
 
 This command will:
+
 1. Install main project dependencies
 2. Install Lyra dashboard dependencies
 3. Verify all packages are correctly installed
 
 ### Manual Installation (If Needed)
+
 ```bash
 # Main project
 npm install
@@ -115,15 +126,19 @@ cd ../../..
 ## 🚦 Step 4: Start the Application
 
 ### Option A: Use Replit Run Button
+
 Simply click the **Run** button in Replit. This will execute `npm run dev`.
 
 ### Option B: Manual Start
+
 ```bash
 npm run replit:dev
 ```
 
 ### Verify Everything Works
+
 1. **Check Console Output** - Should see:
+
    ```
    ✅ Database connection established
    🚀 FlashFusion server running on port 3333
@@ -131,6 +146,7 @@ npm run replit:dev
    ```
 
 2. **Test Health Endpoint:**
+
    ```bash
    curl https://your-repl-name.your-username.repl.co/api/health
    ```
@@ -142,11 +158,13 @@ npm run replit:dev
 ## 🌐 Step 5: Configure Public Access
 
 ### Make Your Repl Public (Optional)
+
 1. **Go to Repl settings** (gear icon)
 2. **Privacy section**
 3. **Set to "Public"** if you want to share
 
 ### Custom Domain (Paid Plans)
+
 1. **Go to Repl settings**
 2. **Domains section**
 3. **Add custom domain** (e.g., `dev.flashfusion.co`)
@@ -154,6 +172,7 @@ npm run replit:dev
 ## 🔄 Step 6: Development Workflow
 
 ### Daily Development
+
 ```bash
 # 1. Pull latest changes
 git pull origin main
@@ -176,20 +195,24 @@ git push origin main
 ```
 
 ### Multiple Services
+
 You can run different parts of the application in separate shell tabs:
 
 **Tab 1: Main API**
+
 ```bash
 npm run dev
 ```
 
 **Tab 2: Lyra Dashboard**
+
 ```bash
 cd agents/lyra/dashboard
 npm run dev
 ```
 
 **Tab 3: Database Setup**
+
 ```bash
 npm run health
 ```
@@ -197,11 +220,13 @@ npm run health
 ## 🎯 Step 7: Test Integration
 
 ### Run All Tests
+
 ```bash
 npm run replit:test
 ```
 
 ### Individual Tests
+
 ```bash
 # Health check
 npm run health
@@ -217,6 +242,7 @@ npm test
 ```
 
 ### Database Connection Test
+
 ```bash
 # Test PostgreSQL connection
 npm run test-postgresql
@@ -228,6 +254,7 @@ node scripts/test-supabase.js
 ## 🔐 Step 8: Security Configuration
 
 ### Verify Environment Variables
+
 ```bash
 # Check that secrets are loaded (in Replit Shell)
 echo "Anthropic Key: ${ANTHROPIC_API_KEY:0:10}..."
@@ -236,6 +263,7 @@ echo "JWT Secret: ${JWT_SECRET:0:10}..."
 ```
 
 ### Test API Authentication
+
 ```bash
 # Test protected endpoints
 curl -H "Authorization: Bearer your-test-token" \
@@ -245,16 +273,19 @@ curl -H "Authorization: Bearer your-test-token" \
 ## 🚀 Step 9: Deployment Ready
 
 ### Production Build Test
+
 ```bash
 npm run build
 ```
 
 ### Deploy to Production
+
 ```bash
 npm run replit:deploy
 ```
 
 This will:
+
 1. Run security checks
 2. Execute all tests
 3. Build for production
@@ -265,6 +296,7 @@ This will:
 ### Common Issues & Solutions
 
 #### 1. Port Already in Use
+
 ```bash
 # Kill existing processes
 pkill -f "node.*3333"
@@ -272,6 +304,7 @@ npm run dev
 ```
 
 #### 2. Environment Variables Not Loading
+
 - **Check Secrets tab** - ensure all variables are added
 - **Restart Repl** - click Stop, then Run
 - **Verify secrets:**
@@ -280,6 +313,7 @@ npm run dev
   ```
 
 #### 3. Git Issues
+
 ```bash
 # Configure Git
 git config --global user.name "Your Name"
@@ -290,6 +324,7 @@ git remote set-url origin git@github.com:your-username/FlashFusion-Unified.git
 ```
 
 #### 4. Database Connection Failed
+
 - **Check Supabase credentials** in Secrets
 - **Verify network access** (Replit to Supabase)
 - **Test connection:**
@@ -298,6 +333,7 @@ git remote set-url origin git@github.com:your-username/FlashFusion-Unified.git
   ```
 
 #### 5. Dependencies Installation Failed
+
 ```bash
 # Clear cache and reinstall
 rm -rf node_modules package-lock.json
@@ -306,6 +342,7 @@ npm install
 ```
 
 #### 6. Lyra Dashboard Not Loading
+
 ```bash
 # Check Lyra dependencies
 cd agents/lyra/dashboard
@@ -315,6 +352,7 @@ cd ../../..
 ```
 
 ### Performance Issues
+
 ```bash
 # Check CPU/Memory usage
 top
@@ -328,6 +366,7 @@ echo "*.log" >> .replitignore
 ## ✅ Success Verification
 
 ### Final Checklist
+
 - [ ] Repository imported successfully
 - [ ] All environment secrets configured
 - [ ] Dependencies installed without errors
@@ -340,6 +379,7 @@ echo "*.log" >> .replitignore
 - [ ] Tests pass successfully
 
 ### Performance Benchmarks
+
 - [ ] Initial page load < 3 seconds
 - [ ] API response time < 500ms
 - [ ] Health check responds < 100ms
@@ -351,12 +391,14 @@ echo "*.log" >> .replitignore
 Once all checks pass, your FlashFusion Unified platform is fully operational in Replit!
 
 ### Next Steps
+
 1. **Start developing features** using the existing architecture
 2. **Invite team members** to collaborate
 3. **Set up monitoring** for production deployments
 4. **Configure CI/CD** for automatic deployments
 
 ### Useful URLs
+
 - **Your App:** `https://your-repl-name.your-username.repl.co`
 - **API Health:** `https://your-repl-name.your-username.repl.co/api/health`
 - **Lyra Dashboard:** `https://your-repl-name.your-username.repl.co:8080`

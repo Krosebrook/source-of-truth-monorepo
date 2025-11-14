@@ -14,7 +14,7 @@ const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 
 function collect(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir).flatMap(entry => {
+  return fs.readdirSync(dir).flatMap((entry) => {
     const full = path.join(dir, entry);
     if (fs.statSync(full).isDirectory()) return collect(full);
     return full.endsWith(".json") ? [full] : [];
@@ -24,7 +24,7 @@ function collect(dir: string): string[] {
 const roots = [
   path.join("agents", "outputs", "claude-run"),
   path.join("agents", "outputs", "codex-run"),
-  path.join("agents", "outputs", "gemini-run")
+  path.join("agents", "outputs", "gemini-run"),
 ];
 
 const files = roots.flatMap(collect);
@@ -35,7 +35,9 @@ for (const file of files) {
     const json = JSON.parse(fs.readFileSync(file, "utf8"));
     const result = validator.validate(json, schema);
     if (!result.valid) {
-      console.error(`❌ Schema invalid: ${file}\n${result.errors.map(err => err.stack).join("\n")}\n`);
+      console.error(
+        `❌ Schema invalid: ${file}\n${result.errors.map((err) => err.stack).join("\n")}\n`
+      );
       failures += 1;
     }
   } catch (err: any) {

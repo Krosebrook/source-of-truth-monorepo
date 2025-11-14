@@ -1,0 +1,82 @@
+{
+  "name": "FlashFusion SoT Monorepo",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
+
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "editorconfig.editorconfig",
+        "yoavbls.pretty-ts-errors",
+        "orta.vscode-jest",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "yzhang.markdown-all-in-one",
+        "davidanson.vscode-markdownlint",
+        "github.copilot",
+        "github.copilot-chat",
+        "github.vscode-pull-request-github",
+        "gruntfuggly.todo-tree",
+        "usernamehw.errorlens",
+        "streetsidesoftware.code-spell-checker",
+        "christian-kohler.path-intellisense",
+        "visualstudioexptteam.vscodeintellicode",
+        "mskelton.npm-outdated",
+        "turbo.turbo-vsc"
+      ]
+    }
+  },
+
+  "forwardPorts": [3000, 3001, 3002, 5173, 8080],
+
+  "portsAttributes": {
+    "3000": {
+      "label": "Web Application",
+      "onAutoForward": "notify"
+    },
+    "3001": {
+      "label": "API Server",
+      "onAutoForward": "notify"
+    },
+    "3002": {
+      "label": "Development Server",
+      "onAutoForward": "notify"
+    },
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Additional Service",
+      "onAutoForward": "silent"
+    }
+  },
+
+  "postCreateCommand": "npm install -g pnpm@9 && pnpm install",
+
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+
+  "remoteUser": "node",
+
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached"
+  ],
+
+  "containerEnv": {
+    "NODE_ENV": "development"
+  }
+}

@@ -5,12 +5,14 @@
 The only issue found was a moderate security vulnerability in the `micromatch` dependency used by `lint-staged`. Here's how to fix it:
 
 ### Option 1: Update Dependencies (Recommended)
+
 ```bash
 npm update lint-staged
 npm audit fix --force
 ```
 
 ### Option 2: Alternative Linting Setup
+
 If the update doesn't work, replace lint-staged with a simpler setup:
 
 ```bash
@@ -19,6 +21,7 @@ npm install --save-dev simple-git-hooks
 ```
 
 Then update package.json:
+
 ```json
 {
   "simple-git-hooks": {
@@ -30,11 +33,13 @@ Then update package.json:
 ## Environment Setup
 
 Create your `.env` file:
+
 ```bash
 cp .env.example .env
 ```
 
 Then edit `.env` with your actual API keys:
+
 - `OPENAI_API_KEY` - For AI agent functionality
 - `SUPABASE_URL` and `SUPABASE_ANON_KEY` - For database
 - Other integration keys as needed

@@ -3,17 +3,21 @@ import path from "path";
 import crypto from "crypto";
 
 function walk(dir: string): string[] {
-  return fs.readdirSync(dir).flatMap(entry => {
+  return fs.readdirSync(dir).flatMap((entry) => {
     const full = path.join(dir, entry);
     return fs.statSync(full).isDirectory() ? walk(full) : [full];
   });
 }
 
 const targets = [path.join("agents", "outputs"), path.join("out", "flows")];
-const manifest: { spec_version: string; created: string; files: { path: string; sha256: string; bytes: number }[] } = {
+const manifest: {
+  spec_version: string;
+  created: string;
+  files: { path: string; sha256: string; bytes: number }[];
+} = {
   spec_version: "3.1.0",
   created: new Date().toISOString(),
-  files: []
+  files: [],
 };
 
 for (const root of targets) {

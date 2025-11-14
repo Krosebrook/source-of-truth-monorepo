@@ -9,6 +9,7 @@
 ## Context
 
 For a monorepo with 53 projects, comprehensive documentation is critical. We needed a documentation framework that could:
+
 - Scale to cover many projects and use cases
 - Serve different user needs (beginners, operators, architects)
 - Remain maintainable over 20 years
@@ -21,6 +22,7 @@ For a monorepo with 53 projects, comprehensive documentation is critical. We nee
 We will adopt the **[Diátaxis Framework](https://diataxis.fr/)** for all documentation.
 
 Documentation structured into four categories:
+
 1. **Tutorials** - Learning-oriented
 2. **How-To Guides** - Goal-oriented
 3. **Reference** - Information-oriented
@@ -33,6 +35,7 @@ Documentation structured into four categories:
 ### Considered Alternatives
 
 #### 1. **Unstructured / Ad-Hoc Docs**
+
 - **Pros**:
   - No learning curve
   - Flexible
@@ -42,6 +45,7 @@ Documentation structured into four categories:
   - ❌ **Stale**: No structure = no maintenance process
 
 #### 2. **README-Only (Minimalist)**
+
 - **Pros**:
   - Simple
   - Low overhead
@@ -51,6 +55,7 @@ Documentation structured into four categories:
   - ❌ **No deep-dives**: Concepts not explained
 
 #### 3. **Custom Structure**
+
 - **Pros**:
   - Tailored to our needs
 - **Cons**:
@@ -59,6 +64,7 @@ Documentation structured into four categories:
   - ❌ **Maintenance burden**: Must define and enforce structure ourselves
 
 #### 4. **Diátaxis (Chosen)**
+
 - **Pros**:
   - ✅ **Proven**: Adopted by Canonical, Cloudflare, Gatsby
   - ✅ **Clear guidelines**: Exact criteria for each doc type
@@ -73,12 +79,14 @@ Documentation structured into four categories:
 ### Why Diátaxis
 
 For long-term sustainability:
+
 - **Clear separation**: No "one doc tries to do everything"
 - **Findability**: Users know exactly where to look
 - **AI-readable**: LLMs can navigate structure easily
 - **Industry standard**: 2025 best practice for technical documentation
 
 **Real-world validation**:
+
 - Ubuntu uses Diátaxis for all docs
 - Cloudflare migrated to Diátaxis (improved doc usage 40%)
 - Gatsby adopted it (reduced "can't find answer" support tickets)
@@ -122,16 +130,17 @@ docs/
 
 ### Four Categories Explained
 
-| Type | User Says | Purpose | Example |
-|------|-----------|---------|---------|
-| **Tutorial** | "Teach me" | Learning | "Building Your First Agent" |
-| **How-To** | "Help me do X" | Solve problem | "How to Add a New Repo" |
-| **Reference** | "Tell me facts" | Lookup info | "CLI Flag Reference" |
-| **Explanation** | "Explain why" | Understand | "Why SoT Canonical" |
+| Type            | User Says       | Purpose       | Example                     |
+| --------------- | --------------- | ------------- | --------------------------- |
+| **Tutorial**    | "Teach me"      | Learning      | "Building Your First Agent" |
+| **How-To**      | "Help me do X"  | Solve problem | "How to Add a New Repo"     |
+| **Reference**   | "Tell me facts" | Lookup info   | "CLI Flag Reference"        |
+| **Explanation** | "Explain why"   | Understand    | "Why SoT Canonical"         |
 
 ### Style Guide
 
 Created `/docs/STYLE_GUIDE.md` with:
+
 - Clear criteria for each category
 - Templates for each doc type
 - Writing standards (voice, tone, formatting)
@@ -158,6 +167,6 @@ Created `/docs/STYLE_GUIDE.md` with:
 
 ## Revision History
 
-| Date | Author | Change |
-|------|--------|--------|
+| Date       | Author      | Change          |
+| ---------- | ----------- | --------------- |
 | 2025-10-27 | @Krosebrook | Initial version |

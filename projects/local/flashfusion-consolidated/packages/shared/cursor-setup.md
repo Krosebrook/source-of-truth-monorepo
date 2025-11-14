@@ -3,10 +3,12 @@
 ## 1. MCP (Model Context Protocol) Setup ✅
 
 MCP is now configured with:
+
 - **Filesystem Server**: Access to your FlashFusion-Unified directory
 - **GitHub Server**: Ready for GitHub integration (needs token)
 
 ### To complete GitHub setup:
+
 1. Generate a GitHub Personal Access Token at https://github.com/settings/tokens
 2. Replace "YOUR_GITHUB_TOKEN_HERE" in the config file at:
    `C:\Users\kyler\AppData\Roaming\Claude\claude_desktop_config.json`
@@ -37,20 +39,24 @@ Add these to your Cursor settings (Ctrl+Shift+P → "Preferences: Open Settings 
 Install these via Cursor's extension marketplace (Ctrl+Shift+X):
 
 ### AI & Productivity
+
 - **GitHub Copilot** - AI pair programming
 - **Codeium** - Free AI code completion alternative
 - **Tabnine** - AI code completions
 
 ### Code Quality
+
 - **ESLint** - JavaScript/TypeScript linting
 - **Prettier** - Code formatting
 - **Error Lens** - Inline error display
 
 ### Git Enhancement
+
 - **GitLens** - Git supercharged
 - **Git Graph** - Visualize git history
 
 ### Development Tools
+
 - **Thunder Client** - API testing
 - **Live Server** - Local development server
 - **Code Spell Checker** - Catch typos

@@ -7,6 +7,7 @@ This document outlines the strategy for consolidating 100+ repositories from mul
 ## Current Repository Inventory
 
 ### Source Directories
+
 - **Krosebrook**: 99 repositories (personal projects, FlashFusion variants, tools, frameworks)
 - **ChaosClubCo**: 6 repositories (claude-code, SuperClaude, mcp-gemini-assistant, etc.)
 - **FlashFusionv1**: 4 repositories (flashfusion-creative-hub, loveable-supabase, etc.)
@@ -34,7 +35,7 @@ C:\FlashFusion-Unified\
 │   │   ├── agent-zero\
 │   │   ├── adk-python\
 │   │   ├── crewAI\                    # from agent-frameworks
-│   │   ├── langgraph\                 # from agent-frameworks  
+│   │   ├── langgraph\                 # from agent-frameworks
 │   │   ├── langflow\
 │   │   ├── langfuse\
 │   │   ├── letta\
@@ -121,7 +122,6 @@ C:\FlashFusion-Unified\
 
 1. **Duplicate FlashFusion Projects**: Multiple FlashFusion variants exist with similar names
    - **Resolution**: Organize by purpose/variant in `flashfusion-variants/`
-   
 2. **Duplicate open-webui**: Exists in both ChaosClubCo and FlashFusionv1
    - **Resolution**: Keep ChaosClubCo version (more recent), archive FlashFusionv1 version
 
@@ -161,32 +161,38 @@ C:\FlashFusion-Unified\
 ### Step-by-Step Execution Plan
 
 #### Phase 1: Preparation (1-2 hours)
+
 1. **Create backup** of current FlashFusion-Unified
-2. **Create consolidated directory structure** 
+2. **Create consolidated directory structure**
 3. **Document current state** and repository mappings
 4. **Verify git remotes** and access permissions
 
 #### Phase 2: High-Priority Consolidation (3-4 hours)
+
 1. **FlashFusion variants** (flashfusion-ide, genesis, commerce-forge, etc.)
 2. **Claude ecosystem tools** (claude-code, SuperClaude, claude-flow)
 3. **Core development tools** (cui, agents, development utilities)
 
 #### Phase 3: Framework Integration (2-3 hours)
+
 1. **AI frameworks** (crewAI, langgraph, swarms, letta, etc.)
 2. **MCP servers** (all MCP-related projects)
 3. **Web platforms** (open-webui, carbon, heroui variants)
 
 #### Phase 4: Supporting Projects (2-3 hours)
+
 1. **Infrastructure tools** (nix-config, cloudnative-pg)
 2. **Business tools** (OAuth, erpnext, pipedream)
 3. **Mobile libraries** (glide, lottie-android)
 
 #### Phase 5: Content and Specialized Tools (1-2 hours)
+
 1. **Content resources** (prompts, documentation, snippets)
 2. **Specialized tools** (goose, chatgpt-cli, gaming projects)
 3. **Legacy backups** (organize and archive)
 
 #### Phase 6: Cleanup and Documentation (1-2 hours)
+
 1. **Update README files** with new structure
 2. **Create navigation documentation**
 3. **Verify all projects are functional**
@@ -195,16 +201,19 @@ C:\FlashFusion-Unified\
 ## Risk Mitigation
 
 ### Backup Strategy
+
 - Create full backup before starting
 - Incremental backups after each phase
 - External drive backup per user instructions
 
 ### Rollback Plan
+
 - Git branches for each consolidation phase
 - Ability to revert to any previous state
 - Preserve original repositories until verification complete
 
 ### Testing Strategy
+
 - Verify each project builds/runs after consolidation
 - Test key integrations and dependencies
 - Validate all git histories are preserved
@@ -234,4 +243,4 @@ C:\FlashFusion-Unified\
 
 ---
 
-*This strategy preserves the extensive development ecosystem while creating a maintainable, organized structure that supports continued development and growth.*
+_This strategy preserves the extensive development ecosystem while creating a maintainable, organized structure that supports continued development and growth._

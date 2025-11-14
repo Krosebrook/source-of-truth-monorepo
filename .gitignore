@@ -2,19 +2,37 @@
 node_modules/
 .pnp
 .pnp.js
+.yarn/
+jspm_packages/
 
 # Testing
 coverage/
 *.lcov
 .nyc_output
+*.tsbuildinfo
+.jest-cache/
 
 # Production builds
 dist/
 build/
 out/
 .next/
+.nuxt/
 .turbo/
 .vercel/
+.output/
+.vite/
+storybook-static/
+
+# Cache directories
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
 
 # Misc
 .DS_Store
@@ -23,6 +41,9 @@ out/
 *.pid
 *.seed
 *.pid.lock
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
 
 # Debug
 npm-debug.log*
@@ -30,6 +51,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+pnpm-debug.log*
 
 # Local env files
 .env
@@ -39,9 +61,15 @@ lerna-debug.log*
 .env.production.local
 .env*.local
 *.env
+!.env.example
 
-# IDE
-.vscode/
+# IDE - VS Code (keep workspace settings)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
 .idea/
 *.swp
 *.swo
@@ -52,6 +80,9 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
+*.sublime-project
+.history/
+.ionide/
 
 # OS
 Thumbs.db
@@ -61,12 +92,15 @@ $RECYCLE.BIN/
 ._*
 .Spotlight-V100
 .Trashes
+.AppleDouble
+.LSOverride
 
 # Large binaries
 *.node
 *.dylib
 *.so
 *.dll
+*.exe
 
 # Secrets
 *.key
@@ -75,13 +109,44 @@ $RECYCLE.BIN/
 *.pfx
 credentials.json
 serviceAccount.json
+*-key.json
+*.asc
+*.gpg
 
 # Temp
 tmp/
 temp/
 *.tmp
+.temp/
 
 # Import script artifacts
 .import-checkpoint
 logs/
+
+# Build artifacts
+*.tsbuildinfo
+*.d.ts.map
+
+# Package manager locks (keep pnpm-lock.yaml)
+# yarn.lock
+# package-lock.json
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
 

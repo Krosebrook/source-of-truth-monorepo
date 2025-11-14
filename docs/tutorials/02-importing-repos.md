@@ -39,6 +39,7 @@ Best for: Importing local directories or single repos
 ```
 
 The enhanced script supports:
+
 - **Batch operations**: Process repos in configurable batches (20-50 repos)
 - **Custom repo lists**: Use external files instead of hardcoded lists
 - **Resume capability**: Continue from last checkpoint after failures
@@ -69,12 +70,14 @@ If the file doesn't exist, the script will create a default one with 50 repos.
 ### Step 4: Advanced Usage Examples
 
 **Import with custom batch size:**
+
 ```bash
 # Process 20 repos at a time (good for rate limiting)
 ./scripts/import-github-repos.sh --batch-size 20
 ```
 
 **Use a custom repo list:**
+
 ```bash
 # Create your own list
 cat > my-repos.txt <<EOF
@@ -87,24 +90,28 @@ EOF
 ```
 
 **Exclude archived repositories:**
+
 ```bash
 # Skip any repos marked as 'archived' or 'deprecated'
 ./scripts/import-github-repos.sh --exclude-archived
 ```
 
 **Resume from checkpoint:**
+
 ```bash
 # If import fails partway through, resume from last success
 ./scripts/import-github-repos.sh --resume
 ```
 
 **Custom log location:**
+
 ```bash
 # Save logs to specific file
 ./scripts/import-github-repos.sh --log-file my-import.log
 ```
 
 **Complete example (310+ repos):**
+
 ```bash
 # Import 310 repos in batches of 25, excluding archived ones
 ./scripts/import-github-repos.sh \
@@ -117,6 +124,7 @@ EOF
 ### Step 5: Monitor Progress
 
 **What happens**:
+
 1. Script reads repository list from file
 2. Processes repos in batches (default: 30 at a time)
 3. Clones each repo (--depth 1 for speed)
@@ -127,6 +135,7 @@ EOF
 8. Logs everything to file
 
 **Expected output**:
+
 ```
 === FlashFusion SoT GitHub Repo Importer ===
 Started at: 2025-11-01 12:00:00
@@ -223,6 +232,7 @@ rm -rf /home/user/my-local-project/.git
 ```
 
 **Why flatten?** See [ADR-0005: Flattened Repos](/docs/adr/0005-flattened-repos.md)
+
 - Smaller .git folder (200x smaller)
 - Faster clones
 - No nested repo confusion

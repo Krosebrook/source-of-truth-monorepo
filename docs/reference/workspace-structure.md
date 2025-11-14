@@ -131,6 +131,7 @@ local/
 ```
 
 **Characteristics**:
+
 - No GitHub remote (local development only)
 - Imported by copying (no git history)
 
@@ -159,6 +160,7 @@ krosebrook/
 ```
 
 **Characteristics**:
+
 - Owned by @Krosebrook
 - SoT canonical (changes flow SoT → mirrors)
 - Mirrors at `github.com/Krosebrook/*`
@@ -180,6 +182,7 @@ flashfusionv1/
 ```
 
 **Characteristics**:
+
 - Owned by @Krosebrook (flashfusionv1 org)
 - SoT canonical
 - Mirrors at `github.com/FlashFusionv1/*`
@@ -201,6 +204,7 @@ chaosclubco/
 ```
 
 **Characteristics**:
+
 - Owned by @Krosebrook (ChaosClubCo org)
 - SoT canonical
 - Mirrors at `github.com/ChaosClubCo/*`
@@ -211,27 +215,28 @@ chaosclubco/
 
 ### Root Files
 
-| File | Purpose |
-|------|---------|
-| `package.json` | Root workspace config |
-| `pnpm-workspace.yaml` | Workspace package list |
-| `turbo.json` | Turbo build pipeline |
-| `tsconfig.base.json` | Base TypeScript config |
-| `eslint.config.js` | ESLint flat config |
-| `.prettierrc.json` | Prettier formatting |
-| `.gitignore` | Git ignore rules |
-| `.llms.txt` | AI discovery index |
-| `.markdownlint.json` | Markdown linting |
-| `renovate.json` | Renovate config |
-| `README.md` | Repository home |
-| `GETTING_STARTED.md` | Quick start guide |
-| `CONTRIBUTING.md` | Contribution guidelines |
-| `SECURITY.md` | Security policy |
-| `REPO_MAP.md` | Repository index |
+| File                  | Purpose                 |
+| --------------------- | ----------------------- |
+| `package.json`        | Root workspace config   |
+| `pnpm-workspace.yaml` | Workspace package list  |
+| `turbo.json`          | Turbo build pipeline    |
+| `tsconfig.base.json`  | Base TypeScript config  |
+| `eslint.config.js`    | ESLint flat config      |
+| `.prettierrc.json`    | Prettier formatting     |
+| `.gitignore`          | Git ignore rules        |
+| `.llms.txt`           | AI discovery index      |
+| `.markdownlint.json`  | Markdown linting        |
+| `renovate.json`       | Renovate config         |
+| `README.md`           | Repository home         |
+| `GETTING_STARTED.md`  | Quick start guide       |
+| `CONTRIBUTING.md`     | Contribution guidelines |
+| `SECURITY.md`         | Security policy         |
+| `REPO_MAP.md`         | Repository index        |
 
 ### Workspace Configuration
 
 **`pnpm-workspace.yaml`**:
+
 ```yaml
 packages:
   - "agents/*"
@@ -244,6 +249,7 @@ packages:
 ### Build Configuration
 
 **`turbo.json`**:
+
 ```json
 {
   "pipeline": {
@@ -261,28 +267,30 @@ packages:
 
 ## Size Breakdown
 
-| Directory | Size | File Count |
-|-----------|------|------------|
-| `projects/local/` | 1.05GB | ~1,500 |
-| `projects/krosebrook/` | ~300MB | ~5,000 |
-| `projects/flashfusionv1/` | ~50MB | ~500 |
-| `projects/chaosclubco/` | ~50MB | ~500 |
-| `agents/` | ~1MB | ~20 |
-| `shared/` | ~100KB | ~10 |
-| `docs/` | ~500KB | ~50 |
-| `.github/` | ~20KB | ~10 |
-| **Total** | ~1.5GB | ~7,600 |
+| Directory                 | Size   | File Count |
+| ------------------------- | ------ | ---------- |
+| `projects/local/`         | 1.05GB | ~1,500     |
+| `projects/krosebrook/`    | ~300MB | ~5,000     |
+| `projects/flashfusionv1/` | ~50MB  | ~500       |
+| `projects/chaosclubco/`   | ~50MB  | ~500       |
+| `agents/`                 | ~1MB   | ~20        |
+| `shared/`                 | ~100KB | ~10        |
+| `docs/`                   | ~500KB | ~50        |
+| `.github/`                | ~20KB  | ~10        |
+| **Total**                 | ~1.5GB | ~7,600     |
 
 ---
 
 ## Naming Conventions
 
 ### Directory Names
+
 - **kebab-case**: `flashfusion-consolidated`, `int-smart-triage-ai-2.0`
 - **Lowercase**: `projects/`, `agents/`, `shared/`
 - **Organization mirrors GitHub**: `projects/krosebrook/` matches GitHub org
 
 ### File Names
+
 - **Markdown**: `kebab-case.md` (e.g., `workspace-structure.md`)
 - **TypeScript**: `kebab-case.ts` or `PascalCase.ts` (per project)
 - **Config**: `.filename` (e.g., `.gitignore`, `.llms.txt`)

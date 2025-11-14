@@ -60,6 +60,7 @@ npm start
 ```
 
 The platform will be available at:
+
 - **Dashboard**: http://localhost:3333
 - **Health Check**: http://localhost:3333/health
 - **API**: http://localhost:3333/api/v1
@@ -108,6 +109,7 @@ curl http://localhost:3333/health
 ```
 
 You should see:
+
 ```json
 {
   "status": "healthy",

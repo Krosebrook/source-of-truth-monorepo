@@ -1,6 +1,7 @@
 # AI CLI Tools Installation & Usage Guide
 
 ## 1. Claude Code (Anthropic)
+
 ```bash
 # Install via npm
 npm install -g @anthropic/claude-code
@@ -18,6 +19,7 @@ claude --resume  # Resume last conversation
 ```
 
 ## 2. ChatGPT CLI (OpenAI)
+
 ```bash
 # Option 1: chatgpt-cli
 pip install chatgpt-cli
@@ -36,6 +38,7 @@ sgpt --code "Write a REST API in FastAPI"
 ```
 
 ## 3. Gemini CLI (Google)
+
 ```bash
 # Option 1: gemini-cli
 npm install -g gemini-cli
@@ -53,6 +56,7 @@ gemini "Write a haiku about coding"
 ## 4. Multi-Model CLI Tools
 
 ### AIChat (Supports 20+ models)
+
 ```bash
 # Install via Cargo
 cargo install aichat
@@ -75,6 +79,7 @@ aichat --list-models  # See all available models
 ```
 
 ### LLM by Simon Willison
+
 ```bash
 # Install base tool
 pip install llm
@@ -99,6 +104,7 @@ llm models  # List all available models
 ```
 
 ### Mods (Pipe-friendly AI)
+
 ```bash
 # Install
 brew install charmbracelet/tap/mods
@@ -120,6 +126,7 @@ mods -m claude "Refactor this function"
 ## 5. Specialized AI CLI Tools
 
 ### GitHub Copilot CLI
+
 ```bash
 # Install
 npm install -g @githubnext/github-copilot-cli
@@ -134,6 +141,7 @@ copilot suggest "Create a Python virtual environment"
 ```
 
 ### Ollama (Local LLMs)
+
 ```bash
 # Install
 curl -fsSL https://ollama.ai/install.sh | sh
@@ -150,6 +158,7 @@ echo "Fix this bug" | ollama run mistral
 ```
 
 ### Terminal GPT (tgpt) - No API key needed
+
 ```bash
 # Install
 curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install | bash
@@ -166,6 +175,7 @@ tgpt -p llama "Explain Docker"  # Use Llama provider
 ## 6. Quick Switching Between Models
 
 ### Create aliases in ~/.bashrc or ~/.zshrc
+
 ```bash
 # AI Assistant Aliases
 alias ai-claude="claude"
@@ -195,6 +205,7 @@ function ai() {
 ## 7. Environment Setup Script
 
 Create a setup script `setup-ai-tools.sh`:
+
 ```bash
 #!/bin/bash
 
@@ -226,6 +237,7 @@ echo "- Or use 'aichat --init' for interactive setup"
 ## 8. API Key Management
 
 Create `~/.ai-keys` file:
+
 ```bash
 # AI API Keys
 export ANTHROPIC_API_KEY="sk-ant-..."

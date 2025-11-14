@@ -17,6 +17,7 @@ agent-cli --prompt <path> --context <path> --output-schema <path> --out <dir>
 ## Agent Parity
 
 Each agent must:
+
 1. Accept the four standard CLI flags
 2. Output JSON conforming to `agent-output.schema.json`
 3. Provide validation before execution

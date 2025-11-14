@@ -7,11 +7,13 @@ Regular API key rotation is a critical security practice that helps protect Flas
 ## 🚀 Quick Start
 
 ### Rotate All Keys
+
 ```bash
 npm run rotate-keys
 ```
 
 ### Validate Keys Before Deployment
+
 ```bash
 npm run validate-keys
 ```
@@ -65,12 +67,15 @@ npm run validate-keys
 ### 4. Update Production Environment
 
 #### Vercel Dashboard
+
 1. Go to Project Settings → Environment Variables
 2. Update each key value
 3. Redeploy to apply changes
 
 #### Other Platforms
+
 Update environment variables in:
+
 - AWS Secrets Manager
 - Google Secret Manager
 - Heroku Config Vars
@@ -92,11 +97,13 @@ vercel --prod
 ## 🔄 Automated Rotation
 
 ### GitHub Actions Reminder
+
 - Runs monthly on the 1st
 - Creates issue with checklist
 - Tracks rotation history
 
 ### Rotation Schedule
+
 - **Critical Keys**: Monthly
 - **Non-critical Keys**: Quarterly
 - **After Breach**: Immediately
@@ -104,6 +111,7 @@ vercel --prod
 ## 🛡️ Security Best Practices
 
 ### DO:
+
 - ✅ Rotate keys regularly (monthly)
 - ✅ Use strong, unique keys
 - ✅ Store keys in environment variables
@@ -112,6 +120,7 @@ vercel --prod
 - ✅ Revoke old keys after rotation
 
 ### DON'T:
+
 - ❌ Commit keys to git
 - ❌ Share keys in plain text
 - ❌ Use same key across environments
@@ -120,13 +129,13 @@ vercel --prod
 
 ## 📊 Key Validation Rules
 
-| Service | Format | Example |
-|---------|--------|---------|
-| OpenAI | `sk-...` | `sk-proj-abc123...` |
-| Anthropic | `sk-ant-api...` | `sk-ant-api03-xyz...` |
-| GitHub | `ghp_...` or `github_pat_...` | `ghp_1234abcd...` |
+| Service      | Format                          | Example                   |
+| ------------ | ------------------------------- | ------------------------- |
+| OpenAI       | `sk-...`                        | `sk-proj-abc123...`       |
+| Anthropic    | `sk-ant-api...`                 | `sk-ant-api03-xyz...`     |
+| GitHub       | `ghp_...` or `github_pat_...`   | `ghp_1234abcd...`         |
 | Supabase URL | `https://[project].supabase.co` | `https://abc.supabase.co` |
-| JWT | 32+ characters | Random secure string |
+| JWT          | 32+ characters                  | Random secure string      |
 
 ## 🚨 Emergency Rotation
 
@@ -146,6 +155,7 @@ npm run rotate-keys -- --emergency
 ## 📝 Rotation Log
 
 Check rotation history:
+
 ```bash
 npm run rotate-keys
 # Select option 4: Check rotation history
@@ -156,16 +166,19 @@ Log location: `.key-rotation-log.json` (gitignored)
 ## 🔧 Troubleshooting
 
 ### "Invalid key format"
+
 - Check key starts with correct prefix
 - Ensure no extra spaces or quotes
 - Verify key hasn't expired
 
 ### "Key validation failed"
+
 - Run `npm run validate-keys` for details
 - Check `.env` file formatting
 - Ensure all required keys present
 
 ### "Deployment fails after rotation"
+
 - Verify keys updated in Vercel dashboard
 - Check environment variable names match
 - Test with single service first
@@ -173,6 +186,7 @@ Log location: `.key-rotation-log.json` (gitignored)
 ## 📅 Rotation Checklist
 
 Monthly tasks:
+
 - [ ] Backup current `.env`
 - [ ] Run rotation tool
 - [ ] Generate new keys for each service

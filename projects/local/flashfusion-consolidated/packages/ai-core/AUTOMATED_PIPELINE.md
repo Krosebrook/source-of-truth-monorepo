@@ -11,24 +11,28 @@ You → Claude Code → Git → Vercel → GoDaddy → FlashFusion.co
 ## 🚀 Quick Setup Guide
 
 ### Step 1: Run Domain Setup
+
 ```bash
 npm run domain-setup
 ```
 
 ### Step 2: Configure GoDaddy DNS
+
 Add these DNS records in GoDaddy:
 
-| Type  | Name | Value               |
-|-------|------|---------------------|
+| Type  | Name | Value                |
+| ----- | ---- | -------------------- |
 | CNAME | @    | cname.vercel-dns.com |
 | CNAME | www  | cname.vercel-dns.com |
 
 ### Step 3: Add Domain in Vercel
+
 1. Go to [Vercel Dashboard](https://vercel.com/chaos-collective/flashfusion/settings/domains)
 2. Add domain: `flashfusion.co`
 3. Add domain: `www.flashfusion.co`
 
 ### Step 4: Configure GitHub Secrets
+
 Add these secrets in GitHub repository settings:
 
 ```
@@ -40,21 +44,24 @@ VERCEL_PROJECT_ID=your_vercel_project_id
 ## 🛠️ Available Commands
 
 ### Setup & Configuration
+
 ```bash
 npm run domain-setup     # Setup domain pipeline
 npm run verify-pipeline  # Test complete pipeline
 ```
 
 ### Development Workflow
+
 ```bash
 # Make changes with Claude Code, then:
 git add -A
-git commit -m "your changes"  
+git commit -m "your changes"
 git push origin master
 # → Automatically deploys to FlashFusion.co!
 ```
 
 ### Testing & Verification
+
 ```bash
 npm run test-deployment          # Test deployment safety
 npm run verify-pipeline          # Test live pipeline
@@ -88,6 +95,7 @@ When you push to GitHub, this automatically happens:
 ## 🌐 Domain Pipeline Details
 
 ### DNS Flow
+
 ```
 flashfusion.co (GoDaddy)
         ↓
@@ -101,6 +109,7 @@ flashfusion.co (GoDaddy)
 ```
 
 ### SSL/HTTPS
+
 - **Automatic SSL** via Vercel
 - **Let's Encrypt** certificates
 - **Auto-renewal** every 90 days
@@ -109,21 +118,25 @@ flashfusion.co (GoDaddy)
 ## 🔧 Pipeline Components
 
 ### 1. GitHub Repository
+
 - **Source:** `Krosebrook/FlashFusion-Unified`
 - **Branch:** `master` (auto-deploys)
 - **Actions:** Automated testing & deployment
 
 ### 2. Vercel Platform
+
 - **Project:** `flashfusion`
 - **Organization:** `chaos-collective`
 - **Functions:** Bulletproof deployment system
 
 ### 3. GoDaddy DNS
+
 - **Domain:** `flashfusion.co`
 - **Registrar:** GoDaddy
 - **DNS Management:** CNAME to Vercel
 
 ### 4. GitHub Actions
+
 - **Workflow:** `.github/workflows/deploy.yml`
 - **Triggers:** Push to master
 - **Features:** Testing, deployment, verification
@@ -131,11 +144,13 @@ flashfusion.co (GoDaddy)
 ## 📊 Monitoring & Health Checks
 
 ### Automatic Monitoring
+
 - **Health endpoint:** `https://flashfusion.co/health`
 - **API status:** `https://flashfusion.co/api/status`
 - **Deployment verification:** Built into GitHub Actions
 
 ### Manual Verification
+
 ```bash
 # Test complete pipeline
 npm run verify-pipeline
@@ -150,6 +165,7 @@ npm run verify-pipeline
 ### Common Issues
 
 **1. Domain not resolving**
+
 ```bash
 # Check DNS propagation
 nslookup flashfusion.co
@@ -158,6 +174,7 @@ nslookup flashfusion.co
 ```
 
 **2. SSL certificate issues**
+
 ```bash
 # Test SSL
 curl -I https://flashfusion.co
@@ -166,6 +183,7 @@ curl -I https://flashfusion.co
 ```
 
 **3. Deployment failures**
+
 ```bash
 # Check deployment logs
 npm run test-deployment
@@ -175,6 +193,7 @@ npm run test-deployment
 ```
 
 **4. Performance issues**
+
 ```bash
 # Test performance
 npm run verify-pipeline
@@ -185,12 +204,14 @@ npm run verify-pipeline
 ### Emergency Procedures
 
 **If FlashFusion.co is down:**
+
 1. Check Vercel status: https://vercel.com/status
 2. Verify DNS: `npm run verify-pipeline`
 3. Check GitHub Actions for failures
 4. Manual deploy: `npm run deploy-safe`
 
 **If DNS issues:**
+
 1. Verify GoDaddy DNS records
 2. Check DNS propagation (can take 24-48 hours)
 3. Try alternative DNS: `8.8.8.8` for testing
@@ -198,16 +219,19 @@ npm run verify-pipeline
 ## 🎯 Expected Performance
 
 ### Deployment Times
+
 - **Git push to live:** ~2 minutes
 - **DNS propagation:** Up to 48 hours (first time)
 - **SSL certificate:** ~5 minutes (first time)
 
 ### Performance Targets
+
 - **Page load:** <500ms (Grade A)
 - **Health check:** <200ms
 - **API response:** <100ms
 
 ### Availability
+
 - **Uptime target:** 99.9%
 - **Vercel SLA:** 99.99%
 - **GoDaddy DNS:** 100% uptime guarantee

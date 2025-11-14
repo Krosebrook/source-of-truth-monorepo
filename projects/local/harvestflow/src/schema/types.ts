@@ -6,14 +6,14 @@ export const Message = z.object({
   role: z.enum(["user", "assistant", "tool", "system"]).default("user"),
   text: z.string().optional(),
   content: z.string().optional(),
-  meta: z.record(z.string(), z.any()).optional()
+  meta: z.record(z.string(), z.any()).optional(),
 });
 export type Message = z.infer<typeof Message>;
 
 export const ChatExport = z.object({
   conversation_id: z.string().optional(),
   title: z.string().optional(),
-  messages: z.array(Message)
+  messages: z.array(Message),
 });
 
 export const FlowNode = z.object({
@@ -21,7 +21,7 @@ export const FlowNode = z.object({
   kind: z.enum(["topic", "decision", "deliverable", "evidence"]),
   label: z.string(),
   parentId: z.string().nullable(),
-  msgIds: z.array(z.string()).default([])
+  msgIds: z.array(z.string()).default([]),
 });
 export type FlowNode = z.infer<typeof FlowNode>;
 
@@ -29,17 +29,19 @@ export const Flow = z.object({
   id: z.string(),
   title: z.string(),
   nodes: z.array(FlowNode),
-  deliverables: z.array(z.object({
-    path: z.string(),
-    kind: z.enum(["doc", "prompt", "code", "config", "zip"]),
-    content: z.string()
-  })),
+  deliverables: z.array(
+    z.object({
+      path: z.string(),
+      kind: z.enum(["doc", "prompt", "code", "config", "zip"]),
+      content: z.string(),
+    })
+  ),
   metrics: z.object({
     taskSuccessRate: z.number().min(0).max(1),
     efficiencyScore: z.number().min(0).max(1),
     automatedGateScore: z.number().min(0).max(1),
-    userRating: z.number().min(0).max(1)
-  })
+    userRating: z.number().min(0).max(1),
+  }),
 });
 export type Flow = z.infer<typeof Flow>;
 

@@ -13,12 +13,14 @@
 Welcome to the **FlashFusion Source-of-Truth (SoT) monorepo** - a unified consolidation of 53 repositories across the FlashFusion ecosystem.
 
 **What is this?**
+
 - **One repository** containing **53 projects**
 - **One build system** (Turborepo) with intelligent caching
 - **One package manager** (pnpm) saving 60% disk space
 - **One source of truth** for all FlashFusion development
 
 **Why use this?**
+
 - ✅ Build 53 projects in <1 minute (with cache)
 - ✅ Share code across projects with `workspace:*`
 - ✅ Never duplicate utility code again
@@ -109,6 +111,7 @@ Mirror Repos (read-only for users)
 **Package manager**: pnpm (not npm or yarn)
 
 **Benefits**:
+
 - 60% disk space savings (symlinks to shared store)
 - 2-3x faster than npm
 - Strict dependency resolution (no phantom deps)
@@ -181,6 +184,7 @@ pnpm type-check
 ```
 
 **What happens**:
+
 1. Clones 50 repos from Krosebrook, flashfusionv1, ChaosClubCo
 2. Flattens them (removes .git history)
 3. Organizes into `projects/org/name/`
@@ -218,9 +222,9 @@ Use this checklist to track your progress:
 - [ ] **Read [Quickstart Tutorial](/docs/tutorials/01-quickstart.md)**
 - [ ] **Understand [SoT Canonical Model](/docs/explanation/sot-canonical-model.md)**
 - [ ] **Review [Workspace Structure](/docs/reference/workspace-structure.md)**
-- [ ] **Import remaining repos** (`./scripts/import-github-repos.sh`) *(optional)*
+- [ ] **Import remaining repos** (`./scripts/import-github-repos.sh`) _(optional)_
 - [ ] **Explore documentation** (`/docs/index.md`)
-- [ ] **Join team Slack/Discord** *(ask maintainer for invite)*
+- [ ] **Join team Slack/Discord** _(ask maintainer for invite)_
 
 **Print this**: [Onboarding Checklist PDF](/docs/ONBOARDING_CHECKLIST.md)
 

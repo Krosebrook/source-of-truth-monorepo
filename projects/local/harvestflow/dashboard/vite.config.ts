@@ -8,11 +8,11 @@ export default defineConfig({
   server: {
     port: 5174,
     proxy: {
-      "/metrics.json": "http://localhost:5173"
-    }
+      "/metrics.json": "http://localhost:5173",
+    },
   },
   build: {
     outDir: path.resolve(__dirname, "dist"),
-    emptyOutDir: true
-  }
+    emptyOutDir: true,
+  },
 });

@@ -3,6 +3,7 @@
 ## 🔐 API Key Management
 
 ### CRITICAL: Regenerate Your Keys
+
 If you've exposed API keys in your repository, you MUST regenerate them immediately:
 
 1. **OpenAI**: https://platform.openai.com/api-keys
@@ -15,18 +16,22 @@ If you've exposed API keys in your repository, you MUST regenerate them immediat
 ### Secure Key Storage
 
 #### Local Development
+
 - Store keys in `.env` file (already in .gitignore)
 - Never commit `.env` to version control
 - Use placeholder values in committed files
 
 #### Production (Vercel)
+
 1. Go to Vercel Dashboard → Project Settings → Environment Variables
 2. Add each key with the same names as in `.env`
 3. Select appropriate environments (Production/Preview/Development)
 4. Never hardcode keys in source files
 
 ### Environment Variable Template
+
 Create a `.env.example` file with placeholders:
+
 ```
 OPENAI_API_KEY=your_openai_key_here
 ANTHROPIC_API_KEY=your_anthropic_key_here
@@ -37,6 +42,7 @@ SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ## 🛡️ Security Best Practices
 
 ### Code Security
+
 - ✅ ESLint configured to catch common vulnerabilities
 - ✅ No eval() or Function() constructors allowed
 - ✅ Input validation on all API endpoints
@@ -44,18 +50,21 @@ SUPABASE_ANON_KEY=your_supabase_anon_key_here
 - ✅ Security headers configured (XSS, CSRF protection)
 
 ### Dependencies
+
 - Run `npm audit` regularly
 - Update dependencies: `npm update`
 - Fix vulnerabilities: `npm audit fix`
 - Review dependency licenses
 
 ### API Security
+
 - All endpoints use request validation
 - CORS configured for controlled access
 - Request IDs for tracking and debugging
 - Error messages don't expose sensitive info
 
 ### Git Security
+
 - `.env` file is gitignored
 - No sensitive data in commit history
 - Use environment variables for all secrets
@@ -64,6 +73,7 @@ SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ## 🚨 Incident Response
 
 If keys are exposed:
+
 1. **Immediately** regenerate affected keys
 2. Review access logs for unauthorized use
 3. Update keys in Vercel environment variables
@@ -73,6 +83,7 @@ If keys are exposed:
 ## 📋 Security Checklist
 
 Before each deployment:
+
 - [ ] No hardcoded API keys
 - [ ] `.env` not in staged files
 - [ ] Dependencies up to date
@@ -84,11 +95,13 @@ Before each deployment:
 ## 🔍 Regular Audits
 
 Weekly:
+
 - Check `npm audit` results
 - Review Vercel function logs
 - Monitor API usage patterns
 
 Monthly:
+
 - Rotate API keys
 - Review access permissions
 - Update dependencies
@@ -97,6 +110,7 @@ Monthly:
 ## 📞 Security Contacts
 
 For security issues:
+
 - Create private GitHub issue
 - Email: [your-security-email]
 - Emergency: Revoke all keys immediately

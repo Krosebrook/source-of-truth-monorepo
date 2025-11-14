@@ -10,7 +10,9 @@ for (const key of Object.keys(current)) {
 }
 
 if (changed.length) {
-  console.error("❌ Prompt/Config drift detected:\n" + changed.map(item => ` - ${item}`).join("\n"));
+  console.error(
+    "❌ Prompt/Config drift detected:\n" + changed.map((item) => ` - ${item}`).join("\n")
+  );
   process.exit(2);
 }
 

@@ -85,6 +85,6 @@ We will [describe the decision].
 
 ## Revision History
 
-| Date | Author | Change |
-|------|--------|--------|
+| Date       | Author    | Change          |
+| ---------- | --------- | --------------- |
 | YYYY-MM-DD | @username | Initial version |

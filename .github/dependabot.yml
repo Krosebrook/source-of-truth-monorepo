@@ -1,0 +1,128 @@
+version: 2
+updates:
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    reviewers:
+      - "Krosebrook"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  # npm (root)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "npm"
+    versioning-strategy: increase
+    reviewers:
+      - "Krosebrook"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    ignore:
+      # Ignore major updates for critical packages (handle manually)
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "prettier"
+        update-types: ["version-update:semver-major"]
+
+  # Agents - Claude
+  - package-ecosystem: "npm"
+    directory: "/agents/claude-agent"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "agents"
+    commit-message:
+      prefix: "chore(deps/claude-agent)"
+
+  # Agents - Codex
+  - package-ecosystem: "npm"
+    directory: "/agents/codex-agent"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "agents"
+    commit-message:
+      prefix: "chore(deps/codex-agent)"
+
+  # Agents - Gemini
+  - package-ecosystem: "npm"
+    directory: "/agents/gemini-agent"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "agents"
+    commit-message:
+      prefix: "chore(deps/gemini-agent)"
+
+  # Agents - GitHub
+  - package-ecosystem: "npm"
+    directory: "/agents/github-agent"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "agents"
+    commit-message:
+      prefix: "chore(deps/github-agent)"
+
+  # Shared - Logging
+  - package-ecosystem: "npm"
+    directory: "/shared/logging"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "shared"
+    commit-message:
+      prefix: "chore(deps/logging)"
+
+  # Shared - Test Utils
+  - package-ecosystem: "npm"
+    directory: "/shared/test-utils"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "shared"
+    commit-message:
+      prefix: "chore(deps/test-utils)"

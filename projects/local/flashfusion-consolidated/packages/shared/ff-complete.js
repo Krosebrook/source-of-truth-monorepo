@@ -10,12 +10,12 @@ const extended = require('./ff-cli-extended.js');
 
 // Merge all commands
 const allCommands = {
-    ...core.commands,
-    ...extended,
-    
-    // Additional helper commands
-    'help:all': () => {
-        console.log(`
+  ...core.commands,
+  ...extended,
+
+  // Additional helper commands
+  'help:all': () => {
+    console.log(`
 ${core.log ? '' : ''}FlashFusion Developer CLI v2.0.0 - Complete Command Reference
 
 📦 CORE PROJECT SETUP
@@ -128,10 +128,10 @@ ${core.log ? '' : ''}FlashFusion Developer CLI v2.0.0 - Complete Command Referen
   ff:seo:gen                 → AI SEO meta generator for all products
   ff:embed:widget            → Generate embeddable FlashFusion widget
         `);
-    },
+  },
 
-    'status': () => {
-        console.log(`
+  status: () => {
+    console.log(`
 🚀 FlashFusion System Status
 
 📊 Core Services:
@@ -155,10 +155,10 @@ ${core.log ? '' : ''}FlashFusion Developer CLI v2.0.0 - Complete Command Referen
 📈 System Health: Excellent
 🔧 Last Updated: ${new Date().toLocaleString()}
         `);
-    },
+  },
 
-    'quickstart': () => {
-        console.log(`
+  quickstart: () => {
+    console.log(`
 🚀 FlashFusion Quick Start Guide
 
 1️⃣ Initialize Project:
@@ -185,52 +185,52 @@ ${core.log ? '' : ''}FlashFusion Developer CLI v2.0.0 - Complete Command Referen
 
 💡 Need help? Run: ff:help:all
         `);
-    }
+  },
 };
 
 // Main execution logic
 async function main() {
-    const args = process.argv.slice(2);
-    const command = args[0];
+  const args = process.argv.slice(2);
+  const command = args[0];
 
-    if (!command || command === 'help') {
-        allCommands.help();
-        return;
+  if (!command || command === 'help') {
+    allCommands.help();
+    return;
+  }
+
+  if (command === 'quickstart') {
+    allCommands.quickstart();
+    return;
+  }
+
+  if (command === 'status') {
+    allCommands.status();
+    return;
+  }
+
+  // Remove 'ff:' prefix if present
+  const cleanCommand = command.replace(/^ff:/, '');
+
+  if (allCommands[cleanCommand]) {
+    try {
+      await allCommands[cleanCommand]();
+    } catch (error) {
+      console.error(`❌ Command failed: ${error.message}`);
+      process.exit(1);
     }
-
-    if (command === 'quickstart') {
-        allCommands.quickstart();
-        return;
-    }
-
-    if (command === 'status') {
-        allCommands.status(); 
-        return;
-    }
-
-    // Remove 'ff:' prefix if present
-    const cleanCommand = command.replace(/^ff:/, '');
-
-    if (allCommands[cleanCommand]) {
-        try {
-            await allCommands[cleanCommand]();
-        } catch (error) {
-            console.error(`❌ Command failed: ${error.message}`);
-            process.exit(1);
-        }
-    } else {
-        console.error(`❌ Unknown command: ${command}`);
-        console.log('💡 Run "ff:help:all" to see all available commands');
-        process.exit(1);
-    }
+  } else {
+    console.error(`❌ Unknown command: ${command}`);
+    console.log('💡 Run "ff:help:all" to see all available commands');
+    process.exit(1);
+  }
 }
 
 // Make CLI executable
 if (require.main === module) {
-    main().catch(error => {
-        console.error(`❌ ${error.message}`);
-        process.exit(1);
-    });
+  main().catch((error) => {
+    console.error(`❌ ${error.message}`);
+    process.exit(1);
+  });
 }
 
 module.exports = allCommands;

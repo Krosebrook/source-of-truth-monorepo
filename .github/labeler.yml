@@ -1,0 +1,62 @@
+# PR Labeler Configuration
+# Automatically label PRs based on changed files
+
+# Documentation
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: ["docs/**/*", "*.md", "CONTRIBUTING.md", "README.md"]
+
+# Dependencies
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file: ["package.json", "pnpm-lock.yaml", "**/package.json"]
+
+# CI/CD
+ci:
+  - changed-files:
+      - any-glob-to-any-file: [".github/workflows/**/*", ".github/actions/**/*"]
+
+# Configuration
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          ["*.json", "*.yaml", "*.yml", "*.config.js", "*.config.ts", "turbo.json", "renovate.json"]
+
+# Agents
+agents:
+  - changed-files:
+      - any-glob-to-any-file: ["agents/**/*"]
+
+# Shared utilities
+shared:
+  - changed-files:
+      - any-glob-to-any-file: ["shared/**/*"]
+
+# Scripts
+scripts:
+  - changed-files:
+      - any-glob-to-any-file: ["scripts/**/*"]
+
+# Security
+security:
+  - changed-files:
+      - any-glob-to-any-file:
+          ["SECURITY.md", ".github/workflows/security.yml", ".github/workflows/codeql.yml"]
+
+# Tests
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          [
+            "**/*.test.js",
+            "**/*.test.ts",
+            "**/*.spec.js",
+            "**/*.spec.ts",
+            "**/tests/**/*",
+            "**/__tests__/**/*",
+          ]
+
+# Projects
+projects:
+  - changed-files:
+      - any-glob-to-any-file: ["projects/**/*"]
