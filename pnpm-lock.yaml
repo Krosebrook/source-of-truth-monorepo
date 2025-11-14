@@ -301,8 +301,8 @@ importers:
         specifier: ^8.5.6
         version: 8.5.6
       rate-limiter-flexible:
-        specifier: ^3.0.0
-        version: 3.0.6
+        specifier: ^8.2.0
+        version: 8.2.0
       react:
         specifier: ^19.1.1
         version: 19.2.0
@@ -7286,8 +7286,8 @@ packages:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
 
-  rate-limiter-flexible@3.0.6:
-    resolution: {integrity: sha512-tlvbee6lyse/XTWmsuBDS4MT8N65FyM151bPmQlFyfhv9+RIHs7d3rSTXoz0j35H910dM01mH0yTIeWYo8+aAw==}
+  rate-limiter-flexible@8.2.0:
+    resolution: {integrity: sha512-lzpvMBP6GpCJftWP90RHzhCAAPFnO3BKaE6STNc6tPsu/uF6Y7kZDczV45a4Ms/H+5G2qqPFp8kg0l8gxCxcsw==}
 
   raw-body@2.4.1:
     resolution: {integrity: sha512-9WmIKF6mkvA0SLmA2Knm9+qj89e+j1zqgyn8aXGd7+nAduPoqgI9lO57SAZNn/Byzo5P7JhXTyg9PzaJbH73bA==}
@@ -16422,7 +16422,7 @@ snapshots:
 
   range-parser@1.2.1: {}
 
-  rate-limiter-flexible@3.0.6: {}
+  rate-limiter-flexible@8.2.0: {}
 
   raw-body@2.4.1:
     dependencies:
