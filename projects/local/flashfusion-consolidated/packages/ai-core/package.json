@@ -116,7 +116,7 @@
     "connect-pg-simple": "^10.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
-    "drizzle-kit": "^0.31.4",
+    "drizzle-kit": "^0.31.7",
     "drizzle-orm": "^0.44.4",
     "drizzle-zod": "^0.8.2",
     "eslint-plugin-react-hooks": "^5.2.0",
