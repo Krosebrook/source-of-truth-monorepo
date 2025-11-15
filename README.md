@@ -63,17 +63,19 @@ source-of-truth-monorepo/
 git clone git@github.com:Krosebrook/source-of-truth-monorepo.git
 cd source-of-truth-monorepo
 
-# Install dependencies
+# Install dependencies (includes security patches)
 pnpm install
+
+# Run all quality checks
+pnpm format:check
+pnpm lint
+pnpm type-check
 
 # Build all projects
 pnpm build
 
-# Run linting
-pnpm lint
-
-# Run tests
-pnpm test
+# Run tests with coverage
+pnpm test:coverage
 ```
 
 ### Development
@@ -132,6 +134,8 @@ See: [shared/contracts/README.md](shared/contracts/README.md)
 ## Documentation
 
 - [REPO_MAP.md](REPO_MAP.md) - Complete index of all 53 repositories
+- [TEST_GUIDELINES.md](TEST_GUIDELINES.md) - **NEW**: Comprehensive testing standards and best practices
+- [SECURITY_FIXES.md](SECURITY_FIXES.md) - **NEW**: Recent security patches and production hardening
 - [shared/contracts/README.md](shared/contracts/README.md) - Agent contracts
 - [shared/logging/README.md](shared/logging/README.md) - Logging guide
 - [Deploy Keys Setup](docs/how-to/configure-deploy-keys.md) - Mirror sync configuration

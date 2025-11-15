@@ -10,12 +10,21 @@
     "projects/**/*",
     "shared/*"
   ],
+  "pnpm": {
+    "overrides": {
+      "micromatch@<4.0.8": ">=4.0.8",
+      "undici@<5.29.0": ">=5.29.0",
+      "esbuild@<0.25.0": ">=0.25.0",
+      "js-yaml@<4.1.1": ">=4.1.1"
+    }
+  },
   "scripts": {
     "prepare": "husky",
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint || true",
+    "lint": "turbo run lint",
     "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
     "type-check": "turbo run type-check",
     "clean": "turbo run clean",
     "release": "changeset version && pnpm i -r && changeset publish",
@@ -23,7 +32,8 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "security:audit": "pnpm audit --audit-level=low",
     "security:audit:json": "pnpm audit --json",
-    "security:audit:check": "echo 'Running security audit...' && pnpm audit --audit-level=moderate",
+    "security:audit:check": "pnpm audit --audit-level=moderate",
+    "security:fix": "pnpm update --latest micromatch undici esbuild js-yaml && pnpm install",
     "docs:status": "cat docs/.progress.yaml | grep -A 5 'current' || echo 'Progress tracker not found'",
     "docs:resume": "echo '📖 Resume Documentation Work:' && tail -30 docs/SESSION_LOG.md",
     "docs:lint": "markdownlint '**/*.md' --ignore node_modules --ignore '**/node_modules'",

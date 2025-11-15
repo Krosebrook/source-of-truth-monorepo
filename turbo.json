@@ -15,7 +15,13 @@
     },
     "test": {
       "cache": true,
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "outputs": ["coverage/**"]
+    },
+    "test:coverage": {
+      "cache": true,
+      "dependsOn": ["build"],
+      "outputs": ["coverage/**"]
     },
     "type-check": {
       "cache": true,

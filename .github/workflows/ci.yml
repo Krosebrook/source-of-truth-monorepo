@@ -35,22 +35,19 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Check formatting
-        run: pnpm format:check || echo "Format check failed - run 'pnpm format' to fix"
-        continue-on-error: true
+        run: pnpm format:check
 
-      - name: Lint (continue on error)
-        run: pnpm lint || true
+      - name: Lint
+        run: pnpm lint
 
       - name: Type check
-        run: pnpm type-check || echo "Type check skipped for repos without TypeScript"
-        continue-on-error: true
+        run: pnpm type-check
 
       - name: Build
-        run: pnpm build || echo "Build skipped for packages without build script"
+        run: pnpm build
 
       - name: Test
-        run: pnpm test || echo "Tests skipped for packages without test script"
-        continue-on-error: true
+        run: pnpm test
 
       - name: Upload build artifacts
         if: success()
