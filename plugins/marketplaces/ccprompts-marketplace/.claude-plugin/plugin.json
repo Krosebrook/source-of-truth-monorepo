@@ -1,0 +1,40 @@
+{
+  "name": "ccprompts",
+  "version": "0.2.0",
+  "description": "70+ Claude Code slash commands across 12 development phases with Dagger-based safety system, multi-dimensional validation, and specialized agents",
+  "author": {
+    "name": "Claude Code Community",
+    "url": "https://github.com/ursisterbtw/ccprompts"
+  },
+  "repository": "https://github.com/ursisterbtw/ccprompts.git",
+  "license": "MIT",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "ai",
+    "development",
+    "automation",
+    "commands",
+    "workflow",
+    "security",
+    "testing",
+    "deployment",
+    "collaboration",
+    "enterprise",
+    "dagger",
+    "mcp",
+    "agents"
+  ],
+  "agents": [
+    "./.claude/agents/rust-expert.md",
+    "./.claude/agents/python-pro.md",
+    "./.claude/agents/golang-pro.md",
+    "./.claude/agents/javascript-expert.md",
+    "./.claude/agents/bash-shell-scripting.md",
+    "./.claude/agents/fastapi-optimizer.md",
+    "./.claude/agents/documentation-writer.md",
+    "./.claude/agents/performance-optimizer.md",
+    "./.claude/agents/systems-architect.md",
+    "./.claude/agents/agent-template-wizard.md"
+  ]
+}

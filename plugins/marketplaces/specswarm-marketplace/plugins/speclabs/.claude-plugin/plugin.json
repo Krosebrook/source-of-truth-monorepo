@@ -1,0 +1,27 @@
+{
+  "name": "speclabs",
+  "version": "2.2.1",
+  "description": "Experimental laboratory for autonomous development with Agent-Based Orchestration Engine. v2.2.1: PROJECT_PATH now optional (defaults to pwd). v2.2.0: True autonomous execution via Task tool. Use at your own risk.",
+  "author": {
+    "name": "Marty Bonacci",
+    "url": "https://github.com/MartyBonacci"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/MartyBonacci/specswarm",
+  "repository": "https://github.com/MartyBonacci/specswarm",
+  "keywords": [
+    "experimental",
+    "autonomous-development",
+    "orchestration",
+    "debugging",
+    "multi-agent",
+    "test-automation",
+    "validation",
+    "systematic-debugging",
+    "root-cause-analysis",
+    "logging",
+    "monitoring",
+    "playwright",
+    "claude-vision"
+  ]
+}

@@ -1,0 +1,456 @@
+{
+  "name": "claudecode-marketplace",
+  "owner": {
+    "name": "Henrik Soederlund",
+    "email": "whom-wealthy.2z@icloud.com"
+  },
+  "metadata": {
+    "description": "A comprehensive collection of Claude Code plugins including development utilities, planning tools, agents, hooks, and MCP server configurations",
+    "version": "1.1.0",
+    "homepage": "https://github.com/henkisdabro/claudecode-marketplace"
+  },
+  "plugins": [
+    {
+      "name": "project-onboarding",
+      "source": "./.claude-plugin",
+      "description": "Project initialization and context setup",
+      "keywords": ["onboarding", "context", "initialization", "setup"],
+      "category": "commands",
+      "commands": [
+        "./commands/primer.md",
+        "./commands/create-agentsmd-symlink.md"
+      ],
+      "strict": false
+    },
+    {
+      "name": "prompt-engineering",
+      "source": "./.claude-plugin",
+      "description": "Claude Code prompt and instruction optimization",
+      "keywords": ["prompts", "meta", "claude-md", "optimization", "ai-tooling"],
+      "category": "commands",
+      "commands": [
+        "./commands/prompt_writer.md",
+        "./commands/reflection.md"
+      ],
+      "strict": false
+    },
+    {
+      "name": "infrastructure-tools",
+      "source": "./.claude-plugin",
+      "description": "Application containerization and Docker optimization",
+      "keywords": ["docker", "containerization", "deployment", "infrastructure"],
+      "category": "commands",
+      "commands": [
+        "./commands/containerize.md"
+      ],
+      "strict": false
+    },
+    {
+      "name": "strategic-planning",
+      "source": "./.claude-plugin",
+      "description": "Feature planning and deep problem analysis",
+      "keywords": ["planning", "analysis", "architecture", "problem-solving"],
+      "category": "commands",
+      "commands": [
+        "./commands/planning.md",
+        "./commands/ultra-think.md"
+      ],
+      "strict": false
+    },
+    {
+      "name": "prp-workflow",
+      "source": "./.claude-plugin",
+      "description": "PRP-based feature development workflow",
+      "keywords": ["prp", "workflow", "feature-development", "structured-engineering"],
+      "category": "commands",
+      "commands": [
+        "./commands/generate-prp.md",
+        "./commands/execute-prp.md"
+      ],
+      "strict": false
+    },
+    {
+      "name": "experimental-workflows",
+      "source": "./.claude-plugin",
+      "description": "Advanced infinite agentic loop for iterative generation",
+      "keywords": ["experimental", "advanced", "iterative", "agentic", "automation"],
+      "category": "commands",
+      "commands": [
+        "./commands/infinite.md"
+      ],
+      "strict": false
+    },
+    {
+      "name": "parallel-execution",
+      "source": "./.claude-plugin",
+      "description": "Execute tasks in parallel for efficiency",
+      "keywords": ["parallel", "execution", "performance", "efficiency"],
+      "category": "commands",
+      "commands": [
+        "./commands/prep-parallel.md",
+        "./commands/execute-parallel.md"
+      ],
+      "strict": false
+    },
+    {
+      "name": "fullstack-developer",
+      "source": "./.claude-plugin",
+      "description": "Full-stack development agent",
+      "keywords": ["fullstack", "development", "react", "nodejs", "database", "agent"],
+      "category": "agents",
+      "agents": ["./agents/fullstack-developer.md"],
+      "strict": false
+    },
+    {
+      "name": "documentation-manager",
+      "source": "./.claude-plugin",
+      "description": "Documentation specialist agent",
+      "keywords": ["documentation", "readme", "technical-writing", "agent"],
+      "category": "agents",
+      "agents": ["./agents/documentation-manager.md"],
+      "strict": false
+    },
+    {
+      "name": "validation-gates",
+      "source": "./.claude-plugin",
+      "description": "Testing and validation agent",
+      "keywords": ["testing", "validation", "quality", "agent"],
+      "category": "agents",
+      "agents": ["./agents/validation-gates.md"],
+      "strict": false
+    },
+    {
+      "name": "mcp-alphavantage",
+      "source": "./.claude-plugin",
+      "description": "Stock market data",
+      "keywords": ["mcp", "stocks", "market-data", "finance"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "alphavantage": {
+          "type": "http",
+          "url": "https://mcp.alphavantage.co/mcp?apikey=${ALPHAVANTAGEAPIKEY}"
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-chrome-devtools",
+      "source": "./.claude-plugin",
+      "description": "Chrome DevTools integration",
+      "keywords": ["mcp", "chrome", "devtools", "debugging"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "chrome-devtools": {
+          "command": "npx",
+          "args": ["chrome-devtools-mcp@latest"]
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-cloudflare-docs",
+      "source": "./.claude-plugin",
+      "description": "Cloudflare documentation access",
+      "keywords": ["mcp", "cloudflare", "documentation", "docs"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "cloudflare-docs": {
+          "command": "npx",
+          "args": ["mcp-remote", "https://docs.mcp.cloudflare.com/sse"]
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-coingecko",
+      "source": "./.claude-plugin",
+      "description": "Cryptocurrency market data",
+      "keywords": ["mcp", "cryptocurrency", "crypto", "market-data"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "coingecko_api": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@coingecko/coingecko-mcp",
+            "--client=claude-code",
+            "--resource=coins,global,search,simple*",
+            "--operation=read"
+          ],
+          "env": {
+            "COINGECKO_DEMO_API_KEY": "${COINGECKO_DEMO_API_KEY}",
+            "COINGECKO_ENVIRONMENT": "demo"
+          }
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-context7",
+      "source": "./.claude-plugin",
+      "description": "Context-aware code understanding",
+      "keywords": ["mcp", "context", "code-analysis", "upstash"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "context7": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@upstash/context7-mcp",
+            "--api-key",
+            "${CONTEXT7_API_KEY}"
+          ]
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-currency-conversion",
+      "source": "./.claude-plugin",
+      "description": "Currency exchange rates",
+      "keywords": ["mcp", "currency", "exchange", "forex"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "currency-conversion": {
+          "command": "npx",
+          "args": ["mcp-remote", "https://currency-mcp.wesbos.com/sse"]
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-fetch",
+      "source": "./.claude-plugin",
+      "description": "Web content fetching",
+      "keywords": ["mcp", "fetch", "web", "http"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "fetch": {
+          "command": "uvx",
+          "args": ["mcp-server-fetch"]
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-firecrawl",
+      "source": "./.claude-plugin",
+      "description": "Web crawling and scraping",
+      "keywords": ["mcp", "crawling", "scraping", "web"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "firecrawl": {
+          "command": "npx",
+          "args": ["-y", "firecrawl-mcp"],
+          "env": {
+            "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
+          }
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-gemini-bridge",
+      "source": "./.claude-plugin",
+      "description": "Gemini AI integration",
+      "keywords": ["mcp", "gemini", "ai", "google"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "gemini-bridge": {
+          "type": "stdio",
+          "command": "uvx",
+          "args": ["gemini-bridge"],
+          "env": {}
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-google-workspace",
+      "source": "./.claude-plugin",
+      "description": "Google Workspace integration",
+      "keywords": ["mcp", "google", "workspace", "gmail", "drive"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "google_workspace": {
+          "command": "uvx",
+          "args": ["workspace-mcp"],
+          "env": {
+            "GOOGLE_OAUTH_CLIENT_ID": "${GOOGLE_OAUTH_CLIENT_ID}",
+            "GOOGLE_OAUTH_CLIENT_SECRET": "${GOOGLE_OAUTH_CLIENT_SECRET}",
+            "OAUTHLIB_INSECURE_TRANSPORT": "1"
+          }
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-microsoft-docs",
+      "source": "./.claude-plugin",
+      "description": "Microsoft documentation access",
+      "keywords": ["mcp", "microsoft", "documentation", "docs"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "microsoft_docs": {
+          "type": "http",
+          "url": "https://learn.microsoft.com/api/mcp"
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-mikrotik",
+      "source": "./.claude-plugin",
+      "description": "MikroTik router management",
+      "keywords": ["mcp", "mikrotik", "router", "network"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "mikrotik": {
+          "command": "uvx",
+          "args": [
+            "mcp-server-mikrotik",
+            "--host",
+            "${MIKROTIK_HOST}",
+            "--username",
+            "${MIKROTIK_USER}",
+            "--password",
+            "${MIKROTIK_PASSWORD}",
+            "--port",
+            "2200"
+          ]
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-n8n",
+      "source": "./.claude-plugin",
+      "description": "n8n workflow automation",
+      "keywords": ["mcp", "n8n", "automation", "workflows"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "n8n-mcp": {
+          "command": "npx",
+          "args": ["n8n-mcp"],
+          "env": {
+            "MCP_MODE": "stdio",
+            "LOG_LEVEL": "error",
+            "DISABLE_CONSOLE_OUTPUT": "true",
+            "N8N_API_URL": "https://n8n.wookstar.com/",
+            "N8N_API_KEY": "${N8N_API_KEY}"
+          }
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-notion",
+      "source": "./.claude-plugin",
+      "description": "Notion workspace integration",
+      "keywords": ["mcp", "notion", "workspace", "notes"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "notion": {
+          "type": "http",
+          "url": "https://mcp.notion.com/mcp"
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-open-meteo",
+      "source": "./.claude-plugin",
+      "description": "Weather and climate data",
+      "keywords": ["mcp", "weather", "climate", "forecast"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "open-meteo": {
+          "command": "npx",
+          "args": ["open-meteo-mcp-server"],
+          "env": {
+            "OPEN_METEO_API_URL": "https://api.open-meteo.com",
+            "OPEN_METEO_AIR_QUALITY_API_URL": "https://air-quality-api.open-meteo.com",
+            "OPEN_METEO_MARINE_API_URL": "https://marine-api.open-meteo.com",
+            "OPEN_METEO_ARCHIVE_API_URL": "https://archive-api.open-meteo.com",
+            "OPEN_METEO_SEASONAL_API_URL": "https://seasonal-api.open-meteo.com",
+            "OPEN_METEO_ENSEMBLE_API_URL": "https://ensemble-api.open-meteo.com",
+            "OPEN_METEO_GEOCODING_API_URL": "https://geocoding-api.open-meteo.com"
+          }
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-perplexity",
+      "source": "./.claude-plugin",
+      "description": "Ai-powered search and information retrieval",
+      "keywords": ["mcp", "ai", "information", "search"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "perplexity": {
+          "command": "npx",
+          "args": ["-y", "@perplexity-ai/mcp-server"],
+          "env": {
+            "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}"
+          }
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-playwright",
+      "source": "./.claude-plugin",
+      "description": "Browser automation with Playwright",
+      "keywords": ["mcp", "playwright", "browser", "automation"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "playwright": {
+          "command": "npx",
+          "args": ["@playwright/mcp@latest"]
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-serena",
+      "source": "./.claude-plugin",
+      "description": "AI planning and task management",
+      "keywords": ["mcp", "ai", "planning", "tasks"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "serena": {
+          "type": "stdio",
+          "command": "uvx",
+          "args": [
+            "--from",
+            "git+https://github.com/oraios/serena",
+            "serena",
+            "start-mcp-server",
+            "--context",
+            "ide-assistant",
+            "--mode",
+            "planning",
+            "--enable-web-dashboard",
+            "FALSE"
+          ],
+          "env": {}
+        }
+      },
+      "strict": false
+    },
+    {
+      "name": "mcp-time",
+      "source": "./.claude-plugin",
+      "description": "Time and timezone utilities",
+      "keywords": ["mcp", "time", "timezone", "datetime"],
+      "category": "mcpServers",
+      "mcpServers": {
+        "time": {
+          "command": "uvx",
+          "args": ["mcp-server-time", "--local-timezone=Australia/Perth"]
+        }
+      },
+      "strict": false
+    }
+  ]
+}

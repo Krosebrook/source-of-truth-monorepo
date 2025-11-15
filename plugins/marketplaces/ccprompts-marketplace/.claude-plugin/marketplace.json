@@ -1,0 +1,24 @@
+{
+  "name": "ccprompts-marketplace",
+  "displayName": "CC Prompts Official Marketplace",
+  "description": "Official marketplace for the CC Prompts comprehensive command ecosystem",
+  "version": "1.0.0",
+  "owner": {
+    "name": "Claude Code Community",
+    "url": "https://github.com/ursisterbtw/ccprompts"
+  },
+  "plugins": [
+    {
+      "name": "ccprompts",
+      "source": "./",
+      "description": "70+ Claude Code slash commands across 12 development phases with Dagger-based safety system",
+      "version": "0.2.0"
+    }
+  ],
+  "metadata": {
+    "created": "2024-10-14",
+    "updated": "2024-10-14",
+    "repository": "https://github.com/ursisterbtw/ccprompts",
+    "license": "MIT"
+  }
+}
