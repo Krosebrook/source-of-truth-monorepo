@@ -13,5 +13,5 @@ export function embed(text: string): number[] {
     vec[hash % DIM] += 1;
   }
   const norm = Math.sqrt(vec.reduce((sum, value) => sum + value * value, 0)) || 1;
-  return vec.map((value) => value / norm);
+  return vec.map(value => value / norm);
 }

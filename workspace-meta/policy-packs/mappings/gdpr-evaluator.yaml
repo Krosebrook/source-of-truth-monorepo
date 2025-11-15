@@ -1,0 +1,25 @@
+policy: GDPR
+evaluator_agent: Evaluator-PolicyShield-GDPR
+approved_by: Alex Morgan (Compliance Lead)
+approved_at: 2025-11-05T10:45:00-07:00
+checks:
+  consent-record-present:
+    data_source: databricks.flashfusion.consent_events
+    severity: high
+    notes: Verifies explicit consent records exist per user and purpose.
+  consent-revocation-supported:
+    data_source: databricks.flashfusion.consent_revocations
+    severity: medium
+    notes: Ensures revocation workflow executes within SLA (<48h).
+  pii-field-audit:
+    data_source: databricks.flashfusion.field_inventory
+    severity: high
+    notes: Confirms collected fields match minimization catalogue.
+  deletion-request-flow:
+    data_source: databricks.flashfusion.erasure_requests
+    severity: high
+    notes: Validates cascade deletion completion timestamps and audit logging.
+  incident-timer-enforced:
+    data_source: ops.incident_bridge
+    severity: critical
+    notes: Confirms 72-hour GDPR breach notifications triggered with timer guard.

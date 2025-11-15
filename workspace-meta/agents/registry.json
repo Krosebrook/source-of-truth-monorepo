@@ -1,0 +1,61 @@
+{
+  "generated_at": "2025-11-02T09:00:00-05:00",
+  "registry_version": "2025-Q4",
+  "agents": [
+    {
+      "id": "orchestrator",
+      "name": "Claude Sonnet 4.5 Orchestrator",
+      "purpose": "Intake goals, draft plans, allocate budgets, and coordinate tool/agent execution.",
+      "owner": "Kyler",
+      "risk_tier": "medium",
+      "last_validation_date": "2025-11-02",
+      "primary_docs": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "docs/intake.md"
+      ],
+      "confidence_threshold": 0.85
+    },
+    {
+      "id": "auditor",
+      "name": "Compliance Auditor",
+      "purpose": "Maintain compliance_log.json, SBOM/SLSA attestations, and rollback plans.",
+      "owner": "Kyler",
+      "risk_tier": "high",
+      "last_validation_date": "2025-10-15",
+      "primary_docs": [
+        "AGENTS.md",
+        "SBOM_SLSA_SECURITY.md",
+        "EU_AI_ACT_COMPLIANCE.md"
+      ],
+      "confidence_threshold": 0.9
+    },
+    {
+      "id": "knowledge-synthesizer",
+      "name": "Knowledge Synthesizer",
+      "purpose": "Convert outcomes into playbooks, backlog entries, and training data.",
+      "owner": "Kyler",
+      "risk_tier": "medium",
+      "last_validation_date": "2025-10-28",
+      "primary_docs": [
+        "AGENTS.md",
+        "docs/sessions/SESSION_CONTINUITY_LOG.md",
+        "CHECKPOINT.md"
+      ],
+      "confidence_threshold": 0.85
+    },
+    {
+      "id": "safety-evaluator",
+      "name": "Safety Evaluator",
+      "purpose": "Run jailbreak, policy, and regression evaluations prior to release.",
+      "owner": "Kyler",
+      "risk_tier": "high",
+      "last_validation_date": "2025-10-20",
+      "primary_docs": [
+        "AGENTS.md",
+        "EU_AI_ACT_COMPLIANCE.md"
+      ],
+      "confidence_threshold": 0.9
+    }
+  ]
+}

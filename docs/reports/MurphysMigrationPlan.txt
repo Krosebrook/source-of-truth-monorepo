@@ -1,0 +1,362 @@
+================================================================================
+MURPHY'S LAW WSL MIGRATION PLAN - EVERYTHING THAT CAN GO WRONG, WILL
+================================================================================
+Generated: 2025-09-21
+Author: 20-Year Dev Perspective
+Environment: WSL2 Ubuntu on Windows
+
+================================================================================
+CURRENT STATE ASSESSMENT
+================================================================================
+
+WHAT YOU HAVE:
+- WSL2 Ubuntu installed and running
+- Windows Node.js/npm bleeding into WSL PATH
+- 60+ global npm packages installed in Windows
+- Projects on D: drive (/mnt/d/01_Projects/Active/)
+- Mixed GitBash/WSL/Windows tool usage
+- VS Code/Cursor with partial WSL integration
+
+PROBLEMS IDENTIFIED:
+- No native Linux Node.js in WSL
+- PATH contamination from Windows
+- npm showing from Windows but node.exe not executable
+- Potential permission issues with Windows drives
+- Mixed line endings (CRLF vs LF)
+- Package manager confusion (npm, pnpm, bun all present)
+
+================================================================================
+PHASE 0: BACKUP EVERYTHING (PARANOID MODE)
+================================================================================
+
+1. DOCUMENT CURRENT STATE:
+   mkdir -p ~/migration-backup/$(date +%Y%m%d)
+   cd ~/migration-backup/$(date +%Y%m%d)
+
+   # Save all current configurations
+   echo $PATH > current-path.txt
+   env > current-env.txt
+   alias > current-aliases.txt
+   npm list -g --depth=0 > npm-global-packages.txt 2>&1
+
+   # Save Windows npm config
+   cp -r /mnt/c/Users/kyler/.npmrc ./windows-npmrc-backup 2>/dev/null
+
+   # Document all installed tools
+   which -a node npm npx git docker code cursor > tool-locations.txt 2>&1
+
+   # Save bash configuration
+   cp ~/.bashrc ./bashrc-backup
+   cp ~/.profile ./profile-backup 2>/dev/null
+
+   # Git configurations
+   git config --list > git-config-backup.txt
+
+2. CREATE INSTANT ROLLBACK SCRIPT:
+   cat > ~/rollback-wsl.sh << 'EOF'
+   #!/bin/bash
+   echo "Rolling back WSL changes..."
+   cp ~/migration-backup/$(date +%Y%m%d)/bashrc-backup ~/.bashrc
+   source ~/.bashrc
+   echo "Rollback complete. Exit terminal and reopen."
+   EOF
+   chmod +x ~/rollback-wsl.sh
+
+================================================================================
+PHASE 1: INSTALL PROPER WSL NODE.JS (WITH EVERY SAFETY CHECK)
+================================================================================
+
+METHOD A: APT PACKAGE MANAGER (STABLE BUT OLDER)
+```bash
+# First, check what versions are available
+apt-cache policy nodejs
+apt-cache policy npm
+
+# Install with sudo (you'll need your Windows password)
+sudo apt update
+sudo apt install -y nodejs npm
+
+# Verify installation
+/usr/bin/node --version  # Should show v18.x or higher
+/usr/bin/npm --version   # Should show 9.x or higher
+```
+
+METHOD B: NODESOURCE REPOSITORY (LATEST LTS)
+```bash
+# Add NodeSource repository for latest LTS
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# This includes npm with Node.js
+```
+
+METHOD C: NVM (VERSION MANAGEMENT - RECOMMENDED)
+```bash
+# NVM already installed, just activate and use
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm install --lts
+nvm use --lts
+nvm alias default lts/*
+```
+
+================================================================================
+PHASE 2: PATH SURGERY (CRITICAL - DO NOT SKIP)
+================================================================================
+
+1. DIAGNOSE PATH CONTAMINATION:
+```bash
+# See where Windows paths are leaking in
+echo $PATH | tr ':' '\n' | grep -E "^/mnt/c"
+
+# Find which npm/node is being used
+which -a node
+which -a npm
+```
+
+2. CLEAN PATH IN .bashrc:
+```bash
+# Add to ~/.bashrc BEFORE any PATH modifications
+# This removes Windows paths from WSL
+
+cat >> ~/.bashrc << 'EOF'
+
+# WSL Path Cleanup - Remove Windows contamination
+export PATH=$(echo "$PATH" | tr ':' '\n' | grep -v "^/mnt/c/Program Files/nodejs" | grep -v "^/mnt/c/Users/kyler/AppData/Roaming/npm" | tr '\n' ':')
+
+# Ensure WSL tools take precedence
+export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
+
+# Add back only essential Windows tools if needed
+export PATH="$PATH:/mnt/c/Program Files/Git/cmd"
+export PATH="$PATH:/mnt/c/Program Files/Docker/Docker/resources/bin"
+
+EOF
+
+# Reload configuration
+source ~/.bashrc
+```
+
+3. VERIFY CLEAN ENVIRONMENT:
+```bash
+which node  # Should show /usr/bin/node or ~/.nvm/versions/...
+which npm   # Should show /usr/bin/npm or ~/.nvm/versions/...
+```
+
+================================================================================
+PHASE 3: REINSTALL CRITICAL TOOLS (INCREMENTALLY)
+================================================================================
+
+1. ESSENTIAL GLOBAL PACKAGES ONLY:
+```bash
+# Start with absolute minimum
+npm install -g @openai/codex
+npm install -g typescript
+npm install -g @anthropic-ai/claude-code
+
+# Test each one works
+codex --version
+tsc --version
+claude --version
+```
+
+2. PROJECT-SPECIFIC PACKAGES (DON'T INSTALL GLOBALLY):
+```bash
+# Navigate to a test project
+cd /mnt/d/01_Projects/Active/AuthConnect
+
+# Clean install with WSL npm
+rm -rf node_modules package-lock.json
+npm install
+
+# Test the build
+npm run build || npm run dev || npm start
+```
+
+================================================================================
+PHASE 4: COMMON FAILURES AND FIXES
+================================================================================
+
+PROBLEM: sudo keeps asking for password
+FIX: Run `sudo -v` first to cache credentials
+
+PROBLEM: npm EACCES permission errors
+FIX:
+```bash
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+PROBLEM: Windows line endings breaking scripts
+FIX:
+```bash
+# Install dos2unix
+sudo apt install dos2unix
+# Convert files
+find . -type f -name "*.sh" -exec dos2unix {} \;
+```
+
+PROBLEM: npm can't find Python for node-gyp
+FIX:
+```bash
+sudo apt install python3 python3-pip build-essential
+```
+
+PROBLEM: Git commits show wrong line endings
+FIX:
+```bash
+git config --global core.autocrlf input
+git config --global core.eol lf
+```
+
+PROBLEM: VS Code using wrong terminal
+FIX:
+- Open VS Code settings (Ctrl+,)
+- Search "terminal.integrated.defaultProfile.windows"
+- Set to "WSL" or "Ubuntu"
+
+PROBLEM: Docker not working in WSL
+FIX:
+- Install Docker Desktop for Windows
+- Enable WSL2 integration in Docker Desktop settings
+- Restart WSL: `wsl --shutdown` then reopen
+
+================================================================================
+PHASE 5: PROJECT MIGRATION STRATEGY
+================================================================================
+
+DON'T MOVE PROJECTS - ACCESS THEM PROPERLY:
+
+1. KEEP PROJECTS ON D: DRIVE
+   - Already at /mnt/d/01_Projects/
+   - Accessible from both Windows and WSL
+   - No need to duplicate or move
+
+2. OPTIMIZE WSL FILE ACCESS:
+```bash
+# Add to ~/.bashrc for quick access
+echo 'alias projects="cd /mnt/d/01_Projects/Active"' >> ~/.bashrc
+echo 'export PROJECTS="/mnt/d/01_Projects/Active"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+3. FIX SLOW FILE ACCESS:
+```bash
+# Create /etc/wsl.conf if it doesn't exist
+sudo tee /etc/wsl.conf << 'EOF'
+[automount]
+enabled = true
+options = "metadata,umask=22,fmask=111"
+mountFsTab = false
+
+[interop]
+enabled = true
+appendWindowsPath = false  # This stops Windows PATH contamination
+
+[network]
+generateResolvConf = true
+EOF
+
+# Restart WSL for changes to take effect
+# From PowerShell: wsl --shutdown
+```
+
+================================================================================
+PHASE 6: VERIFY EVERYTHING WORKS
+================================================================================
+
+CHECKLIST (Run each command):
+```bash
+# Core tools
+[ -x "$(command -v node)" ] && echo "✓ Node.js installed" || echo "✗ Node.js missing"
+[ -x "$(command -v npm)" ] && echo "✓ npm installed" || echo "✗ npm missing"
+[ -x "$(command -v git)" ] && echo "✓ Git installed" || echo "✗ Git missing"
+
+# Correct versions
+node --version | grep -E "v(18|20|22)" && echo "✓ Node version OK" || echo "✗ Node version issue"
+
+# No Windows contamination
+which npm | grep -v "/mnt/c" && echo "✓ npm is WSL native" || echo "✗ npm from Windows"
+
+# Can build a project
+cd /mnt/d/01_Projects/Active/AuthConnect
+npm install && echo "✓ npm install works" || echo "✗ npm install failed"
+```
+
+================================================================================
+PHASE 7: DOCUMENTATION FOR FUTURE YOU
+================================================================================
+
+CREATE ~/.wsl-setup-complete FILE:
+```bash
+cat > ~/.wsl-setup-complete << 'EOF'
+WSL Setup Completed: $(date)
+
+What was done:
+1. Installed Node.js/npm via: [METHOD USED]
+2. Cleaned PATH to remove Windows Node.js
+3. Installed global packages: @openai/codex, typescript, claude-code
+4. Tested with project: AuthConnect
+5. Created rollback script at: ~/rollback-wsl.sh
+
+Key Commands:
+- Check Node: node --version
+- Check npm: npm --version
+- Go to projects: cd /mnt/d/01_Projects/Active
+- Rollback if needed: ~/rollback-wsl.sh
+
+Global packages installed:
+$(npm list -g --depth=0)
+
+Notes for next terminal session:
+- Everything should just work
+- If npm shows Windows path, run: source ~/.bashrc
+- If permission errors, check ~/.npm-global setup
+EOF
+```
+
+================================================================================
+EMERGENCY PROCEDURES
+================================================================================
+
+IF EVERYTHING BREAKS:
+1. Exit current terminal
+2. Open new WSL terminal
+3. Run: ~/rollback-wsl.sh
+4. Use GitBash as fallback
+
+IF PARTIALLY BROKEN:
+- Use full paths: /usr/bin/npm install
+- Temporarily use Windows: /mnt/c/Program\ Files/nodejs/npm.cmd
+
+IF PROJECT WON'T BUILD:
+1. Check node_modules permissions: ls -la node_modules/
+2. Clear all caches: npm cache clean --force
+3. Delete and reinstall: rm -rf node_modules package-lock.json && npm i
+
+================================================================================
+FINAL NOTES
+================================================================================
+
+TIME REQUIRED: 15-20 minutes if everything goes right, 45 minutes if not
+
+SUCCESS CRITERIA:
+- Native Linux Node.js running in WSL
+- Can build at least one D: drive project
+- Windows tools still accessible if needed
+- Clear rollback path documented
+
+WHAT WE'RE NOT DOING (ON PURPOSE):
+- Not moving projects from D: drive
+- Not deleting Windows Node.js
+- Not touching GitBash setup
+- Not doing complex Docker/Kubernetes setup
+- Not migrating all 60+ global packages at once
+
+Remember: Perfect is the enemy of good. Get it working, document it, improve iteratively.
+
+================================================================================
+END OF PLAN - GOOD LUCK, FUTURE YOU
+================================================================================

@@ -1,0 +1,25 @@
+policy: SOX
+evaluator_agent: Evaluator-FinControls-SOX
+approved_by: Dana Ruiz (Finance Compliance Lead)
+approved_at: 2025-11-05T10:52:00-07:00
+checks:
+  change-approval-record:
+    data_source: databricks.finance.change_control_log
+    severity: critical
+    notes: Ensures approvals documented with dual sign-off before deployment.
+  separation-of-duties:
+    data_source: databricks.finance.access_matrix
+    severity: high
+    notes: Validates no single operator both develops and deploys financial changes.
+  quarterly-access-review:
+    data_source: databricks.finance.access_review_attestations
+    severity: critical
+    notes: Confirms quarterly attestations filed; pending export path update by 2025-11-30.
+  append-only-log-verification:
+    data_source: databricks.finance.audit_log
+    severity: high
+    notes: Checks immutable log signatures and retention policy adherence.
+  recovery-drill-evidence:
+    data_source: databricks.finance.drill_records
+    severity: medium
+    notes: Verifies quarterly backup/restore tests executed with documented outcomes.

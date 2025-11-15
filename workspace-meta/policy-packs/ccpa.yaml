@@ -1,0 +1,48 @@
+spec_version: 3.1
+policy: CCPA
+version: 2025-10-29
+owners:
+  - role: Compliance Lead
+    contact: compliance@flashfusion.internal
+evaluator_agent: Evaluator-PolicyShield-CCPA
+scope:
+  data_subjects: California residents
+  data_types:
+    - personal_information
+    - household_information
+requirements:
+  disclosure_rights:
+    description: Provide summary of collected data categories and purposes on request.
+    evaluator_checks:
+      - name: disclosure-request-response
+        severity: high
+  opt_out_sales:
+    description: Offer opt-out for data sale/sharing workflows.
+    evaluator_checks:
+      - name: opt-out-link-present
+        severity: medium
+  deletion_rights:
+    description: Process deletion within 45 days with verification steps.
+    evaluator_checks:
+      - name: ccpa-deletion-flow
+        severity: high
+  non_discrimination:
+    description: Prevent differential treatment for exercising privacy rights.
+    evaluator_checks:
+      - name: benefit-access-audit
+        severity: medium
+claims_check:
+  confirmed:
+    - Requirement set mirrors governance guidance in `agents.md`.
+    - Evaluator mapping approved 2025-11-05 by Alex Morgan (Compliance Lead).
+  assumptions:
+    - Data inventory tool exposes category mappings to evaluators.
+  gaps:
+    - Pending legal review for 2025 amendments (AB 1194) with updates due 2025-12-31.
+  approvals:
+    - reviewer: Alex Morgan (Compliance Lead)
+      approved_at: 2025-11-05T10:45:00-07:00
+      evidence: policy-packs/mappings/ccpa-evaluator.yaml
+  pending_updates:
+    - description: Capture AB 1194-driven evaluator changes during 2025 quarterly review.
+      due: 2025-12-31

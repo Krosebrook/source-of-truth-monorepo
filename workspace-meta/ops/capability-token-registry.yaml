@@ -1,0 +1,43 @@
+spec_version: 1.0
+last_updated: 2025-10-29
+environments:
+  production:
+    orchestrator:
+      owner: ai-ops@flashfusion.internal
+      secret_path: secrets/flashfusion/capability/orchestrator/prod
+      rotation_interval_days: 30
+      last_rotated: 2025-10-27
+    evaluator:
+      owner: safety@flashfusion.internal
+      secret_path: secrets/flashfusion/capability/evaluator/prod
+      rotation_interval_days: 30
+      last_rotated: 2025-10-27
+  staging:
+    orchestrator:
+      owner: ai-ops@flashfusion.internal
+      secret_path: secrets/flashfusion/capability/orchestrator/stage
+      rotation_interval_days: 30
+      last_rotated: 2025-10-25
+    evaluator:
+      owner: safety@flashfusion.internal
+      secret_path: secrets/flashfusion/capability/evaluator/stage
+      rotation_interval_days: 30
+      last_rotated: 2025-10-25
+  sandbox:
+    orchestrator:
+      owner: ai-ops@flashfusion.internal
+      secret_path: secrets/flashfusion/capability/orchestrator/sbx
+      rotation_interval_days: 30
+      last_rotated: 2025-10-22
+    evaluator:
+      owner: safety@flashfusion.internal
+      secret_path: secrets/flashfusion/capability/evaluator/sbx
+      rotation_interval_days: 30
+      last_rotated: 2025-10-22
+claims_check:
+  confirmed:
+    - Registry structure supports runbook references and shared secrets manager paths.
+  assumptions:
+    - Secrets manager path naming matches DevOps conventions.
+  gaps:
+    - Populate `last_rotated` values after first validation cycle with DevOps.

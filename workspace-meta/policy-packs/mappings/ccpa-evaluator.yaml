@@ -1,0 +1,25 @@
+policy: CCPA
+evaluator_agent: Evaluator-PolicyShield-CCPA
+approved_by: Alex Morgan (Compliance Lead)
+approved_at: 2025-11-05T10:47:00-07:00
+checks:
+  disclosure-request-response:
+    data_source: databricks.flashfusion.ccpa_disclosure_requests
+    severity: high
+    notes: Confirms category disclosure delivered within 45-day SLA.
+  opt-out-link-present:
+    data_source: telemetry.web_sessions.opt_out_events
+    severity: medium
+    notes: Validates opt-out control rendered and functional across channels.
+  ccpa-deletion-flow:
+    data_source: databricks.flashfusion.ccpa_deletion_pipeline
+    severity: high
+    notes: Tracks deletion status, verification checkpoints, and audit logs.
+  benefit-access-audit:
+    data_source: databricks.flashfusion.benefit_access_audit
+    severity: medium
+    notes: Ensures no discriminatory treatment for users exercising CCPA rights.
+pending_updates:
+  - description: Review AB 1194 amendments; add new checks if required.
+    owner: Alex Morgan
+    due: 2025-12-31

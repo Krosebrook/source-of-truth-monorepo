@@ -1,0 +1,49 @@
+spec_version: 3.1
+policy: SOX
+version: 2025-10-29
+owners:
+  - role: Finance Compliance
+    contact: sox@flashfusion.internal
+evaluator_agent: Evaluator-FinControls-SOX
+scope:
+  processes:
+    - financial_reporting
+    - change_management
+  systems:
+    - general_ledger
+    - revenue_recognition
+controls:
+  change_control:
+    description: Enforce approvals and logging for code/config impacting financial reporting.
+    evaluator_checks:
+      - name: change-approval-record
+        severity: critical
+      - name: separation-of-duties
+        severity: high
+  access_management:
+    description: Enforce least privilege and quarterly access reviews for financial systems.
+    evaluator_checks:
+      - name: quarterly-access-review
+        severity: critical
+  audit_trail:
+    description: Maintain immutable logs for transactions and system changes.
+    evaluator_checks:
+      - name: append-only-log-verification
+        severity: high
+  backup_recovery:
+    description: Test backup/restore for financial data quarterly.
+    evaluator_checks:
+      - name: recovery-drill-evidence
+        severity: medium
+claims_check:
+  confirmed:
+    - Reflects operations handbook emphasis on immutable audit trails and approvals.
+    - Evaluator mapping approved 2025-11-05 by Dana Ruiz (Finance Compliance Lead).
+  assumptions:
+    - Finance systems integrated with telemetry correlation for traceability.
+  gaps:
+    - Finance PM to confirm quarterly access review export path by 2025-11-30.
+  approvals:
+    - reviewer: Dana Ruiz (Finance Compliance Lead)
+      approved_at: 2025-11-05T10:52:00-07:00
+      evidence: policy-packs/mappings/sox-evaluator.yaml

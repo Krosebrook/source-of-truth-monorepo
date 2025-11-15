@@ -10,5 +10,5 @@ export const gates = {
   },
   finalGoalAligned(ok: boolean) {
     return ok;
-  },
+  }
 };

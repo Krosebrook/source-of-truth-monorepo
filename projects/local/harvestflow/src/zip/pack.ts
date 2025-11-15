@@ -14,11 +14,7 @@ export function zipFlow(flowId: string) {
       if (fs.statSync(full).isDirectory()) {
         addDir(full, relPath);
       } else {
-        zip.addLocalFile(
-          full,
-          path.dirname(relPath) === "." ? "" : path.dirname(relPath),
-          path.basename(relPath)
-        );
+        zip.addLocalFile(full, path.dirname(relPath) === "." ? "" : path.dirname(relPath), path.basename(relPath));
       }
     }
   };
@@ -31,7 +27,7 @@ export function zipMaster() {
   const flowsDir = path.join("out", "flows");
   if (!fs.existsSync(flowsDir)) return;
   const zip = new AdmZip();
-  const files = fs.readdirSync(flowsDir).filter((file) => file.endsWith(".zip"));
+  const files = fs.readdirSync(flowsDir).filter(file => file.endsWith(".zip"));
   for (const file of files) {
     zip.addLocalFile(path.join(flowsDir, file), "flows");
   }

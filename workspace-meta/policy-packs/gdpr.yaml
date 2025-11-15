@@ -1,0 +1,47 @@
+spec_version: 3.1
+policy: GDPR
+version: 2025-10-29
+owners:
+  - role: Compliance Lead
+    contact: compliance@flashfusion.internal
+evaluator_agent: Evaluator-PolicyShield-GDPR
+scope:
+  data_subjects: EU residents
+  data_types:
+    - personal_data
+    - special_category_data
+requirements:
+  consent_management:
+    description: Capture, store, and audit explicit user consent.
+    evaluator_checks:
+      - name: consent-record-present
+        severity: high
+      - name: consent-revocation-supported
+        severity: medium
+  data_minimization:
+    description: Limit collection to necessary fields per workflow.
+    evaluator_checks:
+      - name: pii-field-audit
+        severity: high
+  right_to_erasure:
+    description: Provide deletion workflows with cascade and audit logging.
+    evaluator_checks:
+      - name: deletion-request-flow
+        severity: high
+  breach_notification:
+    description: Notify authorities within 72 hours of confirmed breach.
+    evaluator_checks:
+      - name: incident-timer-enforced
+        severity: critical
+claims_check:
+  confirmed:
+    - Requirements aligned with FlashFusion Agent Operations handbook.
+    - Evaluator mapping approved 2025-11-05 by Alex Morgan (Compliance Lead).
+  assumptions:
+    - Incident response team maintains current contact list in IR playbook.
+  gaps:
+    - None noted; revisit during Q1 2026 compliance refresh.
+  approvals:
+    - reviewer: Alex Morgan (Compliance Lead)
+      approved_at: 2025-11-05T10:45:00-07:00
+      evidence: policy-packs/mappings/gdpr-evaluator.yaml
