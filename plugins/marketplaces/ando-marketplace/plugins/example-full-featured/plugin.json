@@ -1,0 +1,32 @@
+{
+  "name": "example-full-featured",
+  "version": "1.0.0",
+  "description": "Full-featured productivity plugin with Git workflow automation, code review agents, test generation, validation hooks, and example MCP server",
+  "author": {
+    "name": "ando",
+    "email": "ando@kivilaid.ee"
+  },
+  "homepage": "https://github.com/kivilaid/plugin-marketplace",
+  "repository": "https://github.com/kivilaid/plugin-marketplace",
+  "license": "MIT",
+  "keywords": ["git", "workflow", "automation", "code-review", "testing", "productivity"],
+  "commands": [
+    "./commands/clean_gone.md",
+    "./commands/commit-push-pr.md",
+    "./commands/commit.md"
+  ],
+  "agents": [
+    "./agents/code-reviewer.md",
+    "./agents/test-generator.md"
+  ],
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": {
+    "example-server": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/example-server.js"],
+      "env": {
+        "EXAMPLE_VAR": "example-value"
+      }
+    }
+  }
+}

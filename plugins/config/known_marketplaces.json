@@ -1,0 +1,162 @@
+{
+  "claude-code-plugins": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-code"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/claude-code-plugins",
+    "lastUpdated": "2025-11-01T18:48:18.717Z"
+  },
+  "taskmaster": {
+    "source": {
+      "source": "github",
+      "repo": "eyaltoledano/claude-task-master"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/taskmaster",
+    "lastUpdated": "2025-11-01T18:48:55.627Z"
+  },
+  "anthropic-agent-skills": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/skills"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/anthropic-agent-skills",
+    "lastUpdated": "2025-11-01T18:50:00.636Z"
+  },
+  "chrome-devtools-plugins": {
+    "source": {
+      "source": "github",
+      "repo": "ChromeDevTools/chrome-devtools-mcp"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/chrome-devtools-plugins",
+    "lastUpdated": "2025-11-01T18:50:10.167Z"
+  },
+  "claude-code-templates": {
+    "source": {
+      "source": "github",
+      "repo": "davila7/claude-code-templates"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/claude-code-templates",
+    "lastUpdated": "2025-11-01T18:50:26.776Z"
+  },
+  "claude-code-settings": {
+    "source": {
+      "source": "github",
+      "repo": "feiskyer/claude-code-settings"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/claude-code-settings",
+    "lastUpdated": "2025-11-01T18:51:07.307Z"
+  },
+  "fradser-dotclaude": {
+    "source": {
+      "source": "github",
+      "repo": "FradSer/dotclaude"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/fradser-dotclaude",
+    "lastUpdated": "2025-11-01T18:51:25.496Z"
+  },
+  "cc-blueprint-toolkit": {
+    "source": {
+      "source": "github",
+      "repo": "croffasia/cc-blueprint-toolkit"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/cc-blueprint-toolkit",
+    "lastUpdated": "2025-11-01T18:51:34.768Z"
+  },
+  "sub-agents": {
+    "source": {
+      "source": "github",
+      "repo": "Toskysun/sub-agents"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/sub-agents",
+    "lastUpdated": "2025-11-01T18:51:42.610Z"
+  },
+  "superpowers-marketplace": {
+    "source": {
+      "source": "github",
+      "repo": "obra/superpowers-marketplace"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/superpowers-marketplace",
+    "lastUpdated": "2025-11-01T18:51:45.904Z"
+  },
+  "ccprompts-marketplace": {
+    "source": {
+      "source": "github",
+      "repo": "ursisterbtw/ccprompts"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/ccprompts-marketplace",
+    "lastUpdated": "2025-11-01T18:51:50.740Z"
+  },
+  "aws-claude-code-plugins": {
+    "source": {
+      "source": "github",
+      "repo": "aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/aws-claude-code-plugins",
+    "lastUpdated": "2025-11-01T18:52:03.091Z"
+  },
+  "mcp-voice-hooks-marketplace": {
+    "source": {
+      "source": "github",
+      "repo": "johnmatthewtennant/mcp-voice-hooks"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/mcp-voice-hooks-marketplace",
+    "lastUpdated": "2025-11-01T18:52:16.676Z"
+  },
+  "awesome-claude-code-plugins": {
+    "source": {
+      "source": "github",
+      "repo": "ccplugins/awesome-claude-code-plugins"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/awesome-claude-code-plugins",
+    "lastUpdated": "2025-11-01T18:52:42.743Z"
+  },
+  "specswarm-marketplace": {
+    "source": {
+      "source": "github",
+      "repo": "MartyBonacci/specswarm"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/specswarm-marketplace",
+    "lastUpdated": "2025-11-01T18:53:00.182Z"
+  },
+  "genkit-marketplace": {
+    "source": {
+      "source": "github",
+      "repo": "amitpatole/claude-genkit-plugin"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/genkit-marketplace",
+    "lastUpdated": "2025-11-01T18:53:17.027Z"
+  },
+  "docker": {
+    "source": {
+      "source": "github",
+      "repo": "docker/claude-plugins"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/docker",
+    "lastUpdated": "2025-11-01T18:53:24.497Z"
+  },
+  "ai-coding-config": {
+    "source": {
+      "source": "github",
+      "repo": "TechNickAI/ai-coding-config"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/ai-coding-config",
+    "lastUpdated": "2025-11-15T23:21:21.661Z"
+  },
+  "claudecode-marketplace": {
+    "source": {
+      "source": "github",
+      "repo": "henkisdabro/claudecode-marketplace"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/claudecode-marketplace",
+    "lastUpdated": "2025-11-01T18:54:53.250Z"
+  },
+  "ando-marketplace": {
+    "source": {
+      "source": "github",
+      "repo": "kivilaid/plugin-marketplace"
+    },
+    "installLocation": "/home/kyler/.claude/plugins/marketplaces/ando-marketplace",
+    "lastUpdated": "2025-11-01T18:55:30.978Z"
+  }
+}

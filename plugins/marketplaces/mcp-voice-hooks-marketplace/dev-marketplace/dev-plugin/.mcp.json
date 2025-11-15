@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "voice-hooks": {
+      "command": "npx",
+      "args": [
+        "mcp-voice-hooks",
+        "--skip-hooks"
+      ],
+      "env": {
+        "MCP_VOICE_HOOKS_PORT": "5110"
+      }
+    }
+  }
+}

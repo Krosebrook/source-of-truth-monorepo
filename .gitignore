@@ -150,3 +150,28 @@ ENV/
 *.tar.gz
 *.rar
 
+# Claude Code Plugins - Credentials and Secrets
+plugins/**/.credentials.json
+plugins/**/.credentials
+plugins/**/credentials.json
+plugins/**/*credentials*.json
+plugins/**/*.key
+plugins/**/*-key.json
+plugins/**/.env
+plugins/**/.env.*
+!plugins/**/.env.example
+
+# Claude Code Plugins - Cache and Temp
+plugins/.cache/
+plugins/**/.cache/
+plugins/**/node_modules/
+plugins/**/.turbo/
+plugins/**/.next/
+plugins/**/dist/
+plugins/**/build/
+plugins/**/*.log
+
+# Claude Code Plugins - Git repositories (already excluded during copy)
+plugins/**/.git/
+plugins/**/.gitignore
+

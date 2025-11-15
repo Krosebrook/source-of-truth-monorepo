@@ -1,0 +1,34 @@
+{
+  "name": "specswarm",
+  "version": "2.1.0",
+  "description": "Complete software development toolkit: spec-driven workflows, lifecycle management (bugfix/modify/refactor), quality validation, and performance monitoring. v2.1: Enhanced git workflow with parent branch detection.",
+  "author": {
+    "name": "Marty Bonacci",
+    "url": "https://github.com/MartyBonacci"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/MartyBonacci/specswarm",
+  "repository": "https://github.com/MartyBonacci/specswarm",
+  "keywords": [
+    "spec-driven-development",
+    "specification",
+    "requirements",
+    "planning",
+    "implementation",
+    "workflow",
+    "tech-stack",
+    "drift-prevention",
+    "architecture",
+    "quality-validation",
+    "testing",
+    "bugfix",
+    "refactor",
+    "hotfix",
+    "lifecycle-workflows",
+    "chain-bug-detection",
+    "bundle-monitoring",
+    "performance-budgets",
+    "ssr-validation",
+    "multi-framework"
+  ]
+}

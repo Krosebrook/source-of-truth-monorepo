@@ -1,0 +1,6 @@
+{
+  "name": "ccprompts-safety",
+  "engineVersion": "v0.18.19",
+  "sdk": "typescript",
+  "source": "src"
+}
