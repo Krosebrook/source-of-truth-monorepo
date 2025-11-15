@@ -1,3 +1,41 @@
+# Session Intake — 2025-11-15
+
+## Engagement Snapshot
+- **Objective**: Capture current AI-governance best practices from reputable 2025 sources (IIA, Mirantis, Splunk), translate them into actionable artefacts, and stand up the first wave of governance controls (inventory, council charter, telemetry pilot).
+- **Scope**: Research + documentation updates + initial governance scaffolding (no product runtime changes).
+- **Success Metrics**:
+  - Primary sources cited and summarized in `docs/governance/AI_GOVERNANCE_PATHS_2025.md`.
+  - `docs/intake.md`, `docs/DECISIONS.md`, `docs/SESSION_CONTINUITY_LOG.md`, and `docs/compliance/compliance_log.json` updated with the research effort and downstream actions.
+  - AI-system inventory drafted (HarvestFlow, FlashFusion consolidated, project-nexus) and logged in both `docs/governance/AI_SYSTEM_INVENTORY.md` and `workspace-meta/agents/registry.json`.
+  - Governance council charter drafted with RACI + cadence.
+  - OTEL telemetry pilot plan authored with concrete instrumentation + evidence logging steps.
+- **Risk Tier**: Low (documentation + strategy + scaffolding).
+
+## Stakeholders & Roles
+- **Sponsor**: Kyler
+- **Orchestrator**: Codex CLI (Claude Sonnet 4.5)
+- **Supporting Agents**: Knowledge Synthesizer (research + documentation), Auditor (inventory + compliance logging), Safety Evaluator (telemetry pilot guardrails)
+
+## Definition of Ready
+- Network access approved for open-web research (DuckDuckGo/Ecosia/Bing proxies).
+- Governance baselines confirmed (AGENTS charter, EU_AI_ACT_COMPLIANCE.md, SBOM_SLSA_SECURITY.md).
+- Pending artefacts enumerated (inventory doc, updated registry, council charter, telemetry runbook).
+
+## Budgets & Constraints
+- **Thinking Budget**: 4,000 tokens (literature synthesis + multi-doc updates).
+- **Time Budget**: 1.5 person-hours.
+- **Tool Allowlist**: `curl`, `bash`, `apply_patch`; no production systems touched.
+- **Escalation Triggers**: Conflicting governance mandates, inability to reach authoritative sources, or request to modify protected/prod-repo files beyond documentation.
+
+## Verification Checklist
+- Primary + secondary sources cited with URLs and publication dates.
+- Governance summary doc committed with actionable “paths forward”.
+- Intake/decision/session logs + compliance log updated and cross-linked.
+- Inventory JSON + council charter + telemetry pilot runbook created.
+- Registry updated with system owners + validation timestamps.
+
+---
+
 # Session Intake — 2025-11-13
 
 ## Engagement Snapshot

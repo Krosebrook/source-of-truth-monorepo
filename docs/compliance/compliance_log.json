@@ -153,6 +153,59 @@
       "sbom": {
         "status": "not_applicable"
       }
+    },
+    {
+      "id": "ai-governance-refresh-2025-11-15",
+      "timestamp": "2025-11-15T17:45:00-06:00",
+      "risk_tier": "low",
+      "summary": "Documented AI-governance best practices, published inventory, council charter, telemetry pilot plan, and updated registry + logs.",
+      "owner": "Knowledge Synthesizer",
+      "confidence": 0.87,
+      "artefacts": [
+        {
+          "path": "docs/governance/AI_GOVERNANCE_PATHS_2025.md",
+          "sha256": "edb02cd3a9cc86e7e0da042e3eb5621a87e8ef7ad7b728dcb8d81fd71704ce70",
+          "status": "created"
+        },
+        {
+          "path": "docs/governance/AI_SYSTEM_INVENTORY.md",
+          "sha256": "f480e230cea25cc1008c5e51fc78c94528a639089e3c4922cf14f5498c6a2450",
+          "status": "created"
+        },
+        {
+          "path": "docs/governance/AI_GOVERNANCE_COUNCIL_CHARTER.md",
+          "sha256": "a065fee157c02f6e13493f1358a4e0f1631a4039b7a36a2efcf0b8d82447a3aa",
+          "status": "created"
+        },
+        {
+          "path": "docs/runbooks/OTEL_TELEMETRY_PILOT.md",
+          "sha256": "35303e6f67c3c04e910659cc2826f846209d084886497e0e8b25f2260803f94f",
+          "status": "created"
+        },
+        {
+          "path": "docs/intake.md",
+          "sha256": "33f59bc35d489a4abf1971526e9eba6558c11e7665d4edceb08ccaf86ad32be2",
+          "status": "updated"
+        },
+        {
+          "path": "docs/DECISIONS.md",
+          "sha256": "07f34f527820e2f9d2a8f2d58311bbc1d024e559e4ccf4781de9faba55d7e716",
+          "status": "updated"
+        },
+        {
+          "path": "docs/SESSION_CONTINUITY_LOG.md",
+          "sha256": "95a05e00dc43cd3355644d269094a1a7dc7365a334dab520899df4a3620f7b81",
+          "status": "updated"
+        },
+        {
+          "path": "workspace-meta/agents/registry.json",
+          "sha256": "19542f84bfad77404603186db0a6a95464d8786815459263a5cf46d63cfc802b",
+          "status": "updated"
+        }
+      ],
+      "sbom": {
+        "status": "not_applicable"
+      }
     }
   ]
 }

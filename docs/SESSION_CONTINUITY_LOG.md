@@ -48,3 +48,27 @@ Before Phase 1 execution, as per `CHECKPOINT.md`.
 
 ### Next Review Date
 2025-11-14 or immediately after script hardening + repo health tasks complete.
+
+---
+
+## Session: 2025-11-15 - AI Governance Benchmark Refresh
+
+### Summary
+- Surveyed 2025 guidance from The IIA, Mirantis, and Splunk to triangulate actionable AI-governance practices (inventory-first internal audit motion, cross-functional governance council, and compliance/observability fabric).
+- Authored `docs/governance/AI_GOVERNANCE_PATHS_2025.md` with citations plus success signals and immediate actions.
+- Created AI-system inventory covering HarvestFlow, FlashFusion consolidated, and project-nexus; mirrored entries inside `workspace-meta/agents/registry.json`.
+- Drafted governance council charter + RACI + meeting cadence per Mirantis guidance.
+- Authored OTEL telemetry pilot runbook detailing instrumentation of agent workflows and evidence logging expectations.
+
+### Residual Risks
+- **Operationalization Gap**: Inventory + documentation exist but automation/integration with CI pipelines pending.
+- **Source Drift**: Regulatory guidance evolves quickly; need quarterly review cadence to refresh inventory, council charter, and telemetry requirements.
+- **Telemetry Coverage**: Pilot runbook pending execution; no live OTEL traces yet to validate instrumentation.
+
+### Follow-up Items
+- Implement automated inventory sync (scripts to extract system metadata) and tie into compliance log.
+- Convene the governance council per charter (first meeting targeted 2025-11-19) with published minutes.
+- Execute the OTEL telemetry pilot on HarvestFlow orchestrator workflow and log trace IDs / hash evidence in `docs/compliance/compliance_log.json`.
+
+### Next Review Date
+2025-11-18 or upon completion of inventory automation + council kickoff.

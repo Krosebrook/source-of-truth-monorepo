@@ -56,6 +56,48 @@
         "EU_AI_ACT_COMPLIANCE.md"
       ],
       "confidence_threshold": 0.9
+    },
+    {
+      "id": "harvestflow",
+      "name": "HarvestFlow Production System",
+      "purpose": "Run production file-audit + release bundle pipelines for customer workspaces.",
+      "owner": "Kyler",
+      "risk_tier": "high",
+      "last_validation_date": "2025-11-13",
+      "primary_docs": [
+        "projects/local/harvestflow/README.md",
+        "projects/local/harvestflow/docs/governance.md",
+        "docs/governance/AI_SYSTEM_INVENTORY.md"
+      ],
+      "confidence_threshold": 0.9
+    },
+    {
+      "id": "flashfusion-consolidated",
+      "name": "FlashFusion Consolidated Monorepo",
+      "purpose": "Monorepo hosting multi-LLM IDE + marketplace apps (staging).",
+      "owner": "Kyler",
+      "risk_tier": "medium",
+      "last_validation_date": "2025-11-13",
+      "primary_docs": [
+        "docs/reports/BEST_PRACTICES_VALIDATION.md",
+        "docs/SESSION_CONTINUITY_LOG.md",
+        "docs/governance/AI_SYSTEM_INVENTORY.md"
+      ],
+      "confidence_threshold": 0.85
+    },
+    {
+      "id": "project-nexus",
+      "name": "Project-nexus Encore Backend",
+      "purpose": "Prototype Encore services for agent routing + billing experiments.",
+      "owner": "Kyler",
+      "risk_tier": "medium",
+      "last_validation_date": "2025-11-13",
+      "primary_docs": [
+        "docs/planning/CHECKPOINT.md",
+        "docs/SESSION_CONTINUITY_LOG.md",
+        "docs/governance/AI_SYSTEM_INVENTORY.md"
+      ],
+      "confidence_threshold": 0.85
     }
   ]
 }
