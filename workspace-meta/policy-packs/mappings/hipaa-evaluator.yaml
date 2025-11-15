@@ -1,0 +1,33 @@
+policy: HIPAA
+evaluator_agent: Evaluator-HealthGuard-HIPAA
+approved_by: Jordan Lee (Security & Compliance Lead)
+approved_at: 2025-11-05T10:55:00-07:00
+checks:
+  hipaa-training-attestations:
+    data_source: databricks.security.training_attestations
+    severity: high
+    notes: Confirms workforce training completion within annual window.
+  incident-response-plan:
+    data_source: ops.incident_bridge
+    severity: high
+    notes: Validates IR playbook updates and on-call assignments for HIPAA events.
+  encryption-at-rest:
+    data_source: security.kms.audit_reports
+    severity: critical
+    notes: Ensures all PHI stores encrypted with approved KMS keys.
+  transmission-security-check:
+    data_source: security.network.transport_audits
+    severity: critical
+    notes: Verifies TLS enforcement and secure channels for PHI exchange.
+  physical-access-log:
+    data_source: facilities.badge_logs
+    severity: medium
+    notes: Tracks facility access to PHI zones; integrates with SOC monitoring.
+  device-disposal-procedure:
+    data_source: facilities.device_disposal_records
+    severity: medium
+    notes: Confirms sanitization certificates attached for retired PHI devices.
+pending_updates:
+  - description: Link to published BAA catalogue and update checks if new controls are mandated.
+    owner: Jordan Lee
+    due: 2025-11-19

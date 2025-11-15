@@ -5,7 +5,7 @@ export const profile = {
     const xml = `<sys>${input.system}</sys>\n<task>${input.user}</task>`;
     return {
       model: "claude-3-5-sonnet",
-      input: { system: xml },
+      input: { system: xml }
     };
-  },
+  }
 };

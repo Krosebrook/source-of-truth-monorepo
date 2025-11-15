@@ -1,0 +1,2 @@
+This is a test document for secure upload to Anthropic API.
+It demonstrates the secure file upload functionality.

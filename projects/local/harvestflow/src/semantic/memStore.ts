@@ -22,5 +22,5 @@ export const MemStore: VectorStore = {
       return { id, score, meta };
     });
     return results.sort((a, b) => b.score - a.score).slice(0, k);
-  },
+  }
 };

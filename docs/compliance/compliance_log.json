@@ -1,0 +1,158 @@
+{
+  "log_version": "2025-Q4",
+  "generated_at": "2025-11-01T19:12:30-05:00",
+  "entries": [
+    {
+      "id": "doc-refresh-2025-11-01",
+      "timestamp": "2025-11-01T19:12:00-05:00",
+      "risk_tier": "medium",
+      "summary": "Canonical documentation refreshed and supporting governance artefacts created.",
+      "owner": "Orchestrator",
+      "confidence": 0.88,
+      "artefacts": [
+        {
+          "path": "CLAUDE.md",
+          "sha256": "63fa14a839c7ee3d076d4837f3174aed3a0eab26217e8756b7948d81d09de1fa",
+          "status": "updated"
+        },
+        {
+          "path": "AGENTS.md",
+          "sha256": "65d484dfc26910b734006ec0c34d83f9857cca7cb4c833844ea0d0b52ee10858",
+          "status": "updated"
+        },
+        {
+          "path": "README.md",
+          "sha256": "696effcc78521ddd9fb9fd5457fe6e966a30a4ef76e3b66e7cfd996603bf4139",
+          "status": "updated"
+        },
+        {
+          "path": "CHECKPOINT.md",
+          "sha256": "30b91d3b1982fd91bd4add1b02bcd1d0200a4619c9259840562ede3764571c31",
+          "status": "updated"
+        },
+        {
+          "path": "docs/intake.md",
+          "sha256": "0e59650d327484a2e273138d3ce13ed0ab9e20defe15044837d966bb99a64512",
+          "status": "created"
+        },
+        {
+          "path": "docs/DECISIONS.md",
+          "sha256": "014344d6f2761d352a9a441c17ba06e8488a94b97de21bc0cd3b153a494286e5",
+          "status": "created"
+        },
+        {
+          "path": "agents/registry.json",
+          "sha256": "35fbb36ef8301f1d557ebcee9716523bc19ea2b719d33e55779786b7a0815f1c",
+          "status": "created"
+        },
+        {
+          "path": "docs/local-repo-setup.md",
+          "sha256": "7d82ca77752ae71c48567ae289854f977ffa9a2e9f1dd294aeb439be6d50e3e7",
+          "status": "created"
+        }
+      ],
+      "sbom": {
+        "status": "completed",
+        "completed_at": "2025-11-13T10:07:50Z",
+        "artefact_refs": [
+          "artefacts/sbom/canonical-home.spdx.json",
+          "artefacts/sbom/canonical-home.cdx.json"
+        ]
+      }
+    },
+    {
+      "id": "checkpoint-update-2025-11-02",
+      "timestamp": "2025-11-02T09:00:00-05:00",
+      "risk_tier": "medium",
+      "summary": "P0 safety documentation complete as per CHECKPOINT.md update.",
+      "owner": "Orchestrator",
+      "confidence": 0.95,
+      "artefacts": [
+        {
+          "path": "safety-framework.md",
+          "sha256": "PLACEHOLDER_SHA256_SAFETY_FRAMEWORK",
+          "status": "created"
+        },
+        {
+          "path": "verification-protocols.md",
+          "sha256": "PLACEHOLDER_SHA256_VERIFICATION_PROTOCOLS",
+          "status": "created"
+        },
+        {
+          "path": "circuit-breakers.md",
+          "sha256": "PLACEHOLDER_SHA256_CIRCUIT_BREAKERS",
+          "status": "created"
+        },
+        {
+          "path": "rollback-procedures.md",
+          "sha256": "PLACEHOLDER_SHA256_ROLLBACK_PROCEDURES",
+          "status": "created"
+        }
+      ],
+      "sbom": {
+        "status": "completed",
+        "completed_at": "2025-11-13T10:07:50Z",
+        "artefact_refs": [
+          "artefacts/sbom/canonical-home.spdx.json",
+          "artefacts/sbom/canonical-home.cdx.json"
+        ]
+      }
+    },
+    {
+      "id": "sbom-refresh-2025-11-13",
+      "timestamp": "2025-11-13T10:07:50Z",
+      "risk_tier": "medium",
+      "summary": "Generated SPDX and CycloneDX SBOMs for /home/kyler, signed with cosign, and verified signature integrity offline.",
+      "owner": "Auditor",
+      "confidence": 0.92,
+      "artefacts": [
+        {
+          "path": "artefacts/sbom/canonical-home.spdx.json",
+          "sha256": "9bcc4a9accba33169e275d3d7d3fa3300cf6827960d04ca348c6c155db209da1",
+          "status": "created"
+        },
+        {
+          "path": "artefacts/sbom/canonical-home.cdx.json",
+          "sha256": "124b9abee1c110d4efd94760db0d4ee2b6406ac08feeec38a5122083a7f5be01",
+          "status": "created"
+        },
+        {
+          "path": "artefacts/sbom/canonical-home.spdx.sig",
+          "sha256": "429cdcae0d5f38ce59f536278a21a5413ca4e488c96349ff385c2a9e1415cf6a",
+          "status": "created"
+        }
+      ],
+      "sbom": {
+        "status": "completed",
+        "completed_at": "2025-11-13T10:07:50Z",
+        "verification": {
+          "method": "cosign verify-blob --insecure-ignore-tlog",
+          "result": "verified"
+        }
+      }
+    },
+    {
+      "id": "stripe-synthetic-dry-run-2025-11-13",
+      "timestamp": "2025-11-13T11:01:39Z",
+      "risk_tier": "low",
+      "summary": "Validated Stripe environment update script using synthetic test credentials; confirmed backups and guardrails without touching live secrets.",
+      "owner": "Orchestrator",
+      "confidence": 0.9,
+      "artefacts": [
+        {
+          "path": ".env.stripe-test",
+          "sha256": "837c3b1fc7f29fd01713bc44adea53716b87b2da6bd22e65edcdc1a0684884a4",
+          "status": "created"
+        },
+        {
+          "path": ".env.stripe-test.backup.20251113_050139",
+          "sha256": "1c6d12a031c278c277c538a972bd44fa49b758aad421f06a34977c8ab37ca343",
+          "status": "created"
+        }
+      ],
+      "sbom": {
+        "status": "not_applicable"
+      }
+    }
+  ]
+}

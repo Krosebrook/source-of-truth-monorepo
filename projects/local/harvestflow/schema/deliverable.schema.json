@@ -43,6 +43,9 @@
       }
     }
   },
-  "anyOf": [{ "required": ["body"] }, { "required": ["attachments"] }],
+  "anyOf": [
+    { "required": ["body"] },
+    { "required": ["attachments"] }
+  ],
   "additionalProperties": true
 }

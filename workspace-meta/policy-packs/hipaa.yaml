@@ -1,0 +1,53 @@
+spec_version: 3.1
+policy: HIPAA
+version: 2025-10-29
+owners:
+  - role: Security & Compliance
+    contact: hipaa@flashfusion.internal
+evaluator_agent: Evaluator-HealthGuard-HIPAA
+scope:
+  covered_entities:
+    - healthcare_providers
+    - business_associates
+  data_types:
+    - phi
+    - ephi
+safeguards:
+  administrative:
+    description: Policies for workforce training, incident response, and audit controls.
+    evaluator_checks:
+      - name: hipaa-training-attestations
+        severity: high
+      - name: incident-response-plan
+        severity: high
+  technical:
+    description: Access controls, encryption, integrity, and transmission security for PHI.
+    evaluator_checks:
+      - name: encryption-at-rest
+        severity: critical
+      - name: transmission-security-check
+        severity: critical
+  physical:
+    description: Facility access controls and workstation/device security.
+    evaluator_checks:
+      - name: physical-access-log
+        severity: medium
+      - name: device-disposal-procedure
+        severity: medium
+claims_check:
+  confirmed:
+    - Aligns with FlashFusion security hygiene requirements (least privilege, audit logs).
+    - Evaluator mapping approved 2025-11-05 by Jordan Lee (Security & Compliance Lead).
+  assumptions:
+    - PHI handling limited to designated flows documented in `flow_matrix.json`.
+  gaps:
+    - Business Associate Agreement catalogue publication due 2025-11-19 (Security action).
+  approvals:
+    - reviewer: Jordan Lee (Security & Compliance Lead)
+      approved_at: 2025-11-05T10:55:00-07:00
+      evidence: policy-packs/mappings/hipaa-evaluator.yaml
+  pending_updates:
+    - description: Link final BAA catalogue once Security publishes repository path.
+      due: 2025-11-19
+      field: baa_catalogue_link
+baa_catalogue_link: TBD (due 2025-11-19)

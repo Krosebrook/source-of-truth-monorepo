@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "cloud-mcp-k8s": {
+      "transport": {
+        "type": "sse",
+        "url": "http://localhost:3002/sse"
+      }
+    }
+  }
+}
