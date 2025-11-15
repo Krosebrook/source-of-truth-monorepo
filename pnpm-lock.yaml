@@ -226,8 +226,8 @@ importers:
         specifier: ^17.2.3
         version: 17.2.3
       drizzle-kit:
-        specifier: ^0.31.4
-        version: 0.31.6
+        specifier: ^0.31.7
+        version: 0.31.7
       drizzle-orm:
         specifier: ^0.44.4
         version: 0.44.7(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.15.6)(pg@8.16.3)
@@ -13175,10 +13175,10 @@ snapshots:
   esbuild-openbsd-64@0.14.47:
     optional: true
 
-  esbuild-register@3.6.0(esbuild@0.25.11):
+  esbuild-register@3.6.0(esbuild@0.25.12):
     dependencies:
       debug: 4.4.3(supports-color@5.5.0)
-      esbuild: 0.25.11
+      esbuild: 0.25.12
     transitivePeerDependencies:
       - supports-color
 
