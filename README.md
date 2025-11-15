@@ -48,6 +48,7 @@ source-of-truth-monorepo/
 - **CI/CD**: GitHub Actions
 - **Security**: gitleaks, Renovate, pnpm audit
 - **Observability**: Structured JSON logs, OTEL-ready
+- **AI Integration**: MCP (Model Context Protocol) with 14 servers configured
 
 ## Quick Start
 
@@ -65,6 +66,9 @@ cd source-of-truth-monorepo
 
 # Install dependencies
 pnpm install
+
+# Setup MCP servers (optional but recommended for AI-assisted development)
+./scripts/setup-mcp.sh
 
 # Build all projects
 pnpm build
@@ -132,6 +136,8 @@ See: [shared/contracts/README.md](shared/contracts/README.md)
 ## Documentation
 
 - [REPO_MAP.md](REPO_MAP.md) - Complete index of all 53 repositories
+- [MCP Integration Guide](docs/reference/MCP_INTEGRATION_GUIDE.md) - AI-assisted development setup
+- [MCP Quick Start](docs/reference/MCP_QUICK_START.txt) - Quick reference for MCP servers
 - [shared/contracts/README.md](shared/contracts/README.md) - Agent contracts
 - [shared/logging/README.md](shared/logging/README.md) - Logging guide
 - [Deploy Keys Setup](docs/how-to/configure-deploy-keys.md) - Mirror sync configuration

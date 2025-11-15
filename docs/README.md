@@ -8,9 +8,29 @@
 
 ---
 
+## 🤖 AI-Assisted Development
+
+### MCP (Model Context Protocol) Integration
+- **Status**: ✅ Configured with 14 servers
+- **Guide**: [MCP Integration Guide](reference/MCP_INTEGRATION_GUIDE.md)
+- **Quick Start**: [MCP Quick Start](reference/MCP_QUICK_START.txt)
+- **Setup Script**: [setup-mcp.sh](../scripts/setup-mcp.sh)
+- **Servers Installed**:
+  - Core: filesystem, memory, sequential-thinking, everything
+  - Dev Tools: github, chrome-devtools, puppeteer, context7
+  - Databases: postgresql, mongodb
+  - Integrations: notion, apify, heroku, sentry
+  - Infrastructure: cloud-k8s
+
+### AI Agent Parity
+- All agents follow unified contracts in `shared/contracts/`
+- See [Agent Parity Guide](../shared/contracts/README.md)
+
+---
+
 ## 📦 What You Received
 
-### 1. [HARDENING_SUMMARY.md](computer:///mnt/user-data/outputs/HARDENING_SUMMARY.md) — Executive Brief
+### 1. [HARDENING_SUMMARY.md](HARDENING_SUMMARY.md) — Executive Brief
 - **Purpose**: High-level overview for stakeholders
 - **Size**: ~8KB
 - **Contents**:

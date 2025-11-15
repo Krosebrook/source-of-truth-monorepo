@@ -1,0 +1,71 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/mcp-v1.json",
+  "schema_version": "1.0",
+  "name": "flashfusion-sot-monorepo",
+  "description": "MCP configuration for FlashFusion Source-of-Truth monorepo development",
+  "mcpServers": {
+    "filesystem": {
+      "description": "Project filesystem access",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/home/kyler/source-of-truth-monorepo"]
+    },
+    "memory": {
+      "description": "Project context and session memory",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "github": {
+      "description": "GitHub integration for Krosebrook/source-of-truth-monorepo",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "sequential-thinking": {
+      "description": "Enhanced problem-solving for architecture decisions",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "postgresql": {
+      "description": "Database access for SOT canonical model",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${POSTGRES_CONNECTION_STRING}"
+      }
+    },
+    "mongodb": {
+      "description": "MongoDB for analytics and event sourcing",
+      "command": "npx",
+      "args": ["-y", "mongodb-mcp-server@latest"],
+      "env": {
+        "MDB_MCP_CONNECTION_STRING": "${MONGODB_CONNECTION_STRING}"
+      }
+    },
+    "sentry": {
+      "description": "Error tracking for Next.js applications",
+      "url": "https://mcp.sentry.dev/mcp/flashfusion/javascript-nextjs"
+    },
+    "context7": {
+      "description": "Documentation context from Diátaxis framework",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    }
+  },
+  "priority_context": [
+    "/.llms.txt",
+    "/README.md",
+    "/GETTING_STARTED.md",
+    "/docs/tutorials/01-quickstart.md",
+    "/docs/reference/workspace-structure.md",
+    "/docs/explanation/sot-canonical-model.md"
+  ],
+  "metadata": {
+    "project": "source-of-truth-monorepo",
+    "framework": "turborepo",
+    "package_manager": "pnpm",
+    "documentation": "diataxis",
+    "maintainer": "@Krosebrook"
+  }
+}
