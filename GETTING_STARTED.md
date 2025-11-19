@@ -28,9 +28,25 @@ Welcome to the **FlashFusion Source-of-Truth (SoT) monorepo** - a unified consol
 
 ---
 
-## Quick Start (3 Options)
+## Quick Start (4 Options)
 
-### Option 1: "I just want to build"
+### Option 1: "One-Command Setup" ⚡ **RECOMMENDED**
+
+```bash
+# Clone repo
+git clone git@github.com:Krosebrook/source-of-truth-monorepo.git
+cd source-of-truth-monorepo
+
+# Bootstrap everything in one command!
+make bootstrap
+# OR: ./scripts/bootstrap.sh
+
+# Done! Checks Node, installs pnpm, installs deps, builds, validates
+```
+
+**Jump to**: [Next Steps](#next-steps)
+
+### Option 2: "I just want to build"
 
 ```bash
 # 1. Clone repo
@@ -49,11 +65,11 @@ pnpm build
 
 **Jump to**: [Next Steps](#next-steps)
 
-### Option 2: "I want the full tutorial"
+### Option 3: "I want the full tutorial"
 
 Follow the **[15-Minute Quickstart Tutorial](/docs/tutorials/01-quickstart.md)** for a guided walkthrough.
 
-### Option 3: "I want to import more repos"
+### Option 4: "I want to import more repos"
 
 Skip to **[Importing Repositories](#importing-remaining-repositories)** below.
 
@@ -169,6 +185,76 @@ pnpm type-check
 ```
 
 **See**: [CLI Reference](/docs/reference/cli-reference.md) for all commands.
+
+---
+
+## Developer Tools
+
+### Makefile Commands
+
+For convenience, common tasks are available via `make`:
+
+```bash
+make help          # Show all available commands
+make bootstrap     # Complete setup (recommended for new devs)
+make build         # Build all projects
+make dev           # Start development servers
+make test          # Run tests
+make lint          # Lint code
+make services      # Start Docker services (PostgreSQL, Redis)
+make clean         # Clean build artifacts
+```
+
+**Full list**: Run `make help`
+
+### VS Code Dev Container
+
+Develop in a consistent, containerized environment:
+
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop) and [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+2. Open repository in VS Code
+3. Press `F1` → "Dev Containers: Reopen in Container"
+4. Everything is set up automatically!
+
+**Learn more**: See `.devcontainer/README.md`
+
+### Local Development Services
+
+Start PostgreSQL and Redis for local development:
+
+```bash
+# Start services
+make services
+
+# Stop services
+make services-stop
+
+# View logs
+make services-logs
+
+# Connect to PostgreSQL
+psql -h localhost -U dev -d flashfusion_dev
+
+# Connect to Redis
+redis-cli
+```
+
+**Configuration**: Edit `.env` (copy from `.env.example`)
+
+### Environment Setup
+
+```bash
+# Copy environment template
+cp .env.example .env
+
+# Edit configuration
+nano .env  # or vim, code, etc.
+```
+
+Required for:
+- Importing GitHub repositories (GITHUB_TOKEN)
+- Database connections
+- Third-party integrations
 
 ---
 

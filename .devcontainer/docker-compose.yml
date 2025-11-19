@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    volumes:
+      - ..:/workspace:cached
+      - node_modules:/workspace/node_modules
+      - pnpm_store:/root/.local/share/pnpm/store
+    
+    # Keeps container running
+    command: sleep infinity
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=development
+    
+    # Network mode
+    network_mode: service:db
+    
+    # Depends on services
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: flashfusion_dev
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    network_mode: service:db
+
+volumes:
+  postgres-data:
+  redis-data:
+  node_modules:
+  pnpm_store:

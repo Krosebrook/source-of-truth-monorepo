@@ -1,0 +1,117 @@
+# FlashFusion SoT Monorepo - Local Development Services
+# Provides PostgreSQL and Redis for local development
+# Usage: make services (or docker-compose up -d)
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: flashfusion-postgres
+    restart: unless-stopped
+    
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-flashfusion_dev}
+      POSTGRES_USER: ${POSTGRES_USER:-dev}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dev}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --lc-collate=C --lc-ctype=C"
+    
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db:/docker-entrypoint-initdb.d:ro
+    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dev}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+    networks:
+      - flashfusion
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: flashfusion-redis
+    restart: unless-stopped
+    
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    
+    command: >
+      redis-server
+      --appendonly yes
+      --appendfilename "redis.aof"
+      --requirepass "${REDIS_PASSWORD:-}"
+    
+    volumes:
+      - redis_data:/data
+    
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+    networks:
+      - flashfusion
+
+  # pgAdmin (Optional - Web UI for PostgreSQL)
+  # Uncomment to enable
+  # pgadmin:
+  #   image: dpage/pgadmin4:latest
+  #   container_name: flashfusion-pgadmin
+  #   restart: unless-stopped
+  #   
+  #   ports:
+  #     - "5050:80"
+  #   
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@flashfusion.local
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   
+  #   volumes:
+  #     - pgadmin_data:/var/lib/pgadmin
+  #   
+  #   depends_on:
+  #     - postgres
+  #   
+  #   networks:
+  #     - flashfusion
+
+  # Redis Commander (Optional - Web UI for Redis)
+  # Uncomment to enable
+  # redis-commander:
+  #   image: rediscommander/redis-commander:latest
+  #   container_name: flashfusion-redis-commander
+  #   restart: unless-stopped
+  #   
+  #   ports:
+  #     - "8081:8081"
+  #   
+  #   environment:
+  #     REDIS_HOSTS: local:redis:6379
+  #     REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+  #   
+  #   depends_on:
+  #     - redis
+  #   
+  #   networks:
+  #     - flashfusion
+
+networks:
+  flashfusion:
+    driver: bridge
+    name: flashfusion-network
+
+volumes:
+  postgres_data:
+    name: flashfusion-postgres-data
+  redis_data:
+    name: flashfusion-redis-data
+  # pgadmin_data:
+  #   name: flashfusion-pgadmin-data

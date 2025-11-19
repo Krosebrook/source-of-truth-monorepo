@@ -1,82 +1,108 @@
 {
   "name": "FlashFusion SoT Monorepo",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
 
   "features": {
-    "ghcr.io/devcontainers/features/git:1": {
-      "version": "latest"
-    },
     "ghcr.io/devcontainers/features/github-cli:1": {
       "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true
     }
   },
 
   "customizations": {
     "vscode": {
-      "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash"
-      },
       "extensions": [
-        "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
-        "editorconfig.editorconfig",
-        "yoavbls.pretty-ts-errors",
-        "orta.vscode-jest",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "unifiedjs.vscode-mdx",
         "eamodio.gitlens",
         "mhutchie.git-graph",
-        "yzhang.markdown-all-in-one",
-        "davidanson.vscode-markdownlint",
-        "github.copilot",
-        "github.copilot-chat",
-        "github.vscode-pull-request-github",
-        "gruntfuggly.todo-tree",
+        "ms-azuretools.vscode-docker",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg",
+        "christian-kohler.path-intellisense",
         "usernamehw.errorlens",
         "streetsidesoftware.code-spell-checker",
-        "christian-kohler.path-intellisense",
-        "visualstudioexptteam.vscodeintellicode",
-        "mskelton.npm-outdated",
-        "turbo.turbo-vsc"
-      ]
+        "yzhang.markdown-all-in-one",
+        "bierner.github-markdown-preview",
+        "orta.vscode-jest",
+        "github.copilot",
+        "github.copilot-chat"
+      ],
+
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.rulers": [80, 120],
+        "files.exclude": {
+          "**/.turbo": true,
+          "**/.pnpm-cache": true,
+          "**/node_modules": true,
+          "**/dist": true,
+          "**/build": true,
+          "**/.next": true
+        },
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+        "eslint.validate": [
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact"
+        ],
+        "prettier.requireConfig": true,
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "git.autofetch": true,
+        "git.confirmSync": false,
+        "search.exclude": {
+          "**/node_modules": true,
+          "**/dist": true,
+          "**/.turbo": true,
+          "**/.next": true
+        }
+      }
     }
   },
 
-  "forwardPorts": [3000, 3001, 3002, 5173, 8080],
+  "forwardPorts": [3000, 3001, 5432, 6379],
 
   "portsAttributes": {
     "3000": {
-      "label": "Web Application",
+      "label": "Web App",
       "onAutoForward": "notify"
     },
     "3001": {
       "label": "API Server",
       "onAutoForward": "notify"
     },
-    "3002": {
-      "label": "Development Server",
-      "onAutoForward": "notify"
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
     },
-    "5173": {
-      "label": "Vite Dev Server",
-      "onAutoForward": "notify"
-    },
-    "8080": {
-      "label": "Additional Service",
+    "6379": {
+      "label": "Redis",
       "onAutoForward": "silent"
     }
   },
 
-  "postCreateCommand": "npm install -g pnpm@9 && pnpm install",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postAttachCommand": "echo '✨ Welcome to FlashFusion SoT! Run make help.'",
 
-  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
-
-  "remoteUser": "node",
-
-  "mounts": [
-    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached"
-  ],
-
-  "containerEnv": {
+  "remoteEnv": {
     "NODE_ENV": "development"
-  }
+  },
+
+  "remoteUser": "node"
 }
